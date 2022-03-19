@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/18 17:06:09 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:13:10 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <string.h>
 
 typedef struct s_list
 {
@@ -39,6 +40,7 @@ typedef struct s_cmd
 	char	**tab_args;
 	int		fd1;
 	int		fd2;
+	int		fd_status;
 }	t_cmd;
 
 // DIANE //
@@ -67,7 +69,22 @@ void	ft_parse_type(t_list *list, t_cmd *cmd, char **envp);
 // Access path
 char	*ft_access_path(t_list *list, t_cmd *cmd);
 char	*ft_get_line_path(char **envp);
-void	ft_process(t_list *list, t_cmd *cmd, char **envp);
+
+// Execute command and options
+void	ft_exec_cmd(t_list *list, t_cmd *cmd, char **envp);
+void	ft_create_tab_args(t_list *list, t_cmd *cmd, int i);
+void	ft_fill_args(t_list *list, t_cmd *cmd, char **envp);
+void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp);
+void	ft_execute(t_cmd *cmd, char **envp);
+
+// Stdin stdout when pipe
+void	ft_pipex(t_list *list, t_cmd *cmd, char **envp);
+
+// Execute builtins
+void	ft_exec_builtin(t_list *list, t_cmd *cmd, char **envp);
+
+// Redirections
+void	ft_redir(t_list *list, t_cmd *cmd, char **envp);
 
 // ALEXI //
 void	ft_simple_quote(t_list **list, char *line, int i);
