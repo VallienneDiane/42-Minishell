@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:23:25 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/19 16:52:00 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/22 12:04:53 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ void	ft_exec_builtin(t_list *list, t_cmd *cmd, char **envp)
 	int	i;
 
 	i = 0;
-	printf("Tableau des arguments :\n");
 	while (cmd->tab_args[i])
 	{
-		printf("%s\n", cmd->tab_args[i]);
+		printf("je suis un builtin\n");
 		i++;
 	}
 	// renvoyer vers les builtins codés en fonction de la commande et du nbr d'args en parcourant le tableau

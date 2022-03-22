@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:31:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/19 17:29:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:33:44 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,13 @@ t_list	*ft_lstnew(void *content, void *type)
 
 void	ft_create_list(t_list **list)
 {
-	ft_lstadd_back(list, ft_lstnew("cat", "cmd"));
-	ft_lstadd_back(list, ft_lstnew("-e", "option"));
+	ft_lstadd_back(list, ft_lstnew("<", "redir"));
 	ft_lstadd_back(list, ft_lstnew("list.txt", "str"));
-	ft_lstadd_back(list, ft_lstnew("list2.txt", "str"));
-	ft_lstadd_back(list, ft_lstnew("list3.txt", "str"));
-	ft_lstadd_back(list, ft_lstnew("|", "pipe"));
-	ft_lstadd_back(list, ft_lstnew("wc", "cmd"));
-	ft_lstadd_back(list, ft_lstnew("-l", "option"));
+	ft_lstadd_back(list, ft_lstnew("cat", "cmd"));
+	// ft_lstadd_back(list, ft_lstnew("-e", "option"));
 	// ft_lstadd_back(list, ft_lstnew("|", "pipe"));
-	// ft_lstadd_back(list, ft_lstnew("echo", "builtin"));
-	// ft_lstadd_back(list, ft_lstnew("-n", "option"));
-	// ft_lstadd_back(list, ft_lstnew("bonjour", "str"));
+	// ft_lstadd_back(list, ft_lstnew("wc", "cmd"));
+	// ft_lstadd_back(list, ft_lstnew("-l", "option"));
 	// ft_lstadd_back(list, ft_lstnew(">", "redir"));
 	// ft_lstadd_back(list, ft_lstnew("result", "str"));
 }

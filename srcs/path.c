@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_path.c                                          :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/18 15:35:15 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:54:47 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_access_path(t_list *list, t_cmd *cmd)
 			path = NULL;
 		}
 	}
-	printf("command not found\n");
+	printf("Error : command not found\n");
 	// ft_error_path();
 	return (NULL);
 }

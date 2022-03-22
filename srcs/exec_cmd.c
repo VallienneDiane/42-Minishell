@@ -23,7 +23,10 @@ void	ft_exec_cmd(t_list *list, t_cmd *cmd, char **envp)
 	{
 		if (ft_strncmp("redir", list->type, 5) != 0)
 			i++;
+		else	
+			ft_redir(list, cmd, envp);
 		list = list->next;
+		printf("%s\n", list->content);
 		count++;
 	}
 	ft_create_tab_args(list, cmd, i);
@@ -51,7 +54,6 @@ void	ft_create_tab_args(t_list *list, t_cmd *cmd, int i)
 void	ft_fill_args(t_list *list, t_cmd *cmd, char **envp)
 {
 	int	i;
-	int	fd1;
 
 	i = 0;
 	while (list->next && ft_strncmp("pipe", list->type, 4) != 0)
@@ -65,12 +67,7 @@ void	ft_fill_args(t_list *list, t_cmd *cmd, char **envp)
 				exit(EXIT_FAILURE);
 			}
 			cmd->tab_args[i] = list->content;
-			// printf("%s\n", cmd->tab_args[i]);
-			fd1 = open(list->content, O_RDONLY);
-			if (fd1 > 0)
-				cmd->fd1 = fd1;
-			else
-				strerror(cmd->fd1);
+			printf("tab args %s\n", cmd->tab_args[i]);
 			i++;
 		}
 		list = list->next;
@@ -90,23 +87,38 @@ void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp)
 			exit(EXIT_FAILURE);
 		}
 		cmd->tab_args[i] = list->content;
+		printf("tab args %s\n", cmd->tab_args[i]);
 		i++;
 	}
 	cmd->tab_args[i] = 0;
 	if (ft_strncmp("pipe", list->type, 4) == 0)
-		ft_pipex(list, cmd, envp);
-	if (ft_strncmp("echo", cmd->tab_args[0], 4) == 0)
-		ft_exec_builtin(list, cmd, envp);
+	{
+		list = list->next;
+		ft_exec_pipex(list, cmd, envp);
+		ft_parse_type(list, cmd, envp);
+	}
 	else
 		ft_execute(cmd, envp);
 }
 
 void	ft_execute(t_cmd *cmd, char **envp)
 {
+	// fprintf(stderr, "fin fd1 %d\n", cmd->fd1);
 	if (execve(cmd->valid_path, cmd->tab_args, envp) < 0)
 	{
 		free(cmd->valid_path);
 		free(cmd->tab_args);
 		printf("Error : failure execve\n");
 	}
+}
+
+void	ft_parse(t_list *list, t_cmd *cmd, char **envp)
+{
+	if (ft_strncmp("redir", list->type, 5) == 0)
+	{
+		printf("bonjour\n");
+		ft_redir(list, cmd, envp);
+	}
+	else if (ft_strncmp("echo", cmd->tab_args[0], 4) == 0)
+		ft_exec_builtin(list, cmd, envp);
 }

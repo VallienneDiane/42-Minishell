@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/03/19 17:04:06 by dvallien         ###   ########.fr        #
+#    Updated: 2022/03/22 11:05:24 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LST_SRCS := ft_main.c			\
 			chained_list.c		\
 			exec_cmd.c			\
 			exec_builtin.c		\
-			pipex.c				\
+			exec_pipex.c		\
 			redirection.c		\
 			
 DIR_OBJS := ./.OBJS

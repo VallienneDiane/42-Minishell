@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/19 18:13:10 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:04:13 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_cmd
 	char	**tab_path;
 	char	*valid_path;
 	char	**tab_args;
+	char	**tab_redir;
 	int		fd1;
 	int		fd2;
 	int		fd_status;
@@ -78,13 +79,16 @@ void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp);
 void	ft_execute(t_cmd *cmd, char **envp);
 
 // Stdin stdout when pipe
-void	ft_pipex(t_list *list, t_cmd *cmd, char **envp);
+void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);
 
 // Execute builtins
 void	ft_exec_builtin(t_list *list, t_cmd *cmd, char **envp);
 
 // Redirections
 void	ft_redir(t_list *list, t_cmd *cmd, char **envp);
+
+void	ft_create_tab_redir(t_list *list, t_cmd *cmd, int i);
+
 
 // ALEXI //
 void	ft_simple_quote(t_list **list, char *line, int i);
