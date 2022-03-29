@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/22 16:18:32 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:14:38 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 {
 	(void)list;
-	(void)cmd;
-	(void)envp;
 	
 	int		pipefd[2];
 	pid_t	pid;
@@ -46,4 +44,13 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 		waitpid(pid, &cmd->fd_status, 0);
 	}
 }
-	
+
+void	ft_execute(t_cmd *cmd, char **envp)
+{
+	if (execve(cmd->valid_path, cmd->tab_args, envp) < 0)
+	{
+		free(cmd->valid_path);
+		free(cmd->tab_args);
+		printf("Error : failure execve\n");
+	}
+}

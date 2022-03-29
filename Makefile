@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/03/22 11:05:24 by dvallien         ###   ########.fr        #
+#    Updated: 2022/03/29 17:06:06 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@ NAME := minishell
 LIB := ./libft/libft.a
 
 DIR_SRCS := ./SRCS
-LST_SRCS := ft_main.c			\
+LST_SRCS := main_diane.c		\
 			path.c				\
 			chained_list.c		\
-			exec_cmd.c			\
 			exec_builtin.c		\
 			exec_pipex.c		\
-			redirection.c		\
+			echo.c				\
+			exec.c 				\
 			
 DIR_OBJS := ./.OBJS
 LST_OBJS := $(LST_SRCS:.c=.o)

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 10:56:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/03/18 17:50:07 by dvallien         ###   ########.fr       */
+/*   Created: 2022/03/29 10:24:19 by dvallien          #+#    #+#             */
+/*   Updated: 2022/03/29 16:42:28 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_simple_quote(t_list **list, char *line, int i)
+int ft_pwd(void)
 {
-	int		j;
-	char	*content;
+    char cwd[1024];
 
-	j = i;
-	while (line[j] && line[j] != '\'')
-		j++;
-	// content = malloc(sizeof(char))
-	(void)content;
-	(void)list;
+    if (getcwd(cwd, sizeof(cwd)))
+    {
+        printf("%s\n", cwd);
+        return (0);
+    }
+    else
+        return (1);
 }

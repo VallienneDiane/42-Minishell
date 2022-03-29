@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/22 18:04:13 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:16:29 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_list
 {
 	char			*content;
 	char			*type;
+	int				block;
 	struct s_list	*next;
 	struct s_list	*previous;
 }	t_list;
@@ -42,6 +43,19 @@ typedef struct s_cmd
 	int		fd1;
 	int		fd2;
 	int		fd_status;
+	
+	char	**tab_str;
+	int		redir_in;
+	int		redir_out1;
+	int		redir_out2;
+	int		nb_redir;
+	
+// STDIN 0 (entrée standard, habituellement le clavier)
+// STDOUT 1 (sortie standard, habituellement le terminal)
+// STDERR 2 (sortie d'erreur, sur le terminal aussi)
+	int		fd_stdin;
+	int		fd_stdout;
+	int		fd_stderr;
 }	t_cmd;
 
 // DIANE //
@@ -50,7 +64,7 @@ int		main(int ac, char **av, char **env);
 
 // Chained list
 void	ft_create_list(t_list **list);
-t_list	*ft_lstnew(void *content, void *type);
+t_list	*ft_lstnew(void *content, void *type, int block);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_print_list(t_list *list);
@@ -72,11 +86,20 @@ char	*ft_access_path(t_list *list, t_cmd *cmd);
 char	*ft_get_line_path(char **envp);
 
 // Execute command and options
-void	ft_exec_cmd(t_list *list, t_cmd *cmd, char **envp);
-void	ft_create_tab_args(t_list *list, t_cmd *cmd, int i);
-void	ft_fill_args(t_list *list, t_cmd *cmd, char **envp);
-void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp);
+// void	ft_exec_cmd(t_list *list, t_cmd *cmd, char **envp);
+// void	ft_new_exec_cmd(t_list *list, t_cmd *cmd, char **envp);
+// void	ft_create_tab_args(t_list *list, t_cmd *cmd, int i);
+// void	ft_fill_args(t_list *list, t_cmd *cmd, char **envp);
+// void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp);
+// void	ft_execute(t_cmd *cmd, char **envp);
+
+// EXECUTION
+
+void    ft_minishell(t_list *list, t_cmd *cmd, char **envp);
+void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp);
+void	ft_execution(t_cmd *cmd, char **envp);
 void	ft_execute(t_cmd *cmd, char **envp);
+void	ft_redir_dup(t_cmd *cmd, char **envp);
 
 // Stdin stdout when pipe
 void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);
