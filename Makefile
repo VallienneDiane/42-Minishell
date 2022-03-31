@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/03/29 17:06:06 by dvallien         ###   ########.fr        #
+#    Updated: 2022/03/31 18:01:07 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,13 @@ DIR_SRCS := ./SRCS
 LST_SRCS := main_diane.c		\
 			path.c				\
 			chained_list.c		\
+			create_tabs.c 		\
+			fill_tabs.c			\
+			redir.c				\
+			redir_dup.c 		\
 			exec_builtin.c		\
 			exec_pipex.c		\
 			echo.c				\
-			exec.c 				\
 			
 DIR_OBJS := ./.OBJS
 LST_OBJS := $(LST_SRCS:.c=.o)

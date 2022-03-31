@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:36:32 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/29 17:51:07 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:38:02 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,36 @@
 
 void	ft_parse_type(t_list *list, t_cmd *cmd, char **envp)
 {	
-	while (list && list->block >= 1)
+	(void)cmd;
+	(void)envp;
+	int	i;
+	int	current_block;
+
+	i = 0;
+	current_block = 1;
+	while (list)
 	{
-		ft_minishell(list, cmd, envp);
+		ft_start_exec(list, cmd, envp, current_block);
 		cmd->valid_path = ft_access_path(list, cmd);
-		list->block--;
-		printf("block %d\n", list->block);
+		while (list && list->block == current_block)
+			list = list->next;
+		if (list && list->block != current_block)
+		{
+			ft_exec_pipex(list, cmd, envp);
+			current_block++;
+		}
+		else
+			ft_execute(cmd, envp);
+	}
+}
+
+void	ft_execute(t_cmd *cmd, char **envp)
+{
+	if (execve(cmd->valid_path, cmd->tab_str, envp) < 0)
+	{
+		free(cmd->valid_path);
+		free(cmd->tab_str);
+		printf("Error : failure execve\n");
 	}
 }
 

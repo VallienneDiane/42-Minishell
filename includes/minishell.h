@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/29 17:16:29 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:45:17 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,18 @@ typedef struct s_cmd
 	char	*line_path;
 	char	**tab_path;
 	char	*valid_path;
-	char	**tab_args;
-	char	**tab_redir;
 	int		fd1;
 	int		fd2;
 	int		fd_status;
-	
 	char	**tab_str;
-	int		redir_in;
-	int		redir_out1;
-	int		redir_out2;
+	char	**redir_in;
+	char	**redir_out1;
+	char	**redir_out2;
 	int		nb_redir;
-	
-// STDIN 0 (entrée standard, habituellement le clavier)
-// STDOUT 1 (sortie standard, habituellement le terminal)
-// STDERR 2 (sortie d'erreur, sur le terminal aussi)
+	int		nb_str;
+	int		nb_in;
+	int		nb_out1;
+	int		nb_out2;
 	int		fd_stdin;
 	int		fd_stdout;
 	int		fd_stderr;
@@ -85,21 +82,24 @@ void	ft_parse_type(t_list *list, t_cmd *cmd, char **envp);
 char	*ft_access_path(t_list *list, t_cmd *cmd);
 char	*ft_get_line_path(char **envp);
 
-// Execute command and options
-// void	ft_exec_cmd(t_list *list, t_cmd *cmd, char **envp);
-// void	ft_new_exec_cmd(t_list *list, t_cmd *cmd, char **envp);
-// void	ft_create_tab_args(t_list *list, t_cmd *cmd, int i);
-// void	ft_fill_args(t_list *list, t_cmd *cmd, char **envp);
-// void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp);
-// void	ft_execute(t_cmd *cmd, char **envp);
-
-// EXECUTION
-
-void    ft_minishell(t_list *list, t_cmd *cmd, char **envp);
-void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp);
-void	ft_execution(t_cmd *cmd, char **envp);
+// Execution
+void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp, int current_block);
 void	ft_execute(t_cmd *cmd, char **envp);
 void	ft_redir_dup(t_cmd *cmd, char **envp);
+void    ft_create_tab(t_cmd *cmd, t_list *list, char **envp, int current_block);
+void    ft_init_tab(t_cmd *cmd);
+void    ft_malloc_tab(t_cmd *cmd);
+void    ft_fill_tab_str(t_cmd *cmd, t_list *list, int *i);
+void    ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j);
+void    ft_fill_redir_out1(t_cmd *cmd, t_list *list, int *k);
+void    ft_fill_redir_out2(t_cmd *cmd, t_list *list, int *l);
+void 	ft_redir_dup(t_cmd *cmd, char **envp);
+void	ft_redir_clean(t_cmd *cmd, int in, int out1, int out2);
+int		ft_create_file(t_cmd *cmd, int type);
+int		ft_create_file_in(t_cmd *cmd);
+int 	ft_create_file_out1(t_cmd *cmd);
+int 	ft_create_file_out2(t_cmd *cmd);
+void    ft_error_create_file(void);
 
 // Stdin stdout when pipe
 void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);
@@ -108,12 +108,5 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);
 void	ft_exec_builtin(t_list *list, t_cmd *cmd, char **envp);
 
 // Redirections
-void	ft_redir(t_list *list, t_cmd *cmd, char **envp);
-
-void	ft_create_tab_redir(t_list *list, t_cmd *cmd, int i);
-
-
-// ALEXI //
-void	ft_simple_quote(t_list **list, char *line, int i);
 
 #endif

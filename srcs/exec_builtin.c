@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 15:23:25 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/22 12:04:53 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/31 11:31:08 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_exec_builtin(t_list *list, t_cmd *cmd, char **envp)
 	int	i;
 
 	i = 0;
-	while (cmd->tab_args[i])
+	while (cmd->tab_str[i])
 	{
 		printf("je suis un builtin\n");
 		i++;

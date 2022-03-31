@@ -98,17 +98,6 @@ void	ft_fill_args_bis(t_list *list, t_cmd *cmd, int i, char **envp)
 		ft_exec_pipex(list, cmd, envp);
 		ft_parse_type(list, cmd, envp);
 	}
-	else
-		ft_execute(cmd, envp);
-}
-
-void	ft_execute(t_cmd *cmd, char **envp)
-{
-	// fprintf(stderr, "fin fd1 %d\n", cmd->fd1);
-	if (execve(cmd->valid_path, cmd->tab_args, envp) < 0)
-	{
-		free(cmd->valid_path);
-		free(cmd->tab_args);
-		printf("Error : failure execve\n");
-	}
+	// else
+	// 	ft_execute(cmd, envp);
 }
