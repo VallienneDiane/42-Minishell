@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   create_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 17:26:21 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/31 18:00:26 by dvallien         ###   ########.fr       */
+/*   Created: 2022/04/01 13:06:35 by dvallien          #+#    #+#             */
+/*   Updated: 2022/04/01 14:38:57 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int ft_create_file_out1(t_cmd *cmd)
 
 int ft_create_file_out2(t_cmd *cmd)
 {
-    cmd->fd_stderr = open(cmd->redir_out1[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
-    if (!cmd->redir_out2 || cmd->fd_stderr == -1)
+    cmd->fd_stdout2 = open(cmd->redir_out2[0], O_CREAT | O_RDWR | O_APPEND, 0644);
+    // printf("FD OUT2 %d\n", cmd->fd_stdout2);
+    if (!cmd->redir_out2 || cmd->fd_stdout2 == -1)
     {
         printf("minishell: OUT2 %s : No such file or directory\n", cmd->redir_out2[0]);
         exit(EXIT_FAILURE);

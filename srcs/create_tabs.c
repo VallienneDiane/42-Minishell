@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:50:55 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/31 18:04:49 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 13:28:44 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp, int current_block)
         // printf("nb_str : %d, nb_in : %d, nb_out1 : %d, nb_out2 %d\n \n", cmd->nb_str, cmd->nb_in, cmd->nb_out1, cmd->nb_out1);
 		lst_temp = lst_temp->next;
     }
-    ft_create_tab(cmd, list, envp, current_block);
+    ft_create_tab(cmd, list, current_block);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void    ft_malloc_tab(t_cmd *cmd)
         exit(EXIT_FAILURE);
 }
 
-void    ft_create_tab(t_cmd *cmd, t_list *list, char **envp, int current_block)
+void    ft_create_tab(t_cmd *cmd, t_list *list, int current_block)
 {
     int i;
     int j;
@@ -82,12 +82,7 @@ void    ft_create_tab(t_cmd *cmd, t_list *list, char **envp, int current_block)
         if (ft_strncmp("str", list->type, 3) == 0)
             ft_fill_tab_str(cmd, list, &i);
         else if (ft_strncmp("redir_in", list->type, 8) == 0)
-        {
-            // rempli tableau des redir_in et open file donc stdin ok (3)
             ft_fill_redir_in(cmd, list, &j);
-            // redirige stdin sur l'entree du file
-            ft_redir_dup(cmd, envp);
-        }
         else if (ft_strncmp("redir_out1", list->type, 10) == 0)
             ft_fill_redir_out1(cmd, list, &k);
         else if (ft_strncmp("redir_out2", list->type, 10) == 0)

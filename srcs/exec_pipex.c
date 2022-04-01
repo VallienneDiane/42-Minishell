@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/31 15:22:33 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:26:06 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 		// protection dup2 et close if < 0 
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
-		ft_execute(cmd, envp);
+		ft_execution(cmd, envp);
 	}
 	else
 	{

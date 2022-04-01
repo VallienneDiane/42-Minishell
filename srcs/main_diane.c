@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:36:32 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/31 17:38:02 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:55:45 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,19 @@ void	ft_parse_type(t_list *list, t_cmd *cmd, char **envp)
 			current_block++;
 		}
 		else
-			ft_execute(cmd, envp);
+		{
+			ft_execution(cmd, envp);
+			// free (cmd);
+		}
 	}
+}
+
+void	ft_execution(t_cmd *cmd, char **envp)
+{
+	if (cmd->redir_in || cmd->redir_out1 || cmd->redir_out2)
+		ft_redir_dup(cmd, envp);
+	else
+		ft_execute(cmd, envp);
 }
 
 void	ft_execute(t_cmd *cmd, char **envp)
@@ -43,7 +54,7 @@ void	ft_execute(t_cmd *cmd, char **envp)
 	{
 		free(cmd->valid_path);
 		free(cmd->tab_str);
-		printf("Error : failure execve\n");
+		printf("Error : %s : failure execve\n", cmd->valid_path);
 	}
 }
 

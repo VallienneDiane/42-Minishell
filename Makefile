@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/03/31 18:01:07 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/01 13:07:33 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,17 @@ LIB := ./libft/libft.a
 
 DIR_SRCS := ./SRCS
 LST_SRCS := main_diane.c		\
-			path.c				\
 			chained_list.c		\
+			path.c				\
 			create_tabs.c 		\
 			fill_tabs.c			\
-			redir.c				\
+			create_files.c		\
 			redir_dup.c 		\
-			exec_builtin.c		\
 			exec_pipex.c		\
+			exec_builtin.c		\
 			echo.c				\
+			heredoc.c 			\
+			pwd.c 				\
 			
 DIR_OBJS := ./.OBJS
 LST_OBJS := $(LST_SRCS:.c=.o)

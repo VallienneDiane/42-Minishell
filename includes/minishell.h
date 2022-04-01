@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/31 17:45:17 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:55:18 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ typedef struct s_cmd
 	int		nb_out2;
 	int		fd_stdin;
 	int		fd_stdout;
-	int		fd_stderr;
+	int		fd_stdout2;
+	int		last_out;
 }	t_cmd;
 
 // DIANE //
@@ -85,8 +86,9 @@ char	*ft_get_line_path(char **envp);
 // Execution
 void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp, int current_block);
 void	ft_execute(t_cmd *cmd, char **envp);
+void	ft_execution(t_cmd *cmd, char **envp);
 void	ft_redir_dup(t_cmd *cmd, char **envp);
-void    ft_create_tab(t_cmd *cmd, t_list *list, char **envp, int current_block);
+void    ft_create_tab(t_cmd *cmd, t_list *list, int current_block);
 void    ft_init_tab(t_cmd *cmd);
 void    ft_malloc_tab(t_cmd *cmd);
 void    ft_fill_tab_str(t_cmd *cmd, t_list *list, int *i);

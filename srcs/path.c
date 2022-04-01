@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/31 11:48:06 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:55:03 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_access_path(t_list *list, t_cmd *cmd)
 			path = NULL;
 		}
 	}
-	printf("Error : command not found\n");
+	printf("Error : %s : command not found\n", list->content);
 	// ft_error_path();
 	return (NULL);
 }
