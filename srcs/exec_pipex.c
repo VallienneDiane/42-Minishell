@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 11:26:06 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:04:08 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 {
 	(void)list;
-	
 	int		pipefd[2];
 	pid_t	pid;
 
@@ -34,13 +33,13 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 	{ 
 		// protection dup2 et close if < 0 
 		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
+		dup2(pipefd[1], cmd->fd_stdout);
 		ft_execution(cmd, envp);
 	}
 	else
 	{
 		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
+		dup2(pipefd[0], cmd->fd_stdin);
 		waitpid(pid, &cmd->fd_status, 0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 14:55:18 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:42:58 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
+void	ft_putstr_fd(char *s, int fd);
 
 // Parse type
 void	ft_parse_type(t_list *list, t_cmd *cmd, char **envp);
@@ -84,7 +85,7 @@ char	*ft_access_path(t_list *list, t_cmd *cmd);
 char	*ft_get_line_path(char **envp);
 
 // Execution
-void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp, int current_block);
+void    ft_get_args(t_list *list, t_cmd *cmd, char **envp, int current_block);
 void	ft_execute(t_cmd *cmd, char **envp);
 void	ft_execution(t_cmd *cmd, char **envp);
 void	ft_redir_dup(t_cmd *cmd, char **envp);
@@ -102,6 +103,11 @@ int		ft_create_file_in(t_cmd *cmd);
 int 	ft_create_file_out1(t_cmd *cmd);
 int 	ft_create_file_out2(t_cmd *cmd);
 void    ft_error_create_file(void);
+
+int	ft_is_builtin(char *str);
+int ft_echo(t_cmd *cmd);
+int ft_option(char *arg);
+int ft_pwd(t_cmd *cmd);
 
 // Stdin stdout when pipe
 void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);

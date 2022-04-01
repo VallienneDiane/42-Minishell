@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:31:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 14:51:33 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:53:31 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@ t_list	*ft_lstnew(void *content, void *type, int block)
 
 void	ft_create_list(t_list **list)
 {
-	ft_lstadd_back(list, ft_lstnew("cat", "str", 1));
-	ft_lstadd_back(list, ft_lstnew("file", "redir_in", 1));
-	ft_lstadd_back(list, ft_lstnew("outfile", "redir_out1", 1));
+	ft_lstadd_back(list, ft_lstnew("pwd", "str", 1));
 	ft_lstadd_back(list, ft_lstnew("wc", "str", 2));
 	ft_lstadd_back(list, ft_lstnew("-l", "str", 2));
+	// ft_lstadd_back(list, ft_lstnew("echo", "str", 1));
+	// ft_lstadd_back(list, ft_lstnew("-n", "str", 1));
+	// ft_lstadd_back(list, ft_lstnew("bonjour", "str", 1));
 	// ft_lstadd_back(list, ft_lstnew("outfile", "redir_out1", 1));
-	// ft_lstadd_back(list, ft_lstnew("wc", "str", 2));
 	// ft_lstadd_back(list, ft_lstnew("-l", "str", 2));
+	// ft_lstadd_back(list, ft_lstnew("outfile", "redir_out1", 1));
 }
 
 void	ft_print_list(t_list *list)

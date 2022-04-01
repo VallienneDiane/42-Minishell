@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:10:43 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/29 13:12:31 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:47:58 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int ft_option(char *arg)
     return (1);
 }
 
-int ft_echo(char **args)
+int ft_echo(t_cmd *cmd)
 {
     int i;
     int is_arg;
@@ -35,25 +35,33 @@ int ft_echo(char **args)
     i = 1;
     is_arg = 0;
     option = 0;
-    while (args[i])
+    while (cmd->tab_str[i])
     {
         if (is_arg)
             printf(" ");
-        if (args[i][0] == '-' && is_arg == 0)
+        if (cmd->tab_str[i][0] == '-' && is_arg == 0)
         {
-            if (ft_option(args[i]))
+            if (ft_option(cmd->tab_str[i]))
                 option = 1;
             else
                 is_arg = 1;
         }
-        if (is_arg || args[i][0] != '-')
+        if (is_arg || cmd->tab_str[i][0] != '-')
         {
-            printf("%s", args[i]);
+            if (cmd->last_out == 2)
+                ft_putstr_fd(cmd->tab_str[i], cmd->fd_stdout2);
+            else
+                ft_putstr_fd(cmd->tab_str[i], cmd->fd_stdout);
             is_arg = 1;
         }
         i++;
     }
     if (!option)
-        printf("\n");
+    {
+        if (cmd->last_out == 2)
+            ft_putstr_fd("\n", cmd->fd_stdout2);
+        else
+            ft_putstr_fd("\n", cmd->fd_stdout);
+    }
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:50:55 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 13:28:44 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:45:52 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    ft_init_tab(t_cmd *cmd)
     cmd->nb_out2 = 0;
 }
 
-void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp, int current_block)
+void    ft_get_args(t_list *list, t_cmd *cmd, char **envp, int current_block)
 {
     (void)envp;
     t_list  *lst_temp;
@@ -42,7 +42,6 @@ void    ft_start_exec(t_list *list, t_cmd *cmd, char **envp, int current_block)
             else if (ft_strncmp("redir_out2", list->type, 8) == 0)
                 cmd->nb_out2++;
         }
-        // printf("nb_str : %d, nb_in : %d, nb_out1 : %d, nb_out2 %d\n \n", cmd->nb_str, cmd->nb_in, cmd->nb_out1, cmd->nb_out1);
 		lst_temp = lst_temp->next;
     }
     ft_create_tab(cmd, list, current_block);
