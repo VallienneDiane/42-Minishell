@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/01 13:07:33 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/04 11:10:08 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ LST_SRCS := main_diane.c		\
 			create_files.c		\
 			redir_dup.c 		\
 			exec_pipex.c		\
-			exec_builtin.c		\
 			echo.c				\
 			heredoc.c 			\
 			pwd.c 				\

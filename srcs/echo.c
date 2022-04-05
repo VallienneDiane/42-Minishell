@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:10:43 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 17:47:58 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/05 13:28:54 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int ft_option(char *arg)
         i++;
     }
     return (1);
+}
+
+void    ft_redir_putstr(t_cmd *cmd, char *str)
+{
+    if (cmd->last_out == 2)
+        ft_putstr_fd(str, cmd->fd_out_append);
+    else if (cmd->last_out == 1)
+        ft_putstr_fd(str, cmd->fd_out_trunc);
+    else
+        ft_putstr_fd(str, STDOUT_FILENO);
 }
 
 int ft_echo(t_cmd *cmd)
@@ -48,20 +58,14 @@ int ft_echo(t_cmd *cmd)
         }
         if (is_arg || cmd->tab_str[i][0] != '-')
         {
-            if (cmd->last_out == 2)
-                ft_putstr_fd(cmd->tab_str[i], cmd->fd_stdout2);
-            else
-                ft_putstr_fd(cmd->tab_str[i], cmd->fd_stdout);
+            ft_redir_putstr(cmd, cmd->tab_str[i]);
             is_arg = 1;
         }
         i++;
     }
     if (!option)
     {
-        if (cmd->last_out == 2)
-            ft_putstr_fd("\n", cmd->fd_stdout2);
-        else
-            ft_putstr_fd("\n", cmd->fd_stdout);
+        ft_redir_putstr(cmd, "\n");
     }
     return (0);
 }

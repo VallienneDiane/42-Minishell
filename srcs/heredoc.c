@@ -6,28 +6,37 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:24:51 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 13:08:02 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/05 18:01:47 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char *ft_heredoc_loop(char *stop)
+char *ft_heredoc_loop(char *stop) // char **stop
 {
 	char	*line;
     char	*str;
+	// int		file_fd;
+	// int		i;
 	
 	str = "";
 	line = NULL;
-	while (1)
-	{
-		line = readline("heredoc> ");
-		if (!line || !ft_strncmp(line, stop, ft_strlen(line)))
-			break ;
-		str = ft_strjoin(str, line);
-		if (str)
-			str = ft_strjoin(str, "\n");
-	}
+	// i = 0;
+	// while (stop[i])
+	// {
+		while (1)
+		{
+			line = readline("> ");
+			if (ft_strlen(line) && !ft_strncmp(line, stop, ft_strlen(line)))
+				break ;
+			str = ft_strjoin(str, line);
+			if (str)
+				str = ft_strjoin(str, "\n");
+		}
+		// i++;
+	// }
+	// file_fd = open(".file", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	// ft_putstr_fd(str, file_fd);
 	return (str);
 }
 

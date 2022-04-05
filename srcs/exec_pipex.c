@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/01 18:04:08 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:56:06 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 {
 	(void)list;
+	(void)envp;
 	int		pipefd[2];
 	pid_t	pid;
 
@@ -29,18 +30,22 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 		perror("");
 		exit(EXIT_FAILURE);
 	}
-	if (pid == 0)
+	if (pid == 0) // processus enfant
 	{ 
 		// protection dup2 et close if < 0 
+		// Ferme sortie pipe et remplace sortie cmd 1 par l'entree du pipe
 		close(pipefd[0]);
-		dup2(pipefd[1], cmd->fd_stdout);
-		ft_execution(cmd, envp);
+		dup2(pipefd[1], STDOUT_FILENO); // STDOUT = 1
+		printf("%s\n", __FUNCTION__);
+		ft_execute(cmd, envp);
 	}
 	else
 	{
+		// Ferme entree du pipe et remplace entree cmd 2 par sortie du pipe
 		close(pipefd[1]);
-		dup2(pipefd[0], cmd->fd_stdin);
+		dup2(pipefd[0], STDIN_FILENO); // STDIN = 0
 		waitpid(pid, &cmd->fd_status, 0);
 	}
+
 }
 
