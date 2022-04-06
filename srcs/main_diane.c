@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:36:32 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/05 17:59:50 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:31:04 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 	while (list)
 	{
 		ft_get_args(list, cmd, current_block);
+		if (list->next == NULL)
+			exit(EXIT_SUCCESS);
 		if ((ft_is_builtin(cmd->tab_str[0]) == 0))
-		{
 			cmd->valid_path = ft_access_path(list, cmd);
-		}
 		while (list && list->block == current_block)
 			list = list->next;
 		if (list && list->block != current_block)
 		{
-			printf("ici\n");
 			ft_exec_pipex(list, cmd, envp);
 			current_block++;
 		}
@@ -49,13 +48,16 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 		{
 			ft_execution(cmd, envp);
 		}
+		// free les tabs
 	}
 }
 
 void	ft_execution(t_cmd *cmd, char **envp)
 {
 	if (cmd->tab_redir_in[0] || cmd->tab_redir_out1[0] || cmd->tab_redir_out2[0])
+	{
 		ft_redir_dup(cmd, envp);
+	}		
 	else
 		ft_execute(cmd, envp);
 }
@@ -64,18 +66,16 @@ void	ft_execute(t_cmd *cmd, char **envp)
 {
 	if (ft_is_builtin(cmd->tab_str[0]) == 1)
 		exit (ft_exec_builtin(cmd));
-	if (cmd->tab_heredoc[0])
-		exit(ft_heredoc_process(cmd->tab_heredoc[0]));
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
-		// printf("%s\n", cmd->tab_str[0]);
+		// printf("valid path execute : %s\n", cmd->valid_path);
 		if (execve(cmd->valid_path, cmd->tab_str, envp) < 0)
 		{
 			free(cmd->valid_path);
 			free(cmd->tab_str);
 			printf("Error : %s : failure execve\n", cmd->valid_path);	
 		}
-	}
+	}	
 	// si heredoc seul ? si jamais il n'y a pas de nom de commande. exit 0
 	// cat makefile | << del | echo hello
 }

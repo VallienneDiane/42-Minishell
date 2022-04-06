@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:20:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/05 16:17:07 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:57:07 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,42 @@ void    ft_fill_tab_str(t_cmd *cmd, t_list *list, int *i)
         exit(EXIT_FAILURE);
     }
     cmd->tab_str[*i] = list->content;
-    // printf("FILL TAB STR : %s\n", cmd->tab_str[*i]);
     *i += 1;
 }
 
 
 void    ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j)
 {
-    cmd->tab_redir_in[*j] = malloc(sizeof(char) * ft_strlen(list->content));
-    if (!cmd->tab_redir_in[*j])
+    int pipe_heredoc_fd[2];
+    char *str;
+    // int fd;
+
+    str = NULL;
+    if (ft_strncmp("heredoc", list->type, 7) == 0)
     {
-        free(cmd->tab_redir_in);
-        exit(EXIT_FAILURE);
+        // fd = open("/dev/null", O_RDONLY);
+        // dup2(fd, STDIN_FILENO);
+        str = ft_heredoc_loop(list->content);
+        pipe(pipe_heredoc_fd);
+        write(pipe_heredoc_fd[1], str, ft_strlen(str));
+        close(pipe_heredoc_fd[1]);
+		dup2(pipe_heredoc_fd[0], STDIN_FILENO);
+		close(pipe_heredoc_fd[0]);
     }
-    cmd->tab_redir_in[*j] = list->content;
-    // printf("\nFILL REDIR_IN %s\n", cmd->tab_redir_in[*j]);
-    if (ft_strncmp("redir_in", list->type, 8) == 0)
+    else
     {
-        if (ft_create_file(cmd, 0) == -1)
-            ft_error_create_file();
+        cmd->tab_redir_in[*j] = malloc(sizeof(char) * ft_strlen(list->content));
+        if (!cmd->tab_redir_in[*j])
+        {
+            free(cmd->tab_redir_in);
+            exit(EXIT_FAILURE);
+        }
+        cmd->tab_redir_in[*j] = list->content;
+        if (ft_strncmp("redir_in", list->type, 8) == 0)
+        {
+            if (ft_create_file(cmd, 0) == -1)
+                ft_error_create_file();
+        }
     }
 }
 
@@ -52,7 +69,6 @@ void    ft_fill_redir_out1(t_cmd *cmd, t_list *list, int *k)
         exit(EXIT_FAILURE);
     }
     cmd->tab_redir_out1[*k] = list->content;
-    // printf("\nFILL REDIR_OUT1 : %s\n", cmd->tab_redir_out1[*k]);
     if (ft_create_file(cmd, 1) == -1)
         ft_error_create_file();
     cmd->last_out = 1;
@@ -67,7 +83,6 @@ void    ft_fill_redir_out2(t_cmd *cmd, t_list *list, int *l)
         exit(EXIT_FAILURE);
     }
     cmd->tab_redir_out2[*l] = list->content;
-    // printf("\nFILL REDIR_OUT2 : %s\n", cmd->tab_redir_out2[*l]);
     if (ft_create_file(cmd, 2) == -1)
         ft_error_create_file();
     cmd->last_out = 2;
@@ -82,5 +97,4 @@ void    ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
         exit(EXIT_FAILURE);
     }
     cmd->tab_heredoc[*m] = list->content;
-    // printf("FILL TAB HEREDOC : %s\n", cmd->tab_heredoc[*m]);
 }

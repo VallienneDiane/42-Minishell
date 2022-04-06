@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/05 17:56:06 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:58:34 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0) // processus enfant
-	{ 
+	{
 		// protection dup2 et close if < 0 
 		// Ferme sortie pipe et remplace sortie cmd 1 par l'entree du pipe
 		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO); // STDOUT = 1
-		printf("%s\n", __FUNCTION__);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[1]);
 		ft_execute(cmd, envp);
 	}
 	else
@@ -44,8 +44,8 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp)
 		// Ferme entree du pipe et remplace entree cmd 2 par sortie du pipe
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO); // STDIN = 0
+		close(pipefd[0]);
 		waitpid(pid, &cmd->fd_status, 0);
 	}
-
 }
 

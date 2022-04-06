@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/05 17:46:38 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/06 13:25:50 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);
 
 // Redirections
 void 	ft_redir_dup(t_cmd *cmd, char **envp);
-void	ft_redir_clean(t_cmd *cmd, int in, int out1, int out2, int heredoc);
+void	ft_redir_clean(t_cmd *cmd, int in, int out1, int out2);
 
 // Builtins exec
 int		ft_is_builtin(char *str);
@@ -120,7 +120,7 @@ int 	ft_pwd(t_cmd *cmd);
 void    ft_redir_putstr(t_cmd *cmd, char *str);
 // int		ft_heredoc_process(char *stop);
 char 	*ft_heredoc_loop(char *stop);
-int		ft_heredoc_process(char *stop);
+int		ft_heredoc_process(char *stop, t_cmd *cmd, char **envp);
 
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);
