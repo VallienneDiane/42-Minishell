@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/05 17:26:12 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:12:52 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ char	*ft_get_line_path(char **envp)
 	return (*envp + 5);
 }
 
-char	*ft_access_path(t_list *list, t_cmd *cmd)
+char	*ft_access_path(t_cmd *cmd)
 {	
-	(void)list;
 	char	*tmp_path;
 	char	*path;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/06 13:25:50 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:33:43 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ typedef struct s_cmd
 	int		fd_in;
 	int		fd_out_trunc;
 	int		fd_out_append;
-	int		fd_heredoc;
+	int		stdin_copy;
+	int		last_in;
 	int		last_out;
+	int		pipefd[2];
+	int		pipe_heredoc_fd[2];
 }	t_cmd;
 
 ////////////////////
@@ -82,31 +85,34 @@ int		main(int ac, char **av, char **env);
 void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp);
 
 // Access path
-char	*ft_access_path(t_list *list, t_cmd *cmd);
+char	*ft_access_path(t_cmd *cmd);
 char	*ft_get_line_path(char **envp);
 
 // Create tabs, and get fd files
-void    ft_get_args(t_list *list, t_cmd *cmd, int current_block);
-void    ft_create_tab(t_cmd *cmd, t_list *list, int current_block);
-void    ft_init_tab(t_cmd *cmd);
-void    ft_malloc_tab(t_cmd *cmd);
-void    ft_fill_tab_str(t_cmd *cmd, t_list *list, int *i);
-void    ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j);
-void    ft_fill_redir_out1(t_cmd *cmd, t_list *list, int *k);
-void    ft_fill_redir_out2(t_cmd *cmd, t_list *list, int *l);
-void    ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m);
+void	ft_get_args(t_list *list, t_cmd *cmd, int current_block);
+void	ft_create_tab(t_cmd *cmd, t_list *list, int current_block);
+void	ft_init_tab(t_cmd *cmd);
+void	ft_malloc_tab(t_cmd *cmd);
+void	ft_fill_tab_str(t_cmd *cmd, t_list *list, int *i);
+void	ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j);
+void	ft_fill_redir_out1(t_cmd *cmd, t_list *list, int *k);
+void	ft_fill_redir_out2(t_cmd *cmd, t_list *list, int *l);
+void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m);
 int		ft_create_file(t_cmd *cmd, int type);
 int		ft_create_file_in(t_cmd *cmd);
-int 	ft_create_file_out1(t_cmd *cmd);
-int 	ft_create_file_out2(t_cmd *cmd);
-int 	ft_create_file_heredoc(t_cmd *cmd);
-void    ft_error_create_file(void);
+int		ft_create_file_out1(t_cmd *cmd);
+int		ft_create_file_out2(t_cmd *cmd);
+int		ft_create_file_heredoc(t_cmd *cmd);
+void	ft_error_create_file(void);
 
 // Pipe
-void	ft_exec_pipex(t_list *list, t_cmd *cmd, char **envp);
+void	ft_exec_pipex(t_cmd *cmd, char **envp);
+void	ft_child_process(t_cmd *cmd, char **envp); // , int *pipefd
 
 // Redirections
-void 	ft_redir_dup(t_cmd *cmd, char **envp);
+void	ft_redir_dup(t_cmd *cmd, char **envp);
+void	ft_redir_dup_in(t_cmd *cmd, int *in);
+void	ft_redir_dup_in(t_cmd *cmd, int *in);
 void	ft_redir_clean(t_cmd *cmd, int in, int out1, int out2);
 
 // Builtins exec
@@ -114,13 +120,12 @@ int		ft_is_builtin(char *str);
 int		ft_exec_builtin(t_cmd *cmd);
 
 // Builtins commands
-int 	ft_echo(t_cmd *cmd);
-int 	ft_option(char *arg);
-int 	ft_pwd(t_cmd *cmd);
-void    ft_redir_putstr(t_cmd *cmd, char *str);
-// int		ft_heredoc_process(char *stop);
-char 	*ft_heredoc_loop(char *stop);
-int		ft_heredoc_process(char *stop, t_cmd *cmd, char **envp);
+int		ft_echo(t_cmd *cmd);
+void	ft_print_echo(t_cmd *cmd, int *option, int *is_arg, int i);
+int		ft_option(char *arg);
+int		ft_pwd(t_cmd *cmd);
+void	ft_redir_putstr(t_cmd *cmd, char *str);
+char	*ft_heredoc_loop(char *stop);
 
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);
