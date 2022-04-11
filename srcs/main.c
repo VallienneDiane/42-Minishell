@@ -6,80 +6,11 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/11 14:33:56 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/11 17:46:48 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// t_list  *ft_lstlast(t_list *lst)
-// {
-// 	t_list  *temp;
-// 	t_list  *actual;
-
-// 	temp = lst;
-// 	actual = lst;
-// 	while (temp)
-// 	{
-// 		actual = temp;
-// 		temp = temp->next;
-// 	}
-// 	return (actual);
-// }
-
-// void    ft_lstadd_back(t_list **alst, t_list *new)
-// {
-// 	t_list  *last;
-
-// 	if (!*alst)
-// 		*alst = new;
-// 	else
-// 	{
-// 		last = ft_lstlast(*alst);
-// 		last->next = new;
-// 	}
-// }
-
-// t_list  *ft_lstnew(void *str, void *type)
-// {
-// 	t_list  *newlist;
-
-// 	newlist = malloc(sizeof(t_list));
-// 	if (!newlist)
-// 		return (NULL);
-// 	newlist->str = str;
-// 	newlist->type = type;
-// 	newlist->next = NULL;
-// 	return (newlist);
-// }
-
-// void	ft_create_list(t_list **list)
-// {
-// 	ft_lstadd_back(list, ft_lstnew("cat", "cmd"));
-// 	ft_lstadd_back(list, ft_lstnew("test.txt", "str"));
-// 	ft_lstadd_back(list, ft_lstnew("|", "pipe"));
-// 	ft_lstadd_back(list, ft_lstnew("wc", "cmd"));
-// 	ft_lstadd_back(list, ft_lstnew("-n", "option"));
-// 	ft_lstadd_back(list, ft_lstnew(">", "redir"));
-// 	ft_lstadd_back(list, ft_lstnew("result", "str"));
-// }
-
-// void	ft_print_list(t_list *list)
-// {
-// 		// printf("COUCOUOCUO\n");
-// 	while (list->next) // 
-// 	{
-// 		printf("\033[93m%s | %s\n\033[0m", list->str, list->type);
-// 		list = list->next;
-// 	}
-// 	printf("\033[93m%s | %s\n\033[0m", list->str, list->type);
-// 	// sleep(1);
-// 	// while (list)
-// 	// {
-// 	// 	printf("'%s' | '%s'\n", list->str, list->type);
-// 	// 	list = list->previous;
-// 	// }
-// }
 
 void	ft_pipe(char *line, t_pars_info *p_info)
 {
@@ -91,7 +22,7 @@ void	ft_pipe(char *line, t_pars_info *p_info)
 	if (!line[j] || line[j] == '|')
 	{
 		printf("Pipe error\n");
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); ///////
 	}
 	p_info->current_block++;
 	p_info->i += 1;

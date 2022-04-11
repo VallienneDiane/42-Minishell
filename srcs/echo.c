@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:10:43 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/11 14:27:38 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:48:50 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_option(char *arg)
 	int	i;
 
 	i = 1;
+	if (!arg[i])
+		return (0);
 	while (arg[i])
 	{
 		if (arg[i] != 'n')
