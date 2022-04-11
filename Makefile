@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/07 13:04:47 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/11 11:24:33 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,12 @@ LST_SRCS := start_exec.c		\
 			echo.c				\
 			heredoc.c 			\
 			pwd.c 				\
+			main.c				\
+			parser_quote.c		\
+			parser_env_size.c	\
+			parser_env_name.c	\
+			parser_env_join.c	\
+			lexer.c
 			
 DIR_OBJS := ./.OBJS
 LST_OBJS := $(LST_SRCS:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 16:33:43 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/11 11:27:40 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,35 @@
 # include <fcntl.h>
 # include <string.h>
 
+# define STR 0
+# define REDIR_IN 1
+# define HEREDOC 2
+# define REDIR_OUT 3
+# define REDIR_CONC 4
+
+int	errno;
+
 typedef struct s_list
 {
 	char			*content;
+	char			*str;
 	char			*type;
+	int				type;
 	int				block;
 	struct s_list	*next;
 	struct s_list	*previous;
 }	t_list;
+
+typedef struct s_pars_info
+{
+	int		i;
+	int		j;
+	int		current_type;
+	int		current_block;
+	int		d_quote;
+	int		bracket;
+	int		cur_cont_size;
+}	t_pars_info;
 
 typedef struct s_cmd
 {
@@ -130,5 +151,26 @@ char	*ft_heredoc_loop(char *stop);
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);
 void	ft_execution(t_cmd *cmd, char **envp);
+
+//Parsing Alexi //
+int		ft_simple_quote(t_list **list, char *line, int *i);
+int		ft_double_quote(t_list **list, char *line, int *i);
+int		ft_var_env(t_list **list, char *line, int *i);
+int		ft_str(t_list **list, char *line, t_pars_info *p_info);
+
+int		ft_s_quote_size(char *line, t_pars_info *p_info);
+char	*ft_join_s_quote(char *line, char *content, t_pars_info *p_info);
+int		ft_d_quote_size(char *line, t_pars_info *p_info);
+char	*ft_join_d_quote(char *line, char *content, t_list **list, t_pars_info *p_info);
+
+int		ft_is_valid(char c);
+int		ft_env_size(char *line, t_pars_info *p_info);
+char	*ft_env_name(char *line, t_pars_info *p_info);
+char	*ft_join_env(char *line, char *content, t_list **list, t_pars_info *p_info);
+
+void	ft_redir_out(char *line, t_pars_info *p_info);
+void	ft_redir_in(char *line, t_pars_info *p_info);
+
+int		ft_content_size(char *line, t_pars_info *p_info);
 
 #endif
