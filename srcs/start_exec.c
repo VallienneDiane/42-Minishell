@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 18:08:20 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:51:49 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_execution(t_cmd *cmd, char **envp)
 void	ft_execute(t_cmd *cmd, char **envp)
 {
 	if (ft_is_builtin(cmd->tab_str[0]) == 1)
-		exit (ft_exec_builtin(cmd));
+		ft_exec_builtin(cmd); // exit (ft_exec_builtin(cmd));
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		if (cmd->tab_str[0])
@@ -67,19 +67,4 @@ void	ft_execute(t_cmd *cmd, char **envp)
 		}
 	}
 	exit(1);
-}
-
-int	main(int ac, char **av, char **envp)
-{
-	t_list	*list;
-	t_cmd	cmd;
-
-	(void)ac;
-	(void)av;
-	list = malloc(sizeof(t_list));
-	list = NULL;
-	ft_create_list(&list);
-	cmd.line_path = ft_get_line_path(envp);
-	cmd.tab_path = ft_split(cmd.line_path, ':');
-	ft_start_exec(list, &cmd, envp);
 }

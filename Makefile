@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/11 11:24:33 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/11 13:17:00 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ LST_SRCS := start_exec.c		\
 			parser_env_size.c	\
 			parser_env_name.c	\
 			parser_env_join.c	\
+			redir.c				\
 			lexer.c
 			
 DIR_OBJS := ./.OBJS

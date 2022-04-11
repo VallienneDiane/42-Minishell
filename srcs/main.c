@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 12:01:21 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:33:56 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,10 @@ void	ft_parsing(t_list **list, char *line)
 
 int	main(int ac, char **av, char **env)
 {
-	char *line;
+	char 	*line;
+	pid_t	pid;
 	t_list	*list;
+	t_cmd	cmd;
 	
 	errno = 0;
 	while (1)
@@ -141,7 +143,19 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		ft_parsing(&list, line);
 		free(line);
-		ft_print_list(list);
+		// ft_print_list(list);
+		cmd.line_path = ft_get_line_path(env);
+		cmd.tab_path = ft_split(cmd.line_path, ':');
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+			ft_start_exec(list, &cmd, env);
+		else
+			waitpid(pid, NULL, 0);
 		free(list);
 	}
 	(void)ac;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_tabs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:20:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 17:29:00 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/11 11:41:37 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j)
 		exit(EXIT_FAILURE);
 	}
 	cmd->tab_redir_in[*j] = list->content;
-	if (ft_strncmp("redir_in", list->type, 8) == 0)
+	if (list->type == REDIR_IN)
 	{
 		if (ft_create_file(cmd, 0) == -1)
 			ft_error_create_file();

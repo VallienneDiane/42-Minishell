@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/23 12:28:09 by amarchal          #+#    #+#              #
-#    Updated: 2022/03/17 14:13:15 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/11 13:22:02 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,15 +46,7 @@ SRCS =	ft_bzero.c			\
 	   	ft_substr.c			\
 	   	ft_tolower.c		\
 		ft_atoi.c			\
-	   	ft_toupper.c		\
-		ft_lstnew.c			\
-		ft_lstadd_front.c	\
-		ft_lstsize.c		\
-		ft_lstbeforelast.c	\
-		ft_lstlast.c		\
-		ft_lstbeforelast.c	\
-		ft_lstadd_back.c	\
-		ft_lstclear.c		
+	   	ft_toupper.c		
 
 OBJS = $(SRCS:.c=.o)
 HDRS = libft.h

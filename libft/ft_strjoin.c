@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:36:20 by amarchal          #+#    #+#             */
-/*   Updated: 2022/03/29 13:37:50 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:19:46 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	ft_strjoin_content(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		i++;
+	}
+	while (s2[j])
+		s1[i++] = s2[j++];
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {

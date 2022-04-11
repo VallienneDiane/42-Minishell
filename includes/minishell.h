@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/11 11:27:40 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:26:57 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
+# include "../libft/libft.h"
 
 # define STR 0
 # define REDIR_IN 1
@@ -36,7 +37,7 @@ typedef struct s_list
 {
 	char			*content;
 	char			*str;
-	char			*type;
+	// char			*type;
 	int				type;
 	int				block;
 	struct s_list	*next;
@@ -87,14 +88,16 @@ typedef struct s_cmd
 
 // Chained list
 void	ft_create_list(t_list **list);
-t_list	*ft_lstnew(void *content, void *type, int block);
+t_list	*ft_lstnew(char *content, int type, int block);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **alst, t_list *new);
+void	ft_print_list(t_list *list);
 
 // Utils
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *src);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_strjoin_content(char *s1, char *s2);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
@@ -152,7 +155,10 @@ char	*ft_heredoc_loop(char *stop);
 void	ft_execute(t_cmd *cmd, char **envp);
 void	ft_execution(t_cmd *cmd, char **envp);
 
+//////////////////
 //Parsing Alexi //
+//////////////////
+
 int		ft_simple_quote(t_list **list, char *line, int *i);
 int		ft_double_quote(t_list **list, char *line, int *i);
 int		ft_var_env(t_list **list, char *line, int *i);
@@ -168,6 +174,7 @@ int		ft_env_size(char *line, t_pars_info *p_info);
 char	*ft_env_name(char *line, t_pars_info *p_info);
 char	*ft_join_env(char *line, char *content, t_list **list, t_pars_info *p_info);
 
+void	ft_lexer(t_list **list, char *line, t_pars_info *p_info);
 void	ft_redir_out(char *line, t_pars_info *p_info);
 void	ft_redir_in(char *line, t_pars_info *p_info);
 

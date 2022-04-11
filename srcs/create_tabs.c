@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tabs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:50:55 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 17:27:46 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:06:50 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_init_tab(t_cmd *cmd)
 	cmd->nb_out1 = 0;
 	cmd->nb_out2 = 0;
 	cmd->nb_heredoc = 0;
+	cmd->last_in = 0;
+	cmd->last_out = 0;
 }
 
 void	ft_get_args(t_list *list, t_cmd *cmd, int current_block)
@@ -29,17 +31,17 @@ void	ft_get_args(t_list *list, t_cmd *cmd, int current_block)
 	ft_init_tab(cmd);
 	while (lst_temp && lst_temp->block == current_block)
 	{
-		if (ft_strncmp("str", lst_temp->type, 3) == 0)
+		if (lst_temp->type == STR)
 			cmd->nb_str++;
 		else
 		{
-			if (ft_strncmp("redir_in", lst_temp->type, 8) == 0)
+			if (lst_temp->type == REDIR_IN)
 				cmd->nb_in++;
-			else if (ft_strncmp("redir_out1", list->type, 10) == 0)
+			else if (lst_temp->type == REDIR_OUT)
 				cmd->nb_out1++;
-			else if (ft_strncmp("redir_out2", list->type, 10) == 0)
+			else if (lst_temp->type == REDIR_CONC)
 				cmd->nb_out2++;
-			else if (ft_strncmp("heredoc", list->type, 7) == 0)
+			else if (lst_temp->type == HEREDOC)
 				cmd->nb_heredoc++;
 		}
 		lst_temp = lst_temp->next;
@@ -80,15 +82,15 @@ void	ft_create_tab(t_cmd *cmd, t_list *list, int current_block)
 	ft_malloc_tab(cmd);
 	while (list && list->block == current_block)
 	{
-		if (ft_strncmp("str", list->type, 3) == 0)
+		if (list->type == STR)
 			ft_fill_tab_str(cmd, list, &i);
-		else if (ft_strncmp("redir_in", list->type, 8) == 0)
+		else if (list->type == REDIR_IN)
 			ft_fill_redir_in(cmd, list, &j);
-		else if (ft_strncmp("redir_out1", list->type, 10) == 0)
+		else if (list->type == REDIR_OUT)
 			ft_fill_redir_out1(cmd, list, &k);
-		else if (ft_strncmp("redir_out2", list->type, 10) == 0)
+		else if (list->type == REDIR_CONC)
 			ft_fill_redir_out2(cmd, list, &l);
-		else if (ft_strncmp("heredoc", list->type, 7) == 0)
+		else if (list->type == HEREDOC)
 			ft_fill_heredoc(cmd, list, &m);
 		list = list->next;
 	}
