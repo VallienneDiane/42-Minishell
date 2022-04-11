@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 18:36:20 by amarchal          #+#    #+#             */
-/*   Updated: 2022/03/29 13:37:50 by dvallien         ###   ########.fr       */
+/*   Created: 2022/04/07 13:03:59 by dvallien          #+#    #+#             */
+/*   Updated: 2022/04/07 13:04:30 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+int	ft_is_builtin(char *str)
 {
-	char	*str;
-	int		i;
+	if (str)
+	{
+		if (ft_strncmp("echo", str, 4) == 0 || ft_strncmp("pwd", str, 3) == 0)
+			return (1);
+	}
+	return (0);
+}
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	i = 0;
-	str = malloc(sizeof(char) * (ft_strlen((char *)s1)
-				+ ft_strlen((char *)s2) + 1));
-	if (!str)
-		return (NULL);
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
-	str[i] = '\0';
-	return (str);
+int	ft_exec_builtin(t_cmd *cmd)
+{
+	if (ft_strncmp("echo", cmd->tab_str[0], 4) == 0)
+		return (ft_echo(cmd));
+	if (ft_strncmp("pwd", cmd->tab_str[0], 3) == 0)
+		return (ft_pwd(cmd));
+	return (1);
 }

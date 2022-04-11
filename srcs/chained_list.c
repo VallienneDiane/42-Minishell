@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chained_list.c                                  :+:      :+:    :+:   */
+/*   chained_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:31:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/29 16:40:31 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:13:34 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	else
 	{
 		last = ft_lstlast(*alst);
+		new->previous = last;
 		last->next = new;
 	}
 }
 
-t_list	*ft_lstnew(char *content, int type, int block)
+t_list	*ft_lstnew(void *content, void *type, int block)
 {
 	t_list	*newlist;
-	
+
 	newlist = malloc(sizeof(t_list));
 	if (!newlist)
 		return (NULL);
@@ -51,14 +52,19 @@ t_list	*ft_lstnew(char *content, int type, int block)
 	newlist->type = type;
 	newlist->block = block;
 	newlist->next = NULL;
+	newlist->previous = NULL;
 	return (newlist);
 }
 
-void	ft_print_list(t_list *list)
+void	ft_create_list(t_list **list)
 {
-	while (list)
-	{
-		printf("\033[93m%s | type %d | block %d\n\033[0m", list->content, list->type, list->block);
-		list = list->next;
-	}
+	// ft_lstadd_back(list, ft_lstnew("OUI", "heredoc", 1));
+	ft_lstadd_back(list, ft_lstnew("wc", "str", 1));
+	ft_lstadd_back(list, ft_lstnew("infile", "str", 1));
+	ft_lstadd_back(list, ft_lstnew("infile1", "str", 1));
+	ft_lstadd_back(list, ft_lstnew("infile2", "str", 1));
+	// ft_lstadd_back(list, ft_lstnew("cat", "str", 2));
+	// ft_lstadd_back(list, ft_lstnew("KO", "heredoc", 1));
+	// ft_lstadd_back(list, ft_lstnew("echo", "str", 4));
+
 }

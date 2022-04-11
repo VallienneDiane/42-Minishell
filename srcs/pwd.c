@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils_bis.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 15:32:59 by dvallien          #+#    #+#             */
-/*   Updated: 2022/03/16 15:35:42 by dvallien         ###   ########.fr       */
+/*   Created: 2022/03/29 10:24:19 by dvallien          #+#    #+#             */
+/*   Updated: 2022/04/07 12:04:41 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_pwd(t_cmd *cmd)
 {
-	size_t	i;
+	char	cwd[1024];
 
-	i = 0;
-	while (i < n)
+	if (getcwd(cwd, sizeof(cwd)))
 	{
-		((char *)s)[i] = 0;
-		i++;
-	}
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-	size_t	i;
-	size_t	allsize;
-
-	i = 0;
-	allsize = size * count;
-	ptr = malloc(allsize);
-	if (!ptr)
+		if (cmd->last_out == 2)
+			ft_putstr_fd(cwd, cmd->fd_out_append);
+		else if (cmd->last_out == 1)
+			ft_putstr_fd(cwd, cmd->fd_out_trunc);
+		else
+			ft_putstr_fd(cwd, STDOUT_FILENO);
 		return (0);
-	ft_bzero((void *)ptr, allsize);
-	return ((void *)ptr);
+	}
+	return (1);
 }

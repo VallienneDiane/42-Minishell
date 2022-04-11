@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 18:36:20 by amarchal          #+#    #+#             */
-/*   Updated: 2022/03/29 13:37:50 by dvallien         ###   ########.fr       */
+/*   Created: 2022/03/29 10:24:51 by dvallien          #+#    #+#             */
+/*   Updated: 2022/04/07 15:47:05 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_heredoc_loop(char *stop)
 {
+	char	*line;
 	char	*str;
-	int		i;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	i = 0;
-	str = malloc(sizeof(char) * (ft_strlen((char *)s1)
-				+ ft_strlen((char *)s2) + 1));
-	if (!str)
-		return (NULL);
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
-	str[i] = '\0';
+	str = "";
+	line = NULL;
+	while (1)
+	{
+		line = readline("> ");
+		if (ft_strlen(line) && !ft_strncmp(line, stop, ft_strlen(line)))
+			break ;
+		str = ft_strjoin(str, line);
+		free (line);
+		if (str)
+			str = ft_strjoin(str, "\n");
+	}
 	return (str);
 }
