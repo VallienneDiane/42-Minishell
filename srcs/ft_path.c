@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 18:12:52 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:44:05 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,29 @@ char	*ft_get_line_path(char **envp)
 	return (*envp + 5);
 }
 
-char	*ft_access_path(t_cmd *cmd)
-{	
+char	*ft_access_path(t_list *list, t_cmd *cmd)
+{
 	char	*tmp_path;
 	char	*path;
 	int		i;
 
 	i = -1;
-	if (access(cmd->tab_str[0], X_OK) == 0)
-		return (ft_strdup(cmd->tab_str[0]));
+	if (access(list->content, X_OK) == 0)
+		return (ft_strdup(list->content));
 	while (cmd->tab_path[++i])
 	{
 		tmp_path = ft_strjoin(cmd->tab_path[i], "/");
-		path = ft_strjoin(tmp_path, cmd->tab_str[0]);
+		path = ft_strjoin(tmp_path, list->content);
 		free(tmp_path);
 		if (access(path, 0) == 0)
 			return (path);
 		else
+		{
 			free(path);
+			path = NULL;
+		}
 	}
-	printf("Error : %s : command not found\n", cmd->tab_str[0]);
+	printf("command not found\n");
 	// ft_error_path();
 	return (NULL);
 }

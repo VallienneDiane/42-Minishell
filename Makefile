@@ -3,36 +3,32 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/07 13:04:47 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/05 15:37:17 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
 LIB := ./libft/libft.a
 
-DIR_SRCS := ./SRCS
-LST_SRCS := start_exec.c		\
-			chained_list.c		\
-			path.c				\
-			create_tabs.c 		\
-			fill_tabs.c			\
-			create_files.c		\
-			redir_dup.c 		\
-			exec_pipex.c		\
-			exec_builtins.c		\
-			echo.c				\
-			heredoc.c 			\
-			pwd.c 				\
-			
-DIR_OBJS := ./.OBJS
+DIR_SRCS := ./srcs
+LST_SRCS := main.c				\
+			redir.c				\
+			parser_quote.c		\
+			parser_env_size.c	\
+			parser_env_name.c	\
+			parser_env_join.c	\
+			ft_chained_list.c	\
+			lexer.c
+
+DIR_OBJS := ./.objs
 LST_OBJS := $(LST_SRCS:.c=.o)
 
 SRCS := $(addprefix $(DIR_SRCS)/, $(LST_SRCS))
 OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
-INCLUDE := ./INCLUDES/minishell.h
+INCLUDE := ./includes/minishell.h
 
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
