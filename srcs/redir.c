@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 10:42:43 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/05 13:08:52 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 16:55:14 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_redir_out(char *line, t_pars_info *p_info)
 		j++;
 	if (!line[j] || line[j] == '|' || line[j] == '<' || line[j] == '>')
 	{
-		printf("syntax error near unexpected token `newline'\n");
+		printf("minishell: syntax error near unexpected token `newline'\n");
 		exit(EXIT_FAILURE);
 	}
 	p_info->i += 1;
@@ -43,7 +43,7 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 	{
 		if (line[j + 1] && line[j + 1] == '<')
 		{
-			printf("syntax error near unexpected token `<'\n");
+			printf("minishell: syntax error near unexpected token `<'\n");
 			exit(EXIT_FAILURE);
 		}
 		p_info->current_type = HEREDOC;
@@ -56,7 +56,7 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 			j++;
 		if (!line[j] || line[j] == '|' || line[j] == '<' || line[j] == '>')
 		{
-			printf("syntax error near unexpected token `newline'\n");
+			printf("minishell: syntax error near unexpected token `newline'\n");
 			exit(EXIT_FAILURE);
 		}	
 	}

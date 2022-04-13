@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/13 17:20:37 by amarchal         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/13 17:29:02 by dvallien         ###   ########.fr       */
+>>>>>>> 1b5dc72926d94b3607dbc146a453925962a7c709
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +77,7 @@ int	main(int ac, char **av, char **env)
 	{
 		list = malloc(sizeof(t_list));
 		list = NULL;
-		line = readline("> ");
+		line = readline("minishell$ ");
 		if (line[0])
 			add_history(line);
 		ft_parsing(&list, line, &cmd);

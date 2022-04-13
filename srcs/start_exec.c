@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/12 15:16:35 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:25:03 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_execution(t_cmd *cmd, char **envp)
 void	ft_execute(t_cmd *cmd, char **envp)
 {
 	if (ft_is_builtin(cmd->tab_str[0]) == 1)
-		ft_exec_builtin(cmd); // exit (ft_exec_builtin(cmd));
+		ft_exec_builtin(cmd, envp); // exit (ft_exec_builtin(cmd));
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		if (cmd->tab_str[0])
