@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:26:31 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/05 14:52:06 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/12 11:30:34 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	ft_env_size(char *line, t_pars_info *p_info)
 		env_name[l++] = line[p_info->j++];
 	if (p_info->bracket)
 		p_info->j += 1;
-	if (getenv(env_name))
+	if (ft_getenv(env_name, p_info->cmd))
 	{
-		l = ft_strlen(getenv(env_name));
+		l = ft_strlen(ft_getenv(env_name, p_info->cmd));
 		free(env_name);
 		return (l);
 	}

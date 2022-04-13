@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/11 14:26:57 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/12 15:32:05 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ typedef struct s_list
 
 typedef struct s_pars_info
 {
-	int		i;
-	int		j;
-	int		current_type;
-	int		current_block;
-	int		d_quote;
-	int		bracket;
-	int		cur_cont_size;
+	int				i;
+	int				j;
+	int				current_type;
+	int				current_block;
+	int				d_quote;
+	int				bracket;
+	int				cur_cont_size;
+	struct s_cmd	*cmd;
 }	t_pars_info;
 
 typedef struct s_cmd
@@ -80,6 +81,7 @@ typedef struct s_cmd
 	int		last_out;
 	int		pipefd[2];
 	int		pipe_heredoc_fd[2];
+	char	**env_cpy;
 }	t_cmd;
 
 ////////////////////
@@ -150,6 +152,8 @@ int		ft_option(char *arg);
 int		ft_pwd(t_cmd *cmd);
 void	ft_redir_putstr(t_cmd *cmd, char *str);
 char	*ft_heredoc_loop(char *stop);
+int		ft_env(t_cmd *cmd);
+int		ft_export(t_cmd *cmd);
 
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);
@@ -169,6 +173,7 @@ char	*ft_join_s_quote(char *line, char *content, t_pars_info *p_info);
 int		ft_d_quote_size(char *line, t_pars_info *p_info);
 char	*ft_join_d_quote(char *line, char *content, t_list **list, t_pars_info *p_info);
 
+char	*ft_getenv(char *env_name, t_cmd *cmd);
 int		ft_is_valid(char c);
 int		ft_env_size(char *line, t_pars_info *p_info);
 char	*ft_env_name(char *line, t_pars_info *p_info);

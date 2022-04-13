@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/11 13:17:00 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/12 15:31:51 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ LST_SRCS := start_exec.c		\
 			exec_pipex.c		\
 			exec_builtins.c		\
 			echo.c				\
+			env.c				\
+			export.c			\
 			heredoc.c 			\
 			pwd.c 				\
 			main.c				\
