@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/12 16:19:13 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:20:37 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,6 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 	}
 }
 
-char	**ft_cpy_env(char **env)
-{
-	char	**env_cpy;
-	size_t	i;
-
-	i = 0;
-	env_cpy = malloc(sizeof(char *) * (ft_strlen2d(env) + 1));
-	if (!env_cpy)
-		exit(EXIT_FAILURE);
-	while (env[i])
-	{
-		env_cpy[i] = ft_strdup(env[i]);
-		i++;
-	}
-	env_cpy[i] = NULL;
-	return (env_cpy);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char 	*line;
@@ -84,7 +66,8 @@ int	main(int ac, char **av, char **env)
 	t_cmd	cmd;
 	
 	errno = 0;
-	cmd.env_cpy = ft_cpy_env(env);
+	ft_cpy_env(env, &cmd);
+	// cmd.env_cpy = ft_cpy_env(env);
 	
 	while (1)
 	{

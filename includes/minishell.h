@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/12 15:32:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:06:21 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*previous;
 }	t_list;
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*previous;
+}	t_env;
 
 typedef struct s_pars_info
 {
@@ -81,7 +89,7 @@ typedef struct s_cmd
 	int		last_out;
 	int		pipefd[2];
 	int		pipe_heredoc_fd[2];
-	char	**env_cpy;
+	t_env	*env_list;
 }	t_cmd;
 
 ////////////////////
@@ -93,6 +101,9 @@ void	ft_create_list(t_list **list);
 t_list	*ft_lstnew(char *content, int type, int block);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **alst, t_list *new);
+t_env	*ft_lstnew_env(char *name, char *value);
+t_env	*ft_lstlast_env(t_env *lst);
+void	ft_lstadd_back_env(t_env **alst, t_env *new);
 void	ft_print_list(t_list *list);
 
 // Utils
@@ -158,6 +169,9 @@ int		ft_export(t_cmd *cmd);
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);
 void	ft_execution(t_cmd *cmd, char **envp);
+
+// Copy Env
+void	ft_cpy_env(char **env, t_cmd *cmd);
 
 //////////////////
 //Parsing Alexi //

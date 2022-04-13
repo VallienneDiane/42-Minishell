@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:31:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/11 13:20:07 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 13:44:37 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@ t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*temp;
 	t_list	*actual;
+
+	temp = lst;
+	actual = lst;
+	while (temp)
+	{
+		actual = temp;
+		temp = temp->next;
+	}
+	return (actual);
+}
+
+t_env	*ft_lstlast_env(t_env *lst)
+{
+	t_env	*temp;
+	t_env	*actual;
 
 	temp = lst;
 	actual = lst;
@@ -41,6 +56,20 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	}
 }
 
+void	ft_lstadd_back_env(t_env **alst, t_env *new)
+{
+	t_env	*last;
+
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		last = ft_lstlast_env(*alst);
+		new->previous = last;
+		last->next = new;
+	}
+}
+
 t_list	*ft_lstnew(char *content, int type, int block)
 {
 	t_list	*newlist;
@@ -53,6 +82,19 @@ t_list	*ft_lstnew(char *content, int type, int block)
 	newlist->block = block;
 	newlist->next = NULL;
 	return (newlist);
+}
+
+t_env	*ft_lstnew_env(char *name, char *value)
+{
+	t_env	*newenv;
+	
+	newenv = malloc(sizeof(t_env));
+	if (!newenv)
+		return (NULL);
+	newenv->name = name;
+	newenv->value = value;
+	newenv->next = NULL;
+	return (newenv);
 }
 
 void	ft_print_list(t_list *list)
