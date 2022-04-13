@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/12 14:18:21 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:28:49 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ char	*ft_access_path(t_cmd *cmd)
 			free(path);
 	}
 	printf("minishell : %s : command not found\n", cmd->tab_str[0]);
-	// ft_error_path();
+	// errno = 127;
 	return (NULL);
 }

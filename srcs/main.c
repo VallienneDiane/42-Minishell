@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/12 16:19:13 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:29:02 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,11 @@ int	main(int ac, char **av, char **env)
 	
 	errno = 0;
 	cmd.env_cpy = ft_cpy_env(env);
-	
 	while (1)
 	{
 		list = malloc(sizeof(t_list));
 		list = NULL;
-		line = readline("> ");
+		line = readline("minishell$ ");
 		if (line[0])
 			add_history(line);
 		ft_parsing(&list, line, &cmd);

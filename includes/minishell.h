@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/12 15:32:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:21:13 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include "../libft/libft.h"
+# include <dirent.h>
+// # include <errno.h>
 
 # define STR 0
 # define REDIR_IN 1
@@ -143,7 +145,7 @@ void	ft_redir_clean(t_cmd *cmd, int in, int out1, int out2);
 
 // Builtins exec
 int		ft_is_builtin(char *str);
-int		ft_exec_builtin(t_cmd *cmd);
+int		ft_exec_builtin(t_cmd *cmd, char **envp);
 
 // Builtins commands
 int		ft_echo(t_cmd *cmd);
@@ -154,6 +156,8 @@ void	ft_redir_putstr(t_cmd *cmd, char *str);
 char	*ft_heredoc_loop(char *stop);
 int		ft_env(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
+int		ft_cd(t_cmd *cmd, char **envp);
+int		ft_exit(t_cmd *cmd);
 
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);

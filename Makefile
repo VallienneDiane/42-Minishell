@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/12 15:31:51 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/13 14:45:00 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ LST_SRCS := start_exec.c		\
 			parser_env_name.c	\
 			parser_env_join.c	\
 			redir.c				\
+			cd.c				\
+			exit.c				\
 			lexer.c
 			
 DIR_OBJS := ./.OBJS
