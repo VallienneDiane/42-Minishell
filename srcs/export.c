@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:46:49 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/13 17:45:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:31:22 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_valid_env_name(char *env_name, int *concat)
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha(env_name[i]))
+	if (!ft_isalpha(env_name[i]) && env_name[i] != '_')
 		return (0);
 	i++;
 	while (env_name[i])

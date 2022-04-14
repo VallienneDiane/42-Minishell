@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/13 17:25:03 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/14 11:57:15 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 {	
 	int	i;
 	int	current_block;
+	pid_t pid;
 
 	i = 0;
 	current_block = 1;
 	cmd->valid_path = NULL;
-	cmd->stdin_copy = dup(STDIN_FILENO);
 	while (list)
 	{
 		ft_get_args(list, cmd, current_block);
@@ -34,7 +34,25 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 			current_block++;
 		}
 		else
-			ft_execution(cmd, envp);
+		{
+			if (ft_is_builtin(cmd->tab_str[0]) == 0)
+			{
+				pid = fork();
+				if (pid < 0)
+				{
+					perror("");
+					exit(EXIT_FAILURE);
+				}
+				if (pid == 0)
+					ft_execution(cmd, envp);
+				else
+					waitpid(pid, NULL, 0);
+			}
+			else
+			{
+				ft_exec_builtin(cmd, envp); // exit (ft_exec_builtin(cmd));
+			}
+		}
 		// free les tabs
 	}
 }
@@ -52,8 +70,8 @@ void	ft_execution(t_cmd *cmd, char **envp)
 
 void	ft_execute(t_cmd *cmd, char **envp)
 {
-	if (ft_is_builtin(cmd->tab_str[0]) == 1)
-		ft_exec_builtin(cmd, envp); // exit (ft_exec_builtin(cmd));
+	if (ft_is_builtin(cmd->tab_str[0]))
+		ft_exec_builtin(cmd, envp);
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		if (cmd->tab_str[0])
@@ -62,7 +80,6 @@ void	ft_execute(t_cmd *cmd, char **envp)
 			{
 				free(cmd->valid_path);
 				free(cmd->tab_str);
-				printf("Error : %s : failure execve\n", cmd->valid_path);
 			}
 		}
 	}

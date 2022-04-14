@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/13 17:50:38 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/14 11:35:34 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 int	main(int ac, char **av, char **env)
 {
 	char 	*line;
-	pid_t	pid;
+	// pid_t	pid;
 	t_list	*list;
 	t_cmd	cmd;
 	
@@ -69,8 +69,10 @@ int	main(int ac, char **av, char **env)
 	ft_cpy_env(env, &cmd);
 	// cmd.env_cpy = ft_cpy_env(env);
 	
+	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
+		dup2(cmd.stdin_copy, STDIN_FILENO);
 		list = malloc(sizeof(t_list));
 		list = NULL;
 		line = readline("minishell$ ");
@@ -81,16 +83,7 @@ int	main(int ac, char **av, char **env)
 		// ft_print_list(list);
 		cmd.line_path = ft_get_line_path(env);
 		cmd.tab_path = ft_split(cmd.line_path, ':');
-		pid = fork();
-		if (pid < 0)
-		{
-			perror("");
-			exit(EXIT_FAILURE);
-		}
-		if (pid == 0)
-			ft_start_exec(list, &cmd, env);
-		else
-			waitpid(pid, NULL, 0);
+		ft_start_exec(list, &cmd, env);
 		free(list);
 	}
 	(void)ac;
