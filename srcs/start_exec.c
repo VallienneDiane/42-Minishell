@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/14 11:57:15 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:30:16 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 				if (pid == 0)
 					ft_execution(cmd, envp);
 				else
-					waitpid(pid, NULL, 0);
+					waitpid(pid, &errno, 0);
 			}
 			else
-			{
-				ft_exec_builtin(cmd, envp); // exit (ft_exec_builtin(cmd));
-			}
+				ft_exec_builtin(cmd, envp);
 		}
 		// free les tabs
 	}

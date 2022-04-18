@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/13 17:48:15 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/18 15:44:23 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <string.h>
 # include "../libft/libft.h"
 # include <dirent.h>
-// # include <errno.h>
+# include <signal.h>
 
 # define STR 0
 # define REDIR_IN 1
@@ -39,7 +39,6 @@ typedef struct s_list
 {
 	char			*content;
 	char			*str;
-	// char			*type;
 	int				type;
 	int				block;
 	struct s_list	*next;
@@ -173,6 +172,9 @@ int		ft_exit(t_cmd *cmd);
 // Execute
 void	ft_execute(t_cmd *cmd, char **envp);
 void	ft_execution(t_cmd *cmd, char **envp);
+
+// Signaux
+void	ft_signal(int signal);
 
 // Copy Env
 void	ft_cpy_env(char **env, t_cmd *cmd);

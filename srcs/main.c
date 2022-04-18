@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/14 11:35:34 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:35:41 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		dup2(cmd.stdin_copy, STDIN_FILENO);
+		signal(SIGINT, ft_signal);
+		signal(SIGQUIT, ft_signal);
 		list = malloc(sizeof(t_list));
 		list = NULL;
 		line = readline("minishell$ ");

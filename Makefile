@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/13 17:48:08 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/18 16:39:50 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ LST_SRCS := start_exec.c		\
 			redir.c				\
 			cd.c				\
 			exit.c				\
+			signal.c			\
 			lexer.c
 			
 DIR_OBJS := ./.OBJS
@@ -45,6 +46,10 @@ LST_OBJS := $(LST_SRCS:.c=.o)
 SRCS := $(addprefix $(DIR_SRCS)/, $(LST_SRCS))
 OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
 INCLUDE := ./INCLUDES/minishell.h
+# RL_LIB := -L$(shell brew --prefix readline)/lib
+# RL_INC := -I$(shell brew --prefix readline)/include
+RL_LIB := -L .brew/opt/readline/lib
+RL_INC := -I .brew/opt/readline/include
 
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
@@ -60,7 +65,7 @@ libft :
 		@make -C ./libft
 
 $(NAME) : $(OBJS) $(LIB)
-		$(CC) $(OBJS) $(LIB) -lreadline -o $(NAME)
+		$(CC) $(OBJS) $(LIB) $(RL_LIB) $(RL_INC) -lreadline -o $(NAME)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
 
 DIR_OBJS :

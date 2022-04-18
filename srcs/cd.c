@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:56:42 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/13 14:34:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/18 14:48:03 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,33 @@ int	ft_cd(t_cmd *cmd, char **envp)
 {
 	char	*path;
 	char	*pwd;
+	char	*cwd;
 	(void)envp;
 
-	path = getcwd(NULL, 0);
+	cwd = NULL;
+	path = NULL;
 	pwd = getcwd(NULL, 0);
 	if (cmd->tab_str[1])
 	{
 		if ((ft_strcmp("~", cmd->tab_str[1])) == 0)
 		{
-			printf("tilde %s\n", pwd);
 			path = getenv("HOME");
 			chdir(path);
-			// CHANGER PWD AVEC LE PWD ACTUEL
-			printf("tilde %s\n", pwd);
+			pwd = getcwd(cwd, sizeof(cwd));
+			printf("PATH %s, PWD %s\n", path, pwd);
 		}
 		else if (access(cmd->tab_str[1], F_OK) == 0)
 		{
-			printf("dossier %s\n", path);
+			path = cmd->tab_str[1];
 			chdir(cmd->tab_str[1]);
-			// CHANGER PWD AVEC LE PWD ACTUEL
-			printf("dossier %s\n", path);
+			pwd = getcwd(cwd, sizeof(cwd));
+			printf("PATH %s, PWD %s\n", path, pwd);
+			if ((access(pwd, F_OK) != 0))
+			{
+				// pwd = getcwd(pwd, sizeof(pwd));
+				printf("cd: error retrieving current directory: getcwd: \
+				cannot access parent directories: No such file or directory\n");
+			}
 		}
 		else if (access(cmd->tab_str[1], F_OK) != 0)
 		{
@@ -47,11 +54,11 @@ int	ft_cd(t_cmd *cmd, char **envp)
 	{
 		if (!getenv("HOME"))
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		printf("aucun arg %s\n", path);
 		path = getenv("HOME");
 		chdir(path);
-		// CHANGER PWD AVEC LE PWD ACTUEL
-		printf("aucun arg %s\n", path);
+		pwd = getcwd(cwd, sizeof(cwd));
+		printf("PATH %s, PWD %s\n", path, pwd);
 	}
 	return (0);
 }
+
