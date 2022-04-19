@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/13 17:48:08 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/19 15:00:57 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ LST_SRCS := start_exec.c		\
 			cpy_env.c			\
 			env.c				\
 			export.c			\
+			unset.c				\
+			export_print.c		\
 			heredoc.c 			\
 			pwd.c 				\
 			main.c				\
@@ -49,6 +51,9 @@ INCLUDE := ./INCLUDES/minishell.h
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 
+READLINE_LIB := -L /Users/$(USER)/.brew/opt/readline/lib
+READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include
+
 $(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE)
 		@mkdir -p $(DIR_OBJS)
 		$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
@@ -60,9 +65,10 @@ libft :
 		@make -C ./libft
 
 $(NAME) : $(OBJS) $(LIB)
-		$(CC) $(OBJS) $(LIB) -lreadline -o $(NAME)
+		$(CC) $(OBJS) $(LIB) -lreadline $(READLINE_LIB) $(READLINE_INC) -o $(NAME)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
 
+# $(CC) $(OBJS) $(LIB) -lreadline -o $(NAME)
 DIR_OBJS :
 		mkdir -p $(DIR_OBJS)
 

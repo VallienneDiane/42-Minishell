@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/13 17:48:15 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/19 17:34:03 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ t_env	*ft_lstnew_env(char *name, char *value);
 t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **alst, t_env *new);
 void	ft_print_list(t_list *list);
+int		ft_env_lst_size(t_env *env_list);
 
 // Utils
 size_t	ft_strlen(const char *str);
@@ -166,7 +167,9 @@ int		ft_pwd(t_cmd *cmd);
 void	ft_redir_putstr(t_cmd *cmd, char *str);
 char	*ft_heredoc_loop(char *stop);
 int		ft_env(t_cmd *cmd);
+void	ft_export_print(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
+int		ft_unset(t_cmd *cmd);
 int		ft_cd(t_cmd *cmd, char **envp);
 int		ft_exit(t_cmd *cmd);
 
@@ -176,6 +179,7 @@ void	ft_execution(t_cmd *cmd, char **envp);
 
 // Copy Env
 void	ft_cpy_env(char **env, t_cmd *cmd);
+char	**ft_env_to_tab(t_cmd *cmd);
 
 //////////////////
 //Parsing Alexi //

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:46:49 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/14 10:31:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/19 13:33:13 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,42 +39,59 @@ int		ft_valid_env_name(char *env_name, int *concat)
 	return (1);
 }
 
+int	ft_existing_env(t_cmd *cmd, char *name, char *value, int concat)
+{
+	t_env	*temp;
+
+	temp = cmd->env_list;
+	while (temp)
+	{
+		if (ft_strcmp(name, temp->name) == 0)
+		{
+			if (!temp->value)
+				temp->value = value;
+			else if (concat && value)
+			{	
+				temp->value = ft_strjoin(temp->value, value);
+				free (value);
+			}
+			else if (value)
+			{
+				ft_strcpy(temp->value, value);
+				free (value);
+			}
+			free (name);
+			return (1);
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
 int	ft_add_env(t_cmd *cmd, char *env_name, int concat)
 {
 	int		i;
 	char	*name;
 	char	*value;
+	t_env	*temp;
 
-	i = 0;
-	while (env_name[i])
-	{
+	i = -1;
+	value = NULL;
+	temp = cmd->env_list;
+	while (env_name[++i])
 		if (env_name[i] == '+' || env_name[i] == '=')
 			break ;
-		i++;
-	}
 	name = ft_substr(env_name, 0, i);
-	if (concat)
-		value = ft_substr(env_name, i + 2, ft_strlen(env_name));
-	else
-		value = ft_substr(env_name, i + 1, ft_strlen(env_name));
-	while (cmd->env_list)
+	if (env_name[i])
 	{
-		if (ft_strcmp(name, cmd->env_list->name) == 0)
-		{
-			// printf("avt cmd->env_list->value : %s\n", cmd->env_list->value);
-			if (concat)
-				cmd->env_list->value = ft_strjoin(cmd->env_list->value, value);
-			else
-				ft_strcpy(cmd->env_list->value, value);
-			free (name);
-			free (value);
-			// printf("apr cmd->env_list->value : %s\n", cmd->env_list->value);
-			return (0);
-		}
-		cmd->env_list = cmd->env_list->next;
+		if (concat)
+			value = ft_substr(env_name, i + 2, ft_strlen(env_name));
+		else
+			value = ft_substr(env_name, i + 1, ft_strlen(env_name));	
 	}
+	if (ft_existing_env(cmd, name, value, concat))
+		return(0);
 	ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(name, value));
-	// printf("apr cmd->env_list->value : %s\n", cmd->env_list->value);
 	return (0);
 }
 
@@ -85,19 +102,15 @@ int	ft_export(t_cmd *cmd)
 
 	i = 1;
 	concat = 0;
+	if (!cmd->tab_str[i])
+		ft_export_print(cmd);
 	while (cmd->tab_str[i])
 	{
 		if (!ft_valid_env_name(cmd->tab_str[i], &concat))
 			printf("export: `%s': not a valid identifier\n", cmd->tab_str[i]);
 		else
-		{
-			printf("c'est good\n");
 			ft_add_env(cmd, cmd->tab_str[i], concat);
-				
-		}
 		i++;
 	}
-	// ft_env(cmd);
-	(void)cmd;
 	return (1);
 }
