@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 15:44:23 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:58:06 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "../libft/libft.h"
 # include <dirent.h>
 # include <signal.h>
+# include <termios.h>
 
 # define STR 0
 # define REDIR_IN 1
@@ -175,6 +176,8 @@ void	ft_execution(t_cmd *cmd, char **envp);
 
 // Signaux
 void	ft_signal(int signal);
+void	ft_signal_exec(int signal);
+void	ft_term_handler(int x);
 
 // Copy Env
 void	ft_cpy_env(char **env, t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 17:35:41 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/19 17:53:44 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,27 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 int	main(int ac, char **av, char **env)
 {
 	char 	*line;
-	// pid_t	pid;
 	t_list	*list;
 	t_cmd	cmd;
 	
 	errno = 0;
+	ft_term_handler(0);
+	signal(SIGINT, ft_signal);
 	ft_cpy_env(env, &cmd);
 	// cmd.env_cpy = ft_cpy_env(env);
-	
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
 		dup2(cmd.stdin_copy, STDIN_FILENO);
-		signal(SIGINT, ft_signal);
-		signal(SIGQUIT, ft_signal);
 		list = malloc(sizeof(t_list));
 		list = NULL;
-		line = readline("minishell$ ");
-		if (line[0])
+		line = readline("minisHell$ ");
+		if (line && line[0])
 			add_history(line);
-		ft_parsing(&list, line, &cmd);
+		if (!line)
+			exit(0);
+		if (line)
+			ft_parsing(&list, line, &cmd);
 		free(line);
 		// ft_print_list(list);
 		cmd.line_path = ft_get_line_path(env);

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 17:30:16 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/19 17:59:13 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 		{
 			if (ft_is_builtin(cmd->tab_str[0]) == 0)
 			{
+				ft_term_handler(1);
+				signal(SIGINT, ft_signal_exec);
 				pid = fork();
 				if (pid < 0)
 				{
@@ -46,7 +48,11 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 				if (pid == 0)
 					ft_execution(cmd, envp);
 				else
+				{
 					waitpid(pid, &errno, 0);
+					signal(SIGINT, ft_signal);
+					ft_term_handler(0);
+				}
 			}
 			else
 				ft_exec_builtin(cmd, envp);

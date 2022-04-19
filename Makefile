@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/18 16:39:50 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/19 11:30:45 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,17 +46,15 @@ LST_OBJS := $(LST_SRCS:.c=.o)
 SRCS := $(addprefix $(DIR_SRCS)/, $(LST_SRCS))
 OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
 INCLUDE := ./INCLUDES/minishell.h
-# RL_LIB := -L$(shell brew --prefix readline)/lib
-# RL_INC := -I$(shell brew --prefix readline)/include
-RL_LIB := -L .brew/opt/readline/lib
-RL_INC := -I .brew/opt/readline/include
+READLINE_LIB := -L$(shell brew --prefix readline)/lib
+READLINE_INC := -I$(shell brew --prefix readline)/include
 
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 
 $(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE)
 		@mkdir -p $(DIR_OBJS)
-		$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+		$(CC) $(CFLAGS) -I $(INCLUDE) $(READLINE_INC) -c $< -o $@
 
 all : libft $(NAME)
 		@printf "\033[0;32mProject is ready to run !\033[0m\n"
@@ -65,7 +63,7 @@ libft :
 		@make -C ./libft
 
 $(NAME) : $(OBJS) $(LIB)
-		$(CC) $(OBJS) $(LIB) $(RL_LIB) $(RL_INC) -lreadline -o $(NAME)
+		$(CC) $(OBJS) $(LIB) -lreadline $(READLINE_LIB) $(READLINE_INC) -o $(NAME)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
 
 DIR_OBJS :
