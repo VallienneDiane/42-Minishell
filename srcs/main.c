@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/20 10:22:10 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:45:44 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int	main(int ac, char **av, char **env)
 	t_cmd	cmd;
 	
 	errno = 0;
-	ft_term_handler(0);
-	signal(SIGINT, ft_signal);
+	signal(SIGINT, ft_signal_handler);
 	ft_cpy_env(env, &cmd);
 	// cmd.env_cpy = ft_cpy_env(env);
 	cmd.stdin_copy = dup(STDIN_FILENO);
@@ -75,7 +74,9 @@ int	main(int ac, char **av, char **env)
 		dup2(cmd.stdin_copy, STDIN_FILENO);
 		list = malloc(sizeof(t_list));
 		list = NULL;
-		line = readline("minisHell$ ");
+		ft_term_handler(0); // HIDE ^C
+		line = readline("miniHell$ ");
+		ft_term_handler(1); // PRINT ^C
 		if (line && line[0])
 			add_history(line);
 		if (!line)
