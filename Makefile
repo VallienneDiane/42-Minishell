@@ -6,7 +6,7 @@
 #    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/19 15:00:57 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/20 10:22:45 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ LST_SRCS := start_exec.c		\
 			redir.c				\
 			cd.c				\
 			exit.c				\
+			signal.c			\
 			lexer.c
 			
 DIR_OBJS := ./.OBJS
@@ -47,6 +48,8 @@ LST_OBJS := $(LST_SRCS:.c=.o)
 SRCS := $(addprefix $(DIR_SRCS)/, $(LST_SRCS))
 OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
 INCLUDE := ./INCLUDES/minishell.h
+READLINE_LIB := -L$(shell brew --prefix readline)/lib
+READLINE_INC := -I$(shell brew --prefix readline)/include
 
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
@@ -56,7 +59,7 @@ READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include
 
 $(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE)
 		@mkdir -p $(DIR_OBJS)
-		$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+		$(CC) $(CFLAGS) -I $(INCLUDE) $(READLINE_INC) -c $< -o $@
 
 all : libft $(NAME)
 		@printf "\033[0;32mProject is ready to run !\033[0m\n"

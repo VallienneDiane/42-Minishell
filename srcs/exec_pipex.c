@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/14 11:26:09 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/19 17:59:18 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_exec_pipex(t_cmd *cmd, char **envp)
 		perror("");
 		exit(EXIT_FAILURE);
 	}
+	ft_term_handler(1);
+	signal(SIGINT, ft_signal_exec);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -39,6 +41,8 @@ void	ft_exec_pipex(t_cmd *cmd, char **envp)
 		close(cmd->pipefd[1]);
 		dup2(cmd->pipefd[0], STDIN_FILENO);
 		close(cmd->pipefd[0]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &errno, 0);
+		signal(SIGINT, ft_signal);
+		ft_term_handler(0);
 	}
 }
