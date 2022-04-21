@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_dup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 12:04:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/07 18:02:08 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:56:57 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_redir_dup(t_cmd *cmd, char **envp)
+void	ft_redir_dup(t_cmd *cmd)
 {
 	int	out1;
 	int	out2;
@@ -35,7 +35,7 @@ void	ft_redir_dup(t_cmd *cmd, char **envp)
 		close(1);
 		dup2(cmd->fd_out_append, 1);
 	}
-	ft_execute(cmd, envp);
+	ft_execute(cmd);
 	ft_redir_clean(cmd, in, out1, out2);
 }
 

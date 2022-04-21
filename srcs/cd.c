@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:56:42 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 14:48:03 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:53:39 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_cd(t_cmd *cmd, char **envp)
+int	ft_cd(t_cmd *cmd)
 {
 	char	*path;
 	char	*pwd;
 	char	*cwd;
-	(void)envp;
 
 	cwd = NULL;
 	path = NULL;
@@ -26,7 +25,7 @@ int	ft_cd(t_cmd *cmd, char **envp)
 	{
 		if ((ft_strcmp("~", cmd->tab_str[1])) == 0)
 		{
-			path = getenv("HOME");
+			path = ft_getenv("HOME", cmd);
 			chdir(path);
 			pwd = getcwd(cwd, sizeof(cwd));
 			printf("PATH %s, PWD %s\n", path, pwd);
@@ -52,9 +51,9 @@ int	ft_cd(t_cmd *cmd, char **envp)
 	}
 	else if (!cmd->tab_str[1])
 	{
-		if (!getenv("HOME"))
+		if (ft_strlen(ft_getenv("HOME", cmd)) == 0)
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		path = getenv("HOME");
+		path = ft_getenv("HOME", cmd);
 		chdir(path);
 		pwd = getcwd(cwd, sizeof(cwd));
 		printf("PATH %s, PWD %s\n", path, pwd);

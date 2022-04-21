@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:03:59 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/19 15:03:24 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:42:08 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_is_builtin(char *str)
 	return (0);
 }
 
-int	ft_exec_builtin(t_cmd *cmd, char **envp)
+int	ft_exec_builtin(t_cmd *cmd)
 {
 	if (ft_strcmp("echo", cmd->tab_str[0]) == 0)
 		return (ft_echo(cmd));
@@ -38,10 +38,8 @@ int	ft_exec_builtin(t_cmd *cmd, char **envp)
 	if (ft_strcmp("unset", cmd->tab_str[0]) == 0)
 		return (ft_unset(cmd));
 	if (ft_strcmp("cd", cmd->tab_str[0]) == 0)
-		return (ft_cd(cmd, envp));
+		return (ft_cd(cmd));
 	if (ft_strcmp("exit", cmd->tab_str[0]) == 0)
-	{
 		return (ft_exit(cmd));
-	}
 	return (1);
 }

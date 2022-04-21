@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 15:02:19 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:25:36 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_get_line_path(char **envp)
+char	*ft_get_line_path(t_cmd *cmd)
 {
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	return (*envp + 5);
+	t_env	*temp;
+
+	temp = cmd->env_list;
+	while (temp)
+	{
+		if (ft_strcmp(temp->name, "PATH") == 0)
+			return (temp->value);
+		temp = temp->next;
+	}
+	return ("");
 }
 
 char	*ft_access_path(t_cmd *cmd)

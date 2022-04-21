@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/19 17:59:08 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:08:02 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	ft_signal(int signal)
 {
 	// ctrl C
-	if (signal == SIGINT)
+	// if (signal == SIGINT && g_pid != 0)
+	// 	printf("\n");
+	if (signal == SIGINT) //  && g_pid == 0
 	{
 		printf("\n");
 		rl_on_new_line();
@@ -48,7 +50,7 @@ void	ft_term_handler(int x)
 		t_new = t_save;
 		t_new.c_lflag &= ~(ICANON | ECHOCTL);
 		t_new.c_cc[VQUIT] = 0;
-		signal(SIGINT, ft_signal);
+		// signal(SIGINT, ft_signal);
 		tcsetattr(term, TCSANOW, &t_new);
 	}
 }

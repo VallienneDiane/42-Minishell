@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/20 10:22:10 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:36:38 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,20 @@ int	main(int ac, char **av, char **env)
 	t_cmd	cmd;
 	
 	errno = 0;
-	ft_term_handler(0);
-	signal(SIGINT, ft_signal);
 	ft_cpy_env(env, &cmd);
+	if (ft_atoi(ft_getenv("SHLVL", &cmd)) == 2)
+		signal(SIGINT, ft_signal);
 	// cmd.env_cpy = ft_cpy_env(env);
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
+		// signal(SIGINT, ft_signal);
 		dup2(cmd.stdin_copy, STDIN_FILENO);
 		list = malloc(sizeof(t_list));
 		list = NULL;
+		ft_term_handler(0);
 		line = readline("minisHell$ ");
+		ft_term_handler(1);
 		if (line && line[0])
 			add_history(line);
 		if (!line)
@@ -84,12 +87,11 @@ int	main(int ac, char **av, char **env)
 			ft_parsing(&list, line, &cmd);
 		free(line);
 		// ft_print_list(list);
-		cmd.line_path = ft_get_line_path(env);
+		cmd.line_path = ft_get_line_path(&cmd);
 		cmd.tab_path = ft_split(cmd.line_path, ':');
-		ft_start_exec(list, &cmd, env);
+		ft_start_exec(list, &cmd);
 		free(list);
 	}
 	(void)ac;
 	(void)av;
-	(void)env;
 }
