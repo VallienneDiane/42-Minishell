@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 10:19:23 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 17:30:06 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define REDIR_CONC 4
 
 int	errno;
+int	g_pid;
 
 typedef struct s_list
 {

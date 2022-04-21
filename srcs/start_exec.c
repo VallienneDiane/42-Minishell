@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 17:38:25 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,18 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 			list = list->next;
 		if (list && list->block != current_block)
 		{
-			printf("avant pipex\n");
 			ft_exec_pipex(cmd, envp);
 			current_block++;
 		}
 		else
 		{
+
 			if (ft_is_builtin(cmd->tab_str[0]) == 0)
 			{
 				ft_term_handler(1);
 				signal(SIGINT, ft_signal_exec_handler);
 				pid = fork();
+				g_pid = pid;
 				if (pid < 0)
 				{
 					perror("");
@@ -54,13 +55,11 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 				{
 					waitpid(pid, &errno, 0);
 					signal(SIGINT, ft_signal_handler);
-					ft_term_handler(0);
+					// ft_term_handler(0);
 				}
 			}
 			else
 			{
-				printf("avant exec builtin\n");
-				// signal(SIGINT, SIG_DFL);
 				ft_exec_builtin(cmd, envp);
 			}
 		}
@@ -84,20 +83,13 @@ void	ft_execute(t_cmd *cmd, char **envp)
 	char	**env_tab;
 	
 	if (ft_is_builtin(cmd->tab_str[0]))
-	{
-		printf("dans execute builtin\n");
 		ft_exec_builtin(cmd, envp);
-	}
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		if (cmd->tab_str[0])
 		{
 			env_tab = ft_env_to_tab(cmd);
-			if (execve(cmd->valid_path, cmd->tab_str, env_tab) < 0)
-			{
-				free(cmd->valid_path);
-				free(cmd->tab_str);
-			}
+			execve(cmd->valid_path, cmd->tab_str, env_tab);
 		}
 	}
 	exit(1);

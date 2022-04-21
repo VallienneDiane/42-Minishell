@@ -6,26 +6,17 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 17:32:57 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <sys/ioctl.h>
 
 void	ft_signal_handler(int signal)
 {
-	// if (signal == SIGINT)
-	// {
-	// 	errno = 130;
-	// 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	// 	rl_replace_line("", 0);
-	// 	rl_on_new_line();
-	// }
-	
 	if (signal == SIGINT)
 	{
-		printf("la\n");
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -34,8 +25,8 @@ void	ft_signal_handler(int signal)
 
 void	ft_signal_exec_handler(int signal)
 {
-	if (signal == SIGINT)
-		printf("ici\n");
+	if(signal == SIGINT)
+		printf("\n");
 }
 
 void	ft_term_handler(int x)
@@ -58,11 +49,11 @@ void	ft_term_handler(int x)
 	}
 }
 
-// int	ft_get_pid(int pid)
-// {
-// 	static int parent_pid;
+int	ft_get_pid(int pid)
+{
+	static int g_pid = 0;
 
-// 	if (pid > 0)
-// 		parent_pid = pid;
-// 	return (parent_pid);
-// }
+	if (pid > 0)
+		g_pid = pid;
+	return (g_pid);
+}
