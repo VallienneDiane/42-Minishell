@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 15:02:19 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:45:14 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,17 @@ char	*ft_access_path(t_cmd *cmd)
 
 	i = -1;
 	if (access(cmd->tab_str[0], X_OK) == 0)
+	{
+		while (cmd->tab_path[++i])
+		{
+			tmp_path = ft_strjoin(cmd->tab_path[i], "/");
+			if ((ft_strcmp(cmd->tab_path[i], cmd->tab_str[0]) == 0) \
+			|| (ft_strcmp(tmp_path, cmd->tab_str[0]) == 0))
+				printf("miniHell: %s: is a directory\n", cmd->tab_str[0]);
+			free(tmp_path);
+		}
 		return (ft_strdup(cmd->tab_str[0]));
+	}
 	while (cmd->tab_path[++i])
 	{
 		tmp_path = ft_strjoin(cmd->tab_path[i], "/");
@@ -38,6 +48,6 @@ char	*ft_access_path(t_cmd *cmd)
 		else
 			free(path);
 	}
-	printf("minishell : %s : command not found\n", cmd->tab_str[0]);
+	printf("miniHell : %s : command not found\n", cmd->tab_str[0]);
 	return (NULL);
 }

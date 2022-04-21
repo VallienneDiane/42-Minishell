@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:56:42 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/18 14:48:03 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_cd(t_cmd *cmd, char **envp)
 	else if (!cmd->tab_str[1])
 	{
 		if (!getenv("HOME"))
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			ft_putstr_fd("miniHell: cd: HOME not set\n", 2);
 		path = getenv("HOME");
 		chdir(path);
 		pwd = getcwd(cwd, sizeof(cwd));

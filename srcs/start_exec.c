@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/20 17:47:17 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 	int	current_block;
 	pid_t pid;
 
-	g_pid = 0;
 	i = 0;
 	current_block = 1;
 	cmd->valid_path = NULL;
@@ -31,6 +30,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 			list = list->next;
 		if (list && list->block != current_block)
 		{
+			printf("avant pipex\n");
 			ft_exec_pipex(cmd, envp);
 			current_block++;
 		}
@@ -38,6 +38,8 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 		{
 			if (ft_is_builtin(cmd->tab_str[0]) == 0)
 			{
+				ft_term_handler(1);
+				signal(SIGINT, ft_signal_exec_handler);
 				pid = fork();
 				if (pid < 0)
 				{
@@ -45,12 +47,22 @@ void	ft_start_exec(t_list *list, t_cmd *cmd, char **envp)
 					exit(EXIT_FAILURE);
 				}
 				if (pid == 0)
+				{
 					ft_execution(cmd, envp);
+				}
 				else
+				{
 					waitpid(pid, &errno, 0);
+					signal(SIGINT, ft_signal_handler);
+					ft_term_handler(0);
+				}
 			}
 			else
+			{
+				printf("avant exec builtin\n");
+				// signal(SIGINT, SIG_DFL);
 				ft_exec_builtin(cmd, envp);
+			}
 		}
 		// free les tabs
 	}
@@ -72,7 +84,10 @@ void	ft_execute(t_cmd *cmd, char **envp)
 	char	**env_tab;
 	
 	if (ft_is_builtin(cmd->tab_str[0]))
+	{
+		printf("dans execute builtin\n");
 		ft_exec_builtin(cmd, envp);
+	}
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		if (cmd->tab_str[0])
