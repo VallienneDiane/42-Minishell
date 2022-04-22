@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 17:32:57 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:50:28 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,4 @@ void	ft_term_handler(int x)
 		t_new.c_cc[VQUIT] = 0;
 		tcsetattr(term, TCSANOW, &t_new);
 	}
-}
-
-int	ft_get_pid(int pid)
-{
-	static int g_pid = 0;
-
-	if (pid > 0)
-		g_pid = pid;
-	return (g_pid);
 }

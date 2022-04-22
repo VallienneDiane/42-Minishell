@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 17:30:06 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:50:33 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ void	ft_execution(t_cmd *cmd, char **envp);
 void	ft_signal_handler(int signal);
 void	ft_signal_exec_handler(int signal);
 void	ft_term_handler(int x);
-int		ft_get_pid(int pid);
 
 
 // Copy Env
