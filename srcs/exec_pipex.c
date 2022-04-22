@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:10:14 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:45:17 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	ft_exec_pipex(t_cmd *cmd)
 		close(cmd->pipefd[1]);
 		dup2(cmd->pipefd[0], STDIN_FILENO);
 		close(cmd->pipefd[0]);
-		waitpid(pid, &errno, 0);
+		waitpid(pid, &g_status, 0);
 	}
 }

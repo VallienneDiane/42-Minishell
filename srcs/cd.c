@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:56:42 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:10:49 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:14:45 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_cd(t_cmd *cmd)
 	else if (!cmd->tab_str[1])
 	{
 		if (ft_strlen(ft_getenv("HOME", cmd)) == 0)
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			ft_putstr_fd("miniHell: cd: HOME not set\n", 2);
 		path = ft_getenv("HOME", cmd);
 		chdir(path);
 		pwd = getcwd(cwd, sizeof(cwd));

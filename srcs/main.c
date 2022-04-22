@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:07:00 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:45:37 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,17 @@ int	main(int ac, char **av, char **env)
 	t_list	*list;
 	t_cmd	cmd;
 	
-	errno = 0;
+	g_status = 0;
 	ft_cpy_env(env, &cmd);
-	if (ft_atoi(ft_getenv("SHLVL", &cmd)) == 2)
-		signal(SIGINT, SIG_IGN);
-	// cmd.env_cpy = ft_cpy_env(env);
+	signal(SIGINT, ft_signal_handler);
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
-		// signal(SIGINT, ft_signal);
 		dup2(cmd.stdin_copy, STDIN_FILENO);
 		list = malloc(sizeof(t_list));
 		list = NULL;
 		ft_term_handler(0);
-		line = readline("minisHell$ ");
+		line = readline("miniHell$ ");
 		ft_term_handler(1);
 		if (line && line[0])
 			add_history(line);
