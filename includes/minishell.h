@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 16:59:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:52:59 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <dirent.h>
 # include <signal.h>
 # include <termios.h>
+# include <sys/wait.h>
 
 # define STR 0
 # define REDIR_IN 1
@@ -129,6 +130,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd);
 // Access path
 char	*ft_access_path(t_cmd *cmd);
 char	*ft_get_line_path(t_cmd *cmd);
+void	ft_absolute_path(t_cmd *cmd, int i, char *tmp_path);
 
 // Create tabs, and get fd files
 void	ft_get_args(t_list *list, t_cmd *cmd, int current_block);
@@ -176,6 +178,8 @@ int		ft_cd(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
 
 // Execute
+void	ft_exec_cmd(t_cmd *cmd);
+void	ft_exec_parent_process(t_cmd *cmd, pid_t pid);
 void	ft_execute(t_cmd *cmd);
 void	ft_execution(t_cmd *cmd);
 

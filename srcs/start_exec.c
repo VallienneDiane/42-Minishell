@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:40:18 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:55:05 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	ft_start_exec(t_list *list, t_cmd *cmd)
 {	
-	int	i;
-	int	current_block;
-	pid_t pid;
+	int		i;
+	int		current_block;
 
 	i = 0;
 	current_block = 1;
@@ -34,51 +33,54 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 			current_block++;
 		}
 		else
-		{
-
-			if (ft_is_builtin(cmd->tab_str[0]) == 0)
-			{
-				signal(SIGINT, ft_signal_exec_handler);
-				pid = fork();
-				if (pid < 0)
-				{
-					perror("");
-					exit(EXIT_FAILURE);
-				}
-				if (pid == 0)
-					ft_execution(cmd);
-				else
-				{
-					if (ft_atoi(ft_getenv("SHLVL", cmd)) != 2)
-					{
-						ft_term_handler(1);
-						signal(SIGINT, SIG_IGN);
-						waitpid(pid, &g_status, 0);
-					}
-					printf("g_status avt : %d\n", g_status);
-					int test = WEXITSTATUS(g_status);
-					printf("test apr : %d\n", test);
-					waitpid(pid, &g_status, 0);
-					printf("g_status apr : %d\n", g_status);
-					test = WEXITSTATUS(g_status);
-					printf("test apr : %d\n", test);
-					signal(SIGINT, ft_signal_handler);
-				}
-			}
-			else
-				ft_exec_builtin(cmd);
-		}
+			ft_exec_cmd(cmd);
 		// free les tabs
 	}
+}
+
+void	ft_exec_cmd(t_cmd *cmd)
+{
+	pid_t	pid;
+
+	if (ft_is_builtin(cmd->tab_str[0]) == 0)
+	{
+		signal(SIGINT, ft_signal_exec_handler);
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+			ft_execution(cmd);
+		else
+			ft_exec_parent_process(cmd, pid);
+	}
+	else
+		ft_exec_builtin(cmd);
+}
+
+void	ft_exec_parent_process(t_cmd *cmd, pid_t pid)
+{
+	int		status;
+
+	if (ft_atoi(ft_getenv("SHLVL", cmd)) != 2)
+	{
+		ft_term_handler(1);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
+		waitpid(pid, &g_status, 0);
+	}
+	waitpid(pid, &g_status, 0);
+	status = WEXITSTATUS(g_status);
+	signal(SIGINT, ft_signal_handler);
 }
 
 void	ft_execution(t_cmd *cmd)
 {
 	if (cmd->tab_redir_in[0] || cmd->tab_redir_out1[0] \
 	|| cmd->tab_redir_out2[0])
-	{
 		ft_redir_dup(cmd);
-	}
 	else
 		ft_execute(cmd);
 }
@@ -86,7 +88,7 @@ void	ft_execution(t_cmd *cmd)
 void	ft_execute(t_cmd *cmd)
 {
 	char	**env_tab;
-	
+
 	if (ft_is_builtin(cmd->tab_str[0]))
 		ft_exec_builtin(cmd);
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:41:04 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:52:53 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,10 @@ char	*ft_access_path(t_cmd *cmd)
 	int		i;
 
 	i = -1;
+	tmp_path = NULL;
 	if (access(cmd->tab_str[0], X_OK) == 0)
 	{
-		while (cmd->tab_path[++i])
-		{
-			tmp_path = ft_strjoin(cmd->tab_path[i], "/");
-			if ((ft_strcmp(cmd->tab_path[i], cmd->tab_str[0]) == 0) \
-			|| (ft_strcmp(tmp_path, cmd->tab_str[0]) == 0))
-				printf("miniHell: %s: is a directory\n", cmd->tab_str[0]);
-			free(tmp_path);
-		}
+		ft_absolute_path(cmd, i, tmp_path);
 		return (ft_strdup(cmd->tab_str[0]));
 	}
 	while (cmd->tab_path[++i])
@@ -57,4 +51,16 @@ char	*ft_access_path(t_cmd *cmd)
 	}
 	printf("miniHell : %s : command not found\n", cmd->tab_str[0]);
 	return (NULL);
+}
+
+void	ft_absolute_path(t_cmd *cmd, int i, char *tmp_path)
+{
+	while (cmd->tab_path[++i])
+	{
+		tmp_path = ft_strjoin(cmd->tab_path[i], "/");
+		if ((ft_strcmp(cmd->tab_path[i], cmd->tab_str[0]) == 0) \
+		|| (ft_strcmp(tmp_path, cmd->tab_str[0]) == 0))
+			printf("miniHell: %s: is a directory\n", cmd->tab_str[0]);
+		free(tmp_path);
+	}
 }
