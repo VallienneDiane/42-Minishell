@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 18:36:38 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:59:25 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	errno = 0;
 	ft_cpy_env(env, &cmd);
 	if (ft_atoi(ft_getenv("SHLVL", &cmd)) == 2)
-		signal(SIGINT, ft_signal);
+		signal(SIGINT, SIG_IGN);
 	// cmd.env_cpy = ft_cpy_env(env);
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 18:41:49 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:53:59 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 		{
 			if (ft_is_builtin(cmd->tab_str[0]) == 0)
 			{
-				signal(SIGINT, ft_signal_exec);
+				signal(SIGINT, ft_signal_exec_handler);
 				pid = fork();
 				g_pid = pid;
 				if (pid < 0)
@@ -66,7 +66,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 						// printf("ICI 2");
 						// signal(SIGINT, SIG_IGN);
 						waitpid(pid, &errno, 0);
-						signal(SIGINT, ft_signal);
+						signal(SIGINT, ft_signal_handler);
 						
 					// }
 				}

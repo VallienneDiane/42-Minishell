@@ -6,13 +6,13 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 18:08:02 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:53:38 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_signal(int signal)
+void	ft_signal_handler(int signal)
 {
 	// ctrl C
 	// if (signal == SIGINT && g_pid != 0)
@@ -26,7 +26,7 @@ void	ft_signal(int signal)
 	}
 }
 
-void	ft_signal_exec(int signal)
+void	ft_signal_exec_handler(int signal)
 {
 	if (signal == SIGINT)
 		printf("\n");

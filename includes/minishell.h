@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 17:34:02 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:54:30 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,9 +179,8 @@ void	ft_execute(t_cmd *cmd);
 void	ft_execution(t_cmd *cmd);
 
 // Signaux
-void	ft_signal_handler(int signal, siginfo_t *info, void *context);
-void	ft_signal(int signal);
-void	ft_signal_exec(int signal);
+void	ft_signal_handler(int signal);
+void	ft_signal_exec_handler(int signal);
 void	ft_term_handler(int x);
 
 // Copy Env
