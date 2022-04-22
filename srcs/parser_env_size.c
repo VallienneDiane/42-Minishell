@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_env_size.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:26:31 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/12 11:30:34 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDES/minishell.h"
+#include "../includes/minishell.h"
 
 int	ft_is_valid(char c)
 {

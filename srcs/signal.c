@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 11:53:38 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:08:07 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	ft_signal_handler(int signal)
 {
-	// ctrl C
-	// if (signal == SIGINT && g_pid != 0)
-	// 	printf("\n");
-	if (signal == SIGINT) //  && g_pid == 0
+	if (signal == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
@@ -28,7 +25,7 @@ void	ft_signal_handler(int signal)
 
 void	ft_signal_exec_handler(int signal)
 {
-	if (signal == SIGINT)
+	if(signal == SIGINT)
 		printf("\n");
 }
 
@@ -40,9 +37,7 @@ void	ft_term_handler(int x)
 
 	term = 0;
 	if (x)
-	{
-		tcsetattr(0, 0, &t_save); //reset term
-	}
+		tcsetattr(0, 0, &t_save);
 	else
 	{
 		term = ttyslot();
@@ -50,7 +45,6 @@ void	ft_term_handler(int x)
 		t_new = t_save;
 		t_new.c_lflag &= ~(ICANON | ECHOCTL);
 		t_new.c_cc[VQUIT] = 0;
-		// signal(SIGINT, ft_signal);
 		tcsetattr(term, TCSANOW, &t_new);
 	}
 }

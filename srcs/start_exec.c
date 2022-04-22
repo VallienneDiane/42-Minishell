@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 11:53:59 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:09:56 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 		}
 		else
 		{
+
 			if (ft_is_builtin(cmd->tab_str[0]) == 0)
 			{
 				signal(SIGINT, ft_signal_exec_handler);
@@ -100,11 +101,7 @@ void	ft_execute(t_cmd *cmd)
 		if (cmd->tab_str[0])
 		{
 			env_tab = ft_env_to_tab(cmd);
-			if (execve(cmd->valid_path, cmd->tab_str, env_tab) < 0)
-			{
-				free(cmd->valid_path);
-				free(cmd->tab_str);
-			}
+			execve(cmd->valid_path, cmd->tab_str, env_tab);
 		}
 	}
 	exit(1);

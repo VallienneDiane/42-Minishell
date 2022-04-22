@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:34:05 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/19 15:25:29 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_exit(t_cmd *cmd)
 	size_t i;
 
 	printf("exit\n");
-	ft_term_handler(1);
 	if (cmd->tab_str[1])
 	{
 		i = 0;
@@ -25,7 +24,7 @@ int	ft_exit(t_cmd *cmd)
 		{
 			if (cmd->tab_str[1][i] < '0' || cmd->tab_str[1][i] > '9')
 			{
-				printf("minishell: exit: %s: numeric argument required\n", cmd->tab_str[1]);	
+				printf("miniHell: exit: %s: numeric argument required\n", cmd->tab_str[1]);	
 				exit(255);
 			}
 			i++;
