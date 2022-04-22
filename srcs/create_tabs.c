@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tabs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:50:55 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:11:43 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	ft_create_tab(t_cmd *cmd, t_list *list, int current_block)
 	}
 }
 
+// appeler ?
 void	ft_error_create_file(void)
 {
 	printf("Error : file not created\n");

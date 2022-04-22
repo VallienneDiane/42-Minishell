@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_env_join.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 14:00:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:04:19 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_errno_join(char *content, t_pars_info *p_info)
 {
 	char	*errno_str;
 
-	errno_str = ft_itoa(errno);
+	errno_str = ft_itoa(WEXITSTATUS(g_status));
 	ft_strjoin_content(content, errno_str);
 	p_info->j += ft_strlen(errno_str);
 	free(errno_str);

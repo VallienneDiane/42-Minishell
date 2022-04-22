@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:10:43 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:43:36 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (!option)
 		ft_redir_putstr(cmd, "\n");
+	g_status = 0;
 	return (0);
 }

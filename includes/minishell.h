@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:07:06 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:59:43 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@
 # define REDIR_OUT 3
 # define REDIR_CONC 4
 
-int	errno;
-int	g_pid;
+int	g_status;
 
 typedef struct s_list
 {
@@ -64,11 +63,13 @@ typedef struct s_pars_info
 	int				d_quote;
 	int				bracket;
 	int				cur_cont_size;
+	int				error;
 	struct s_cmd	*cmd;
 }	t_pars_info;
 
 typedef struct s_cmd
 {
+	int		parse_error;
 	char	*line_path;
 	char	**tab_path;
 	char	*valid_path;

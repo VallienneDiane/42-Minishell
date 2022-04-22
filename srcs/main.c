@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:07:00 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:02:28 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	ft_pipe(char *line, t_pars_info *p_info)
 		j++;
 	if (!line[j] || line[j] == '|')
 	{
-		printf("Pipe error\n");
-		exit(EXIT_FAILURE); ///////
+		if (!p_info->error)
+			printf("miniHell: syntax error near unexpected token `|'\n");
+		p_info->error = 1;
+		// return ;
+		// exit(EXIT_FAILURE); ///////
 	}
 	p_info->current_block++;
 	p_info->i += 1;
@@ -48,6 +51,7 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 	p_info.current_type = STR;
 	p_info.current_block = 1;
 	p_info.d_quote = 0;
+	p_info.error = 0;
 	p_info.cmd = cmd;
 	while (line[p_info.i])
 	{
@@ -56,6 +60,10 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 		if (line[p_info.i])
 			ft_lexer(list, line, &p_info);
 	}
+	if (p_info.error)
+		cmd->parse_error = 1;
+	else
+		cmd->parse_error = 0;
 }
 
 int	main(int ac, char **av, char **env)
@@ -64,20 +72,17 @@ int	main(int ac, char **av, char **env)
 	t_list	*list;
 	t_cmd	cmd;
 	
-	errno = 0;
+	g_status = 0;
 	ft_cpy_env(env, &cmd);
-	if (ft_atoi(ft_getenv("SHLVL", &cmd)) == 2)
-		signal(SIGINT, SIG_IGN);
-	// cmd.env_cpy = ft_cpy_env(env);
+	signal(SIGINT, ft_signal_handler);
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
-		// signal(SIGINT, ft_signal);
 		dup2(cmd.stdin_copy, STDIN_FILENO);
 		list = malloc(sizeof(t_list));
 		list = NULL;
 		ft_term_handler(0);
-		line = readline("minisHell$ ");
+		line = readline("miniHell$ ");
 		ft_term_handler(1);
 		if (line && line[0])
 			add_history(line);
@@ -89,7 +94,8 @@ int	main(int ac, char **av, char **env)
 		// ft_print_list(list);
 		cmd.line_path = ft_get_line_path(&cmd);
 		cmd.tab_path = ft_split(cmd.line_path, ':');
-		ft_start_exec(list, &cmd);
+		if (!cmd.parse_error)
+			ft_start_exec(list, &cmd);
 		free(list);
 	}
 	(void)ac;

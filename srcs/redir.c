@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 10:42:43 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:04:48 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,16 @@ void	ft_redir_out(char *line, t_pars_info *p_info)
 		j++;
 	if (!line[j] || line[j] == '|' || line[j] == '<' || line[j] == '>')
 	{
-		printf("miniHell: syntax error near unexpected token `newline'\n");
-		exit(EXIT_FAILURE);
+		if (!p_info->error)
+		{
+			if (!line[j])
+				printf("miniHell: syntax error near unexpected token `newline'\n");
+			else
+				printf("miniHell: syntax error near unexpected token `%c'\n", line[j]);
+		}
+		p_info->error = 1;
+		// return ;
+		// exit(258);
 	}
 	p_info->i += 1;
 }
@@ -43,8 +51,11 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 	{
 		if (line[j + 1] && line[j + 1] == '<')
 		{
-			printf("miniHell: syntax error near unexpected token `<'\n");
-			exit(EXIT_FAILURE);
+			if (!p_info->error)
+				printf("miniHell: syntax error near unexpected token `<'\n");
+			p_info->error = 1;
+			// return ;
+			// exit(258);
 		}
 		p_info->current_type = HEREDOC;
 		p_info->i += 1;
@@ -56,8 +67,16 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 			j++;
 		if (!line[j] || line[j] == '|' || line[j] == '<' || line[j] == '>')
 		{
-			printf("miniHell: syntax error near unexpected token `newline'\n");
-			exit(EXIT_FAILURE);
+			if (!p_info->error)
+			{
+				if (!line[j])
+					printf("miniHell: syntax error near unexpected token `newline'\n");
+				else
+					printf("miniHell: syntax error near unexpected token `%c'\n", line[j]);
+			}
+			p_info->error = 1;
+			// return ;
+			// exit(258);
 		}	
 	}
 	p_info->i += 1;

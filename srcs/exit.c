@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:34:05 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 14:59:51 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	ft_exit(t_cmd *cmd)
 		{
 			if (cmd->tab_str[1][i] < '0' || cmd->tab_str[1][i] > '9')
 			{
-				printf("miniHell: exit: %s: numeric argument required\n", cmd->tab_str[1]);	
+				printf("miniHell: exit: %s: numeric argument required\n", cmd->tab_str[1]);
 				exit(255);
 			}
 			i++;
 		}
-		exit(errno);
+		exit(ft_atoi(cmd->tab_str[1]));
 	}
 	exit(0);
 }

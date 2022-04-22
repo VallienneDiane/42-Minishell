@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:09:56 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:40:18 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,29 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 			{
 				signal(SIGINT, ft_signal_exec_handler);
 				pid = fork();
-				g_pid = pid;
 				if (pid < 0)
 				{
 					perror("");
 					exit(EXIT_FAILURE);
 				}
 				if (pid == 0)
-				{
-					// if (ft_atoi(ft_getenv("SHLVL", cmd)) != 2)
-					// 	signal(SIGINT, SIG_IGN);
 					ft_execution(cmd);
-				}
 				else
 				{
 					if (ft_atoi(ft_getenv("SHLVL", cmd)) != 2)
 					{
-						// printf("ICI 1");
 						ft_term_handler(1);
 						signal(SIGINT, SIG_IGN);
-						waitpid(pid, &errno, 0);
-						
+						waitpid(pid, &g_status, 0);
 					}
-					// else
-					// {
-						// printf("ICI 2");
-						// signal(SIGINT, SIG_IGN);
-						waitpid(pid, &errno, 0);
-						signal(SIGINT, ft_signal_handler);
-						
-					// }
+					printf("g_status avt : %d\n", g_status);
+					int test = WEXITSTATUS(g_status);
+					printf("test apr : %d\n", test);
+					waitpid(pid, &g_status, 0);
+					printf("g_status apr : %d\n", g_status);
+					test = WEXITSTATUS(g_status);
+					printf("test apr : %d\n", test);
+					signal(SIGINT, ft_signal_handler);
 				}
 			}
 			else
@@ -104,5 +97,9 @@ void	ft_execute(t_cmd *cmd)
 			execve(cmd->valid_path, cmd->tab_str, env_tab);
 		}
 	}
-	exit(1);
+	printf("CHOUETTE\n");
+	if (cmd->valid_path)
+		exit (126);
+	else
+		exit (127);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_env_size.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:26:31 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:04:40 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_errno_size(void)
 	char	*errno_str;
 	int		errno_size;
 
-	errno_str = ft_itoa(errno);
+	errno_str = ft_itoa(WEXITSTATUS(g_status));
 	errno_size = ft_strlen(errno_str);
 	free(errno_str);
 	return (errno_size);

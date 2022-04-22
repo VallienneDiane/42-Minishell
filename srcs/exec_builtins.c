@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:03:59 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 13:08:53 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/22 14:23:36 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_is_builtin(char *str)
 
 int	ft_exec_builtin(t_cmd *cmd)
 {
+
+	printf("g_status : %d\n", g_status);
 	if (ft_strcmp("echo", cmd->tab_str[0]) == 0)
 		return (ft_echo(cmd));
 	if (ft_strcmp("pwd", cmd->tab_str[0]) == 0)
