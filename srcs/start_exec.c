@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:55:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/25 16:34:39 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_exec_cmd(t_cmd *cmd)
 	if (ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		signal(SIGINT, ft_signal_exec_handler);
+		signal(SIGQUIT, ft_signal_exec_handler);
 		pid = fork();
 		if (pid < 0)
 		{
@@ -54,24 +55,27 @@ void	ft_exec_cmd(t_cmd *cmd)
 		if (pid == 0)
 			ft_execution(cmd);
 		else
-			ft_exec_parent_process(cmd, pid);
+			ft_exec_parent_process(pid);
 	}
 	else
 		ft_exec_builtin(cmd);
 }
 
-void	ft_exec_parent_process(t_cmd *cmd, pid_t pid)
+void	ft_exec_parent_process(pid_t pid)
 {
 	int		status;
 
-	if (ft_atoi(ft_getenv("SHLVL", cmd)) != 2)
-	{
-		ft_term_handler(1);
-		signal(SIGINT, SIG_IGN);
-		signal(SIGINT, SIG_DFL);
-		waitpid(pid, &g_status, 0);
-	}
 	waitpid(pid, &g_status, 0);
+	if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 2)
+	{
+		printf("\n");
+		g_status = 130;
+	}
+	else if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 3)
+	{
+		printf("\n");
+		g_status = 131;
+	}
 	status = WEXITSTATUS(g_status);
 	signal(SIGINT, ft_signal_handler);
 }
@@ -99,7 +103,6 @@ void	ft_execute(t_cmd *cmd)
 			execve(cmd->valid_path, cmd->tab_str, env_tab);
 		}
 	}
-	printf("CHOUETTE\n");
 	if (cmd->valid_path)
 		exit (126);
 	else

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 14:48:25 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/25 17:22:46 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,37 @@ void	ft_signal_handler(int signal)
 void	ft_signal_exec_handler(int signal)
 {
 	if(signal == SIGINT)
+		return ;
+	if (signal == SIGQUIT)
+	{
+		printf("Quit: 3");
+	}
+}
+
+void	ft_quit_heredoc(int signal) 
+{
+	if (signal == SIGINT) // Ctrl C doit sortir heredoc et aller la ligne
+	{	
 		printf("\n");
+		exit(EXIT_SUCCESS);
+	}
+	// Ctrld D doit sortir heredoc et rester sur la meme ligne
 }
 
 void	ft_term_handler(int x)
 {
-	static struct termios t_save;
+	static struct termios t_old;
 	struct termios t_new;
 	int term;
 
 	term = 0;
 	if (x)
-		tcsetattr(0, 0, &t_save);
+		tcsetattr(0, 0, &t_old);
 	else
 	{
 		term = ttyslot();
-		tcgetattr(term, &t_save);
-		t_new = t_save;
+		tcgetattr(term, &t_old);
+		t_new = t_old;
 		t_new.c_lflag &= ~(ICANON | ECHOCTL);
 		t_new.c_cc[VQUIT] = 0;
 		tcsetattr(term, TCSANOW, &t_new);

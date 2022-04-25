@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:20:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/25 16:58:30 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_fill_tab_str(t_cmd *cmd, t_list *list, int *i)
 void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
 {
 	char	*str;
+	pid_t	pid;
 
 	cmd->last_in = 0;
 	cmd->tab_heredoc[*m] = malloc(sizeof(char) * ft_strlen(list->content));
@@ -36,13 +37,22 @@ void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
 		exit(EXIT_FAILURE);
 	}
 	cmd->tab_heredoc[*m] = list->content;
-	dup2(cmd->stdin_copy, STDIN_FILENO);
-	str = ft_heredoc_loop(list->content);
-	pipe(cmd->pipe_heredoc_fd);
-	write(cmd->pipe_heredoc_fd[1], str, ft_strlen(str));
-	close(cmd->pipe_heredoc_fd[1]);
-	dup2(cmd->pipe_heredoc_fd[0], STDIN_FILENO);
-	close(cmd->pipe_heredoc_fd[0]);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(cmd->stdin_copy, STDIN_FILENO);
+		str = ft_heredoc_loop(list->content);
+		pipe(cmd->pipe_heredoc_fd);
+		write(cmd->pipe_heredoc_fd[1], str, ft_strlen(str));
+		close(cmd->pipe_heredoc_fd[1]);
+		dup2(cmd->pipe_heredoc_fd[0], STDIN_FILENO);
+		close(cmd->pipe_heredoc_fd[0]);
+	}
+	else
+	{
+		waitpid(pid, &g_status, 0);
+		signal(SIGINT, ft_signal_handler);
+	}
 }
 
 void	ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j)
