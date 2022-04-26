@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/25 16:34:39 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:43:42 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	ft_exec_cmd(t_cmd *cmd)
 		if (pid == 0)
 			ft_execution(cmd);
 		else
+		{
 			ft_exec_parent_process(pid);
+		}
 	}
 	else
 		ft_exec_builtin(cmd);
@@ -63,8 +65,6 @@ void	ft_exec_cmd(t_cmd *cmd)
 
 void	ft_exec_parent_process(pid_t pid)
 {
-	int		status;
-
 	waitpid(pid, &g_status, 0);
 	if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 2)
 	{
@@ -76,7 +76,7 @@ void	ft_exec_parent_process(pid_t pid)
 		printf("\n");
 		g_status = 131;
 	}
-	status = WEXITSTATUS(g_status);
+	g_status = WEXITSTATUS(g_status);
 	signal(SIGINT, ft_signal_handler);
 }
 

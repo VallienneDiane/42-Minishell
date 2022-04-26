@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 14:00:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/23 12:06:44 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/26 13:53:55 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_errno_join(char *content, t_pars_info *p_info)
 {
 	char	*errno_str;
 
-	errno_str = ft_itoa(WEXITSTATUS(g_status));
+	errno_str = ft_itoa(g_status);
 	ft_strjoin_content(content, errno_str);
 	p_info->j += ft_strlen(errno_str);
 	free(errno_str);

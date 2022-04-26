@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:26:31 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/23 12:06:33 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/26 13:53:50 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_errno_size(void)
 	char	*errno_str;
 	int		errno_size;
 
-	errno_str = ft_itoa(WEXITSTATUS(g_status));
+	errno_str = ft_itoa(g_status);
 	errno_size = ft_strlen(errno_str);
 	free(errno_str);
 	return (errno_size);

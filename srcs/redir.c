@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 10:42:43 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/22 17:04:48 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:05:46 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	ft_redir_out(char *line, t_pars_info *p_info)
 				printf("miniHell: syntax error near unexpected token `%c'\n", line[j]);
 		}
 		p_info->error = 1;
-		// return ;
-		// exit(258);
+		g_status = 258;
 	}
 	p_info->i += 1;
 }
@@ -51,11 +50,18 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 	{
 		if (line[j + 1] && line[j + 1] == '<')
 		{
+			
 			if (!p_info->error)
 				printf("miniHell: syntax error near unexpected token `<'\n");
 			p_info->error = 1;
-			// return ;
-			// exit(258);
+			g_status = 258;
+		}
+		else if (!line[j + 1])
+		{
+			if (!p_info->error)
+				printf("miniHell: syntax error near unexpected token `newline'\n");
+			p_info->error = 1;
+			g_status = 258;
 		}
 		p_info->current_type = HEREDOC;
 		p_info->i += 1;
@@ -75,8 +81,7 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 					printf("miniHell: syntax error near unexpected token `%c'\n", line[j]);
 			}
 			p_info->error = 1;
-			// return ;
-			// exit(258);
+			g_status = 258;
 		}	
 	}
 	p_info->i += 1;

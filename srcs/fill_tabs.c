@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:20:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/25 16:58:30 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:56:21 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
 		exit(EXIT_FAILURE);
 	}
 	cmd->tab_heredoc[*m] = list->content;
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, ft_signal_exec_handler);
+	pipe(cmd->pipe_heredoc_fd);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -51,7 +55,15 @@ void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
 	else
 	{
 		waitpid(pid, &g_status, 0);
-		signal(SIGINT, ft_signal_handler);
+		if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 2)
+		{
+			printf(">\n");
+			g_status = 130;
+			close(cmd->pipe_heredoc_fd[1]);
+			dup2(cmd->pipe_heredoc_fd[0], STDIN_FILENO);
+			close(cmd->pipe_heredoc_fd[0]);
+			ft_term_handler(1);
+		}
 	}
 }
 

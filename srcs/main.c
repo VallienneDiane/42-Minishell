@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:54:41 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:24:10 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	t_list	*list;
 	t_cmd	cmd;
 	
-	g_status = 0;
+	g_status = 10;
 	ft_cpy_env(env, &cmd);
 	signal(SIGINT, ft_signal_handler);
 	cmd.stdin_copy = dup(STDIN_FILENO);
