@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:52:59 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:33:33 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_cmd
 	int		pipefd[2];
 	int		pipe_heredoc_fd[2];
 	t_env	*env_list;
+	char	*mem_pwd;
 }	t_cmd;
 
 ////////////////////
@@ -168,6 +169,7 @@ int		ft_echo(t_cmd *cmd);
 void	ft_print_echo(t_cmd *cmd, int *option, int *is_arg, int i);
 int		ft_option(char *arg);
 int		ft_pwd(t_cmd *cmd);
+void	ft_if_delete_parent_folder(t_cmd *cmd);
 void	ft_redir_putstr(t_cmd *cmd, char *str);
 char	*ft_heredoc_loop(char *stop);
 int		ft_env(t_cmd *cmd);
@@ -179,7 +181,7 @@ int		ft_exit(t_cmd *cmd);
 
 // Execute
 void	ft_exec_cmd(t_cmd *cmd);
-void	ft_exec_parent_process(t_cmd *cmd, pid_t pid);
+void	ft_exec_parent_process(pid_t pid);
 void	ft_execute(t_cmd *cmd);
 void	ft_execution(t_cmd *cmd);
 
@@ -187,6 +189,7 @@ void	ft_execution(t_cmd *cmd);
 void	ft_signal_handler(int signal);
 void	ft_signal_exec_handler(int signal);
 void	ft_term_handler(int x);
+void	ft_quit_heredoc(int signal);
 
 
 // Copy Env

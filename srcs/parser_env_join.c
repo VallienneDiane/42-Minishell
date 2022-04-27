@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 14:00:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/25 10:53:40 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/27 10:40:01 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_errno_join(char *content, t_pars_info *p_info)
 {
 	char	*errno_str;
 
-	errno_str = ft_itoa(WEXITSTATUS(g_status));
+	errno_str = ft_itoa(g_status);
 	ft_strjoin_content(content, errno_str);
 	p_info->j += ft_strlen(errno_str);
 	free(errno_str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:56:42 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:54:34 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/25 13:38:35 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,18 @@ int	ft_cd(t_cmd *cmd)
 			path = ft_getenv("HOME", cmd);
 			chdir(path);
 			pwd = getcwd(cwd, sizeof(cwd));
-			printf("PATH %s, PWD %s\n", path, pwd);
 		}
 		else if (access(cmd->tab_str[1], F_OK) == 0)
 		{
 			path = cmd->tab_str[1];
 			chdir(cmd->tab_str[1]);
 			pwd = getcwd(cwd, sizeof(cwd));
-			printf("PATH %s, PWD %s\n", path, pwd);
+			if (pwd)
+				cmd->mem_pwd = pwd;
 			if ((access(pwd, F_OK) != 0))
 			{
-				// pwd = getcwd(pwd, sizeof(pwd));
-				printf("cd: error retrieving current directory: getcwd: \
-				cannot access parent directories: No such file or directory\n");
+				printf("cd: error retrieving current directory: getcwd: ");
+				printf("cannot access parent directories: No such file or directory\n");
 			}
 		}
 		else if (access(cmd->tab_str[1], F_OK) != 0)
@@ -60,7 +59,6 @@ int	ft_cd(t_cmd *cmd)
 		path = ft_getenv("HOME", cmd);
 		chdir(path);
 		pwd = getcwd(cwd, sizeof(cwd));
-		printf("PATH %s, PWD %s\n", path, pwd);
 	}
 	g_status = 0;
 	return (0);
