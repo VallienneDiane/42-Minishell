@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 17:55:05 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/25 11:06:00 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_execute(t_cmd *cmd)
 			execve(cmd->valid_path, cmd->tab_str, env_tab);
 		}
 	}
-	printf("CHOUETTE\n");
 	if (cmd->valid_path)
 		exit (126);
 	else
