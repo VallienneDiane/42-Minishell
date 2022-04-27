@@ -6,11 +6,38 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/27 10:40:13 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:37:07 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_free_tab(char **av)
+{
+	int	i;
+
+	i = 0;
+	// while (av[i])
+	// {
+	// 	free(av[i]);
+	// 	i++;
+	// }
+	free(av);
+}
+
+void	ft_free_all_tabs(t_cmd *cmd)
+{
+	if (cmd->tab_heredoc[0])
+		ft_free_tab(cmd->tab_heredoc);
+	if (cmd->tab_str[0])
+		ft_free_tab(cmd->tab_str);
+	if (cmd->tab_redir_in[0])
+		ft_free_tab(cmd->tab_redir_in);
+	if (cmd->tab_redir_out1[0])
+		ft_free_tab(cmd->tab_redir_out1);
+	if (cmd->tab_redir_out2[0])
+		ft_free_tab(cmd->tab_redir_out2);
+}
 
 void	ft_start_exec(t_list *list, t_cmd *cmd)
 {	
@@ -19,6 +46,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 
 	i = 0;
 	current_block = 1;
+	cmd->infile_error = 0;
 	cmd->valid_path = NULL;
 	while (list)
 	{
@@ -33,8 +61,13 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 			current_block++;
 		}
 		else
+		{
 			ft_exec_cmd(cmd);
+		}
+			
+		// ft_free_tab(cmd->tab_str);
 		// free les tabs
+		ft_free_all_tabs(cmd);
 	}
 }
 
@@ -66,18 +99,20 @@ void	ft_exec_cmd(t_cmd *cmd)
 void	ft_exec_parent_process(pid_t pid)
 {
 	waitpid(pid, &g_status, 0);
-	if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 2)
+	if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == SIGINT)
 	{
 		printf("\n");
 		g_status = 130;
 	}
-	else if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 3)
+	else if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == SIGQUIT)
 	{
-		printf("\n");
+		printf("Quit: 3\n");
 		g_status = 131;
 	}
-	g_status = WEXITSTATUS(g_status);
+	else
+		g_status = WEXITSTATUS(g_status);
 	signal(SIGINT, ft_signal_handler);
+	signal(SIGQUIT, ft_signal_exec_handler);
 }
 
 void	ft_execution(t_cmd *cmd)
@@ -97,7 +132,7 @@ void	ft_execute(t_cmd *cmd)
 		ft_exec_builtin(cmd);
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
-		if (cmd->tab_str[0])
+		if (cmd->tab_str[0] && cmd->infile_error == 0)
 		{
 			env_tab = ft_env_to_tab(cmd);
 			execve(cmd->valid_path, cmd->tab_str, env_tab);

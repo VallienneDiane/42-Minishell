@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/25 14:33:33 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:10:15 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	g_status;
 typedef struct s_list
 {
 	char			*content;
-	char			*str;
+	// char			*str;
 	int				type;
 	int				block;
 	struct s_list	*next;
@@ -71,6 +71,7 @@ typedef struct s_pars_info
 typedef struct s_cmd
 {
 	int		parse_error;
+	int		infile_error;
 	char	*line_path;
 	char	**tab_path;
 	char	*valid_path;
@@ -143,12 +144,10 @@ void	ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j);
 void	ft_fill_redir_out1(t_cmd *cmd, t_list *list, int *k);
 void	ft_fill_redir_out2(t_cmd *cmd, t_list *list, int *l);
 void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m);
-int		ft_create_file(t_cmd *cmd, int type);
 int		ft_create_file_in(t_cmd *cmd);
 int		ft_create_file_out1(t_cmd *cmd);
 int		ft_create_file_out2(t_cmd *cmd);
 int		ft_create_file_heredoc(t_cmd *cmd);
-void	ft_error_create_file(void);
 
 // Pipe
 void	ft_exec_pipex(t_cmd *cmd);
