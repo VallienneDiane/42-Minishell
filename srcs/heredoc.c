@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:24:51 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/27 11:38:56 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 10:19:50 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ char	*ft_heredoc_loop(char *stop)
 	str = "";
 	line = NULL;
 	signal(SIGINT, SIG_DFL);
-	ft_term_handler(0);
 	while (1)
 	{
-		line = readline(">");
+		line = readline("> ");
+		if (!line)
+			break ;
 		if (ft_strlen(line) && !ft_strncmp(line, stop, ft_strlen(line)))
 			break ;
+		
 		str = ft_strjoin(str, line);
 		free (line);
 		if (str)

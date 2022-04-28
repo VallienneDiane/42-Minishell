@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:50:55 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/22 15:11:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:33:35 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,4 @@ void	ft_create_tab(t_cmd *cmd, t_list *list, int current_block)
 			ft_fill_heredoc(cmd, list, &m);
 		list = list->next;
 	}
-}
-
-// appeler ?
-void	ft_error_create_file(void)
-{
-	printf("Error : file not created\n");
-	exit(EXIT_FAILURE);
 }
