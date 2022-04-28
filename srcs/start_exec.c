@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 12:00:42 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:00:02 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,9 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 		}
 		else
 			ft_exec_cmd(cmd);
-		}
-			
-		// ft_free_tab(cmd->tab_str);
-		// free les tabs
-		free(cmd->valid_path);
-		ft_free_all_tabs(cmd);
 	}
+	free(cmd->valid_path);
+	ft_free_all_tabs(cmd);
 }
 
 void	ft_exec_cmd(t_cmd *cmd)
@@ -54,7 +50,7 @@ void	ft_exec_cmd(t_cmd *cmd)
 		signal(SIGQUIT, ft_signal_exec_handler);
 		pid = fork();
 		if (pid < 0)
-		{ 
+		{
 			perror("");
 			exit(EXIT_FAILURE);
 		}

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:03:59 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/25 10:52:57 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:59:50 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ int	ft_exec_builtin(t_cmd *cmd)
 		return (ft_cd(cmd));
 	if (ft_strcmp("exit", cmd->tab_str[0]) == 0)
 		return (ft_exit(cmd));
-	return (1);
+	return (0);
 }

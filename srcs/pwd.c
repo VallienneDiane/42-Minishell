@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:24:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/25 11:28:27 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:13:43 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	ft_pwd(t_cmd *cmd)
 {
 	char	cwd[1024];
-	
+
 	if (getcwd(cwd, sizeof(cwd)))
 	{
 		if (cmd->last_out == 2)
 		{
 			ft_putstr_fd(cwd, cmd->fd_out_append);
-			ft_putstr_fd("\n", cmd->fd_out_append);	
+			ft_putstr_fd("\n", cmd->fd_out_append);
 		}
 		else if (cmd->last_out == 1)
 		{
@@ -45,7 +45,7 @@ void	ft_if_delete_parent_folder(t_cmd *cmd)
 	if (cmd->last_out == 2)
 	{
 		ft_putstr_fd(cmd->mem_pwd, cmd->fd_out_append);
-		ft_putstr_fd("\n", cmd->fd_out_append);	
+		ft_putstr_fd("\n", cmd->fd_out_append);
 	}
 	else if (cmd->last_out == 1)
 	{

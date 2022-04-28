@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/04/28 11:41:27 by dvallien         ###   ########.fr       */
-=======
-/*   Updated: 2022/04/28 11:46:10 by amarchal         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2022/04/28 15:18:55 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +27,6 @@ void	ft_pipe(char *line, t_pars_info *p_info)
 			g_status = 258;
 		}
 		p_info->error = 1;
-		// return ;
-		// exit(EXIT_FAILURE); ///////
 	}
 	p_info->current_block++;
 	p_info->i += 1;
@@ -75,10 +69,10 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 
 int	main(int ac, char **av, char **env)
 {
-	char 	*line;
+	char	*line;
 	t_list	*list;
 	t_cmd	cmd;
-	(void)env;
+
 	g_status = 0;
 	ft_cpy_env(env, &cmd);
 	signal(SIGINT, ft_signal_handler);
@@ -86,7 +80,6 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		dup2(cmd.stdin_copy, STDIN_FILENO);
-		// list = malloc(sizeof(t_list));
 		list = NULL;
 		ft_term_handler(0);
 		line = readline("miniHell$ ");
@@ -98,17 +91,12 @@ int	main(int ac, char **av, char **env)
 		if (line)
 			ft_parsing(&list, line, &cmd);
 		free(line);
-		// ft_print_list(list);
 		cmd.line_path = ft_get_line_path(&cmd);
 		cmd.tab_path = ft_split(cmd.line_path, ':');
 		if (!cmd.parse_error)
 			ft_start_exec(list, &cmd);
-<<<<<<< HEAD
-=======
-		ft_free_path(cmd.tab_path);
-		ft_lstclear(&list);	
-		// free(list);
->>>>>>> master
+		ft_free_split(cmd.tab_path);
+		ft_lstclear(&list);
 	}
 	(void)ac;
 	(void)av;

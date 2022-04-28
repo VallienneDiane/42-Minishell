@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chained_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:31:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 10:38:35 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:37:33 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_lstadd_back_env(t_env **alst, t_env *new)
 t_list	*ft_lstnew(char *content, int type, int block)
 {
 	t_list	*newlist;
-	
+
 	newlist = malloc(sizeof(t_list));
 	if (!newlist)
 		return (NULL);
@@ -87,7 +87,7 @@ t_list	*ft_lstnew(char *content, int type, int block)
 t_env	*ft_lstnew_env(char *name, char *value)
 {
 	t_env	*newenv;
-	
+
 	newenv = malloc(sizeof(t_env));
 	if (!newenv)
 		return (NULL);
@@ -96,12 +96,3 @@ t_env	*ft_lstnew_env(char *name, char *value)
 	newenv->next = NULL;
 	return (newenv);
 }
-
-// void	ft_print_list(t_list *list)
-// {
-// 	while (list)
-// 	{
-// 		printf("\033[93m%s | type %d | block %d\n\033[0m", list->content, list->type, list->block);
-// 		list = list->next;
-// 	}
-// }
