@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/28 11:41:27 by dvallien         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/28 11:46:10 by amarchal         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +78,15 @@ int	main(int ac, char **av, char **env)
 	char 	*line;
 	t_list	*list;
 	t_cmd	cmd;
-	
-	g_status = 10;
+	(void)env;
+	g_status = 0;
 	ft_cpy_env(env, &cmd);
 	signal(SIGINT, ft_signal_handler);
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
 		dup2(cmd.stdin_copy, STDIN_FILENO);
-		list = malloc(sizeof(t_list));
+		// list = malloc(sizeof(t_list));
 		list = NULL;
 		ft_term_handler(0);
 		line = readline("miniHell$ ");
@@ -99,6 +103,12 @@ int	main(int ac, char **av, char **env)
 		cmd.tab_path = ft_split(cmd.line_path, ':');
 		if (!cmd.parse_error)
 			ft_start_exec(list, &cmd);
+<<<<<<< HEAD
+=======
+		ft_free_path(cmd.tab_path);
+		ft_lstclear(&list);	
+		// free(list);
+>>>>>>> master
 	}
 	(void)ac;
 	(void)av;
