@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:06:35 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/27 17:09:55 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:37:19 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	ft_create_file_in(t_cmd *cmd)
 	if (!cmd->tab_redir_in || cmd->fd_in == -1)
 	{
 		cmd->infile_error = 1;
-		printf("miniHell: %s: No such file or directory\n", cmd->tab_redir_in[0]);
+		printf("miniHell: %s: No such file or directory\n", \
+		cmd->tab_redir_in[0]);
 		g_status = 256;
 	}
 	return (0);

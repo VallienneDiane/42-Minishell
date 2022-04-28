@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/27 11:49:22 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/28 12:13:03 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ LST_SRCS := start_exec.c		\
 			cd.c				\
 			exit.c				\
 			signal.c			\
+			free.c				\
 			lexer.c
 			
 DIR_OBJS := ./.OBJS

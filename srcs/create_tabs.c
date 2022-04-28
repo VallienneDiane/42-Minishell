@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tabs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:50:55 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/27 17:33:35 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:51:20 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,30 +68,26 @@ void	ft_malloc_tab(t_cmd *cmd)
 
 void	ft_create_tab(t_cmd *cmd, t_list *list, int current_block)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	l;
-	int m;
+	t_init_index	init_index;
 
-	i = 0;
-	j = 0;
-	k = 0;
-	l = 0;
-	m = 0;
+	init_index.i = 0;
+	init_index.j = 0;
+	init_index.k = 0;
+	init_index.l = 0;
+	init_index.m = 0;
 	ft_malloc_tab(cmd);
 	while (list && list->block == current_block)
 	{
 		if (list->type == STR)
-			ft_fill_tab_str(cmd, list, &i);
+			ft_fill_tab_str(cmd, list, &init_index.i);
 		else if (list->type == REDIR_IN)
-			ft_fill_redir_in(cmd, list, &j);
+			ft_fill_redir_in(cmd, list, &init_index.j);
 		else if (list->type == REDIR_OUT)
-			ft_fill_redir_out1(cmd, list, &k);
+			ft_fill_redir_out1(cmd, list, &init_index.k);
 		else if (list->type == REDIR_CONC)
-			ft_fill_redir_out2(cmd, list, &l);
+			ft_fill_redir_out2(cmd, list, &init_index.l);
 		else if (list->type == HEREDOC)
-			ft_fill_heredoc(cmd, list, &m);
+			ft_fill_heredoc(cmd, list, &init_index.m);
 		list = list->next;
 	}
 }
