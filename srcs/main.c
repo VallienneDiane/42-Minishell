@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 10:20:06 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 11:41:27 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,6 @@ void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
 		cmd->parse_error = 0;
 }
 
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*temp;
-
-	temp = *lst;
-	while (*lst)
-	{
-		*lst = temp->next;
-		free(temp->content);
-		free(temp);
-		temp = *lst;
-	}
-}
-
-void	ft_free_path(char **av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i])
-	{
-		free(av[i]);
-		i++;
-	}
-	free(av);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char 	*line;
@@ -126,9 +99,6 @@ int	main(int ac, char **av, char **env)
 		cmd.tab_path = ft_split(cmd.line_path, ':');
 		if (!cmd.parse_error)
 			ft_start_exec(list, &cmd);
-		ft_free_path(cmd.tab_path);
-		ft_lstclear(&list);	
-		free(list);
 	}
 	(void)ac;
 	(void)av;

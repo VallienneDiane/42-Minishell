@@ -6,38 +6,11 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 10:20:01 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 10:59:08 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_free_tab(char **av)
-{
-	int	i;
-
-	i = 0;
-	// while (av[i])
-	// {
-	// 	free(av[i]);
-	// 	i++;
-	// }
-	free(av);
-}
-
-void	ft_free_all_tabs(t_cmd *cmd)
-{
-	if (cmd->tab_heredoc[0])
-		ft_free_tab(cmd->tab_heredoc);
-	if (cmd->tab_str[0])
-		ft_free_tab(cmd->tab_str);
-	if (cmd->tab_redir_in[0])
-		ft_free_tab(cmd->tab_redir_in);
-	if (cmd->tab_redir_out1[0])
-		ft_free_tab(cmd->tab_redir_out1);
-	if (cmd->tab_redir_out2[0])
-		ft_free_tab(cmd->tab_redir_out2);
-}
 
 void	ft_start_exec(t_list *list, t_cmd *cmd)
 {	
@@ -61,12 +34,8 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 			current_block++;
 		}
 		else
-		{
 			ft_exec_cmd(cmd);
-		}
-			
-		// ft_free_tab(cmd->tab_str);
-		// free les tabs
+		free(cmd->valid_path);
 		ft_free_all_tabs(cmd);
 	}
 }
@@ -77,8 +46,8 @@ void	ft_exec_cmd(t_cmd *cmd)
 
 	if (ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
-		// signal(SIGINT, ft_signal_exec_handler);
-		// signal(SIGQUIT, ft_signal_exec_handler);
+		signal(SIGINT, ft_signal_exec_handler);
+		signal(SIGQUIT, ft_signal_exec_handler);
 		pid = fork();
 		if (pid < 0)
 		{ 

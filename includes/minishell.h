@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 10:19:42 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 10:38:38 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,12 @@ char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	ft_putstr_fd(char *s, int fd);
+
+// Free
+void	ft_lstclear(t_list **lst);
+void	ft_free_all_tabs(t_cmd *cmd);
+void	ft_free_path(char **av);
+void	ft_free_tab(char **av);
 
 // Parse type
 int		main(int ac, char **av, char **env);
