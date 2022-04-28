@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/28 16:09:44 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/28 17:38:57 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,38 +14,43 @@ NAME := minishell
 LIB := ./libft/libft.a
 
 DIR_SRCS := ./SRCS
-LST_SRCS := start_exec.c		\
-			chained_list.c		\
-			chained_list_env.c	\
-			path.c				\
-			create_tabs.c 		\
-			fill_tabs.c			\
-			create_files.c		\
-			redir_dup.c 		\
-			exec_pipex.c		\
-			exec_builtins.c		\
-			echo.c				\
-			cpy_env.c			\
-			env.c				\
-			export.c			\
-			unset.c				\
-			export_print.c		\
-			heredoc.c 			\
-			pwd.c 				\
-			main.c				\
-			parser_quote.c		\
-			parser_env_size.c	\
-			parser_env_name.c	\
-			parser_env_join.c	\
-			redir.c				\
-			cd.c				\
-			exit.c				\
-			signal.c			\
-			free.c				\
-			lexer.c
+LST_SRCS := main/main.c					\
+			main/signal.c				\
+			main/free.c					\
+			parsing/chained_list_env.c	\
+			parsing/chained_list.c		\
+			parsing/cpy_env.c			\
+			parsing/export_print.c		\
+			parsing/lexer.c				\
+			parsing/parser_env_join.c	\
+			parsing/parser_env_name.c	\
+			parsing/parser_env_size.c	\
+			parsing/parser_quote.c		\
+			parsing/redir.c				\
+			execution/create_files.c	\
+			execution/create_tabs.c 	\
+			execution/exec_builtins.c	\
+			execution/exec_pipex.c		\
+			execution/fill_tabs.c		\
+			execution/heredoc.c 		\
+			execution/path.c			\
+			execution/redir_dup.c 		\
+			execution/start_exec.c		\
+			builtins/cd.c				\
+			builtins/echo.c				\
+			builtins/env.c				\
+			builtins/exit.c				\
+			builtins/export.c			\
+			builtins/pwd.c 				\
+			builtins/unset.c				
 			
 DIR_OBJS := ./.OBJS
 LST_OBJS := $(LST_SRCS:.c=.o)
+
+SUB_DIR	:= 	main		\
+			parsing		\
+			execution	\
+			builtins	\
 
 SRCS := $(addprefix $(DIR_SRCS)/, $(LST_SRCS))
 OBJS := $(addprefix $(DIR_OBJS)/, $(LST_OBJS))
@@ -60,7 +65,7 @@ READLINE_LIB := -L /Users/$(USER)/.brew/opt/readline/lib
 READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include
 
 $(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c $(INCLUDE)
-		@mkdir -p $(DIR_OBJS)
+		@mkdir -p $(DIR_OBJS) $(addprefix $(DIR_OBJS)/, $(SUB_DIR))
 		$(CC) $(CFLAGS) -I $(INCLUDE) $(READLINE_INC) -c $< -o $@
 
 all : libft $(NAME)
@@ -74,7 +79,7 @@ $(NAME) : $(OBJS) $(LIB)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
 
 DIR_OBJS :
-		mkdir -p $(DIR_OBJS)
+		mkdir -p $(DIR_OBJS) $(addprefix $(DIR_OBJS)/, $(SUB_DIR))
 
 clean:
 		@rm -rf $(DIR_OBJS)

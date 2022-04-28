@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 16:12:42 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 18:38:15 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_cmd
 	int		pipe_heredoc_fd[2];
 	t_env	*env_list;
 	char	*mem_pwd;
+	int		pipe_id;
+	pid_t	*pipe_pids;
 }	t_cmd;
 
 ////////////////////
@@ -160,7 +162,7 @@ int		ft_create_file_heredoc(t_cmd *cmd);
 // Pipe
 void	ft_exec_pipex(t_cmd *cmd);
 void	ft_pipex_child(t_cmd *cmd);
-void	ft_pipex_parent(t_cmd *cmd, pid_t pid);
+void	ft_pipex_parent(t_cmd *cmd);
 
 // Redirections
 void	ft_redir_dup(t_cmd *cmd);
