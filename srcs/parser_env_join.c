@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 14:00:34 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/27 10:40:01 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:05:27 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,16 @@ char	*ft_join_split_env(char **sub_env, char *content,
 	ft_strjoin_content(content, sub_env[0]);
 	ft_lstadd_back(list, ft_lstnew(content,
 			p_info->current_type, p_info->current_block));
+	free(sub_env[0]);
 	while (sub_env[k + 1])
-		ft_lstadd_back(list, ft_lstnew(sub_env[k++],
+	{
+		ft_lstadd_back(list, ft_lstnew(sub_env[k],
 				p_info->current_type, p_info->current_block));
+		k++;
+	}
 	new_content = ft_calloc(sizeof(char), p_info->cur_cont_size + 1);
 	ft_strjoin_content(new_content, sub_env[k]);
+	free(sub_env[k]);
 	p_info->j = ft_strlen(new_content);
 	free(sub_env);
 	return (new_content);
@@ -59,7 +64,10 @@ char	*ft_join_env(char *line, char *content,
 
 	env_name = ft_env_name(line, p_info);
 	if (ft_strcmp(env_name, "?") == 0)
+	{
+		free(env_name);
 		return (ft_errno_join(content, p_info));
+	}
 	if (ft_getenv(env_name, p_info->cmd))
 	{
 		if (p_info->current_type != STR || p_info->d_quote)
@@ -70,7 +78,7 @@ char	*ft_join_env(char *line, char *content,
 			free(env_name);
 			return (ft_join_split_env(sub_env, content, list, p_info));
 		}
-		free(sub_env);
+		ft_free_split(sub_env);
 		ft_strjoin_content(content, ft_getenv(env_name, p_info->cmd));
 		p_info->j += ft_strlen(ft_getenv(env_name, p_info->cmd));
 	}

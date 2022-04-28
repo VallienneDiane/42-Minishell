@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 10:19:42 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:12:31 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	ft_putstr_fd(char *s, int fd);
+void	ft_free_split(char **av);
 
 // Parse type
 int		main(int ac, char **av, char **env);
@@ -151,7 +152,7 @@ int		ft_create_file_heredoc(t_cmd *cmd);
 
 // Pipe
 void	ft_exec_pipex(t_cmd *cmd);
-void	ft_child_process(t_cmd *cmd, char **envp); // , int *pipefd
+void	ft_child_process(t_cmd *cmd, char **envp);
 
 // Redirections
 void	ft_redir_dup(t_cmd *cmd);

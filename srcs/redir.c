@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 10:42:43 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/26 14:05:46 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:17:48 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,25 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 			g_status = 258;
 		}	
 	}
+	p_info->i += 1;
+}
+
+void	ft_pipe(char *line, t_pars_info *p_info)
+{
+	int	j;
+
+	j = p_info->i + 1;
+	while (line[j] == ' ')
+		j++;
+	if (!line[j] || line[j] == '|')
+	{
+		if (!p_info->error)
+		{
+			printf("miniHell: syntax error near unexpected token `|'\n");
+			g_status = 258;
+		}
+		p_info->error = 1;
+	}
+	p_info->current_block++;
 	p_info->i += 1;
 }

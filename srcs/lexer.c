@@ -6,11 +6,46 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:56:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 13:57:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:17:20 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_lexer(t_list **list, char *line, t_pars_info *p_info)
+{
+	if (line[p_info->i] == '<')
+		ft_redir_in(line, p_info);
+	else if (line[p_info->i] == '>')
+		ft_redir_out(line, p_info);
+	else if (line[p_info->i] == '|')
+		ft_pipe(line, p_info);
+	else
+		p_info->i = ft_str(list, line, p_info);
+}
+
+void	ft_parsing(t_list **list, char *line, t_cmd *cmd)
+{
+	t_pars_info	p_info;
+
+	p_info.i = 0;
+	p_info.current_type = STR;
+	p_info.current_block = 1;
+	p_info.d_quote = 0;
+	p_info.error = 0;
+	p_info.cmd = cmd;
+	while (line[p_info.i])
+	{
+		while (line[p_info.i] && line[p_info.i] == ' ')
+			p_info.i++;
+		if (line[p_info.i])
+			ft_lexer(list, line, &p_info);
+	}
+	if (p_info.error)
+		cmd->parse_error = 1;
+	else
+		cmd->parse_error = 0;
+}
 
 int	ft_content_size(char *line, t_pars_info *p_info)
 {
