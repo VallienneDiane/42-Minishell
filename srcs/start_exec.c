@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/26 17:43:42 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/27 13:32:15 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,18 @@ void	ft_exec_cmd(t_cmd *cmd)
 
 	if (ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
-		signal(SIGINT, ft_signal_exec_handler);
-		signal(SIGQUIT, ft_signal_exec_handler);
+		// signal(SIGINT, ft_signal_exec_handler);
+		// signal(SIGQUIT, ft_signal_exec_handler);
 		pid = fork();
 		if (pid < 0)
-		{
+		{ 
 			perror("");
 			exit(EXIT_FAILURE);
 		}
 		if (pid == 0)
 			ft_execution(cmd);
 		else
-		{
 			ft_exec_parent_process(pid);
-		}
 	}
 	else
 		ft_exec_builtin(cmd);
@@ -66,18 +64,18 @@ void	ft_exec_cmd(t_cmd *cmd)
 void	ft_exec_parent_process(pid_t pid)
 {
 	waitpid(pid, &g_status, 0);
-	if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 2)
-	{
-		printf("\n");
-		g_status = 130;
-	}
-	else if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == 3)
-	{
-		printf("\n");
-		g_status = 131;
-	}
-	g_status = WEXITSTATUS(g_status);
-	signal(SIGINT, ft_signal_handler);
+	g_status = WEXITSTATUS(g_status); // a voir ou le mettre
+	// if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == SIGINT)
+	// {
+	// 	printf("\n");
+	// 	g_status = 130;
+	// }
+	// else if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == SIGQUIT)
+	// {
+	// 	printf("\n");
+	// 	g_status = 131;
+	// }
+	// signal(SIGINT, ft_signal_handler);
 }
 
 void	ft_execution(t_cmd *cmd)

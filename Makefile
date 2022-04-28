@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
+#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/20 10:22:45 by amarchal         ###   ########.fr        #
+#    Updated: 2022/04/27 11:49:22 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,6 @@ $(NAME) : $(OBJS) $(LIB)
 		$(CC) $(OBJS) $(LIB) -lreadline $(READLINE_LIB) $(READLINE_INC) -o $(NAME)
 		@printf "\033[0;32mCompilation has succeeded !\033[0m\n"
 
-# $(CC) $(OBJS) $(LIB) -lreadline -o $(NAME)
 DIR_OBJS :
 		mkdir -p $(DIR_OBJS)
 

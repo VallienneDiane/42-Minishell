@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/26 17:57:18 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/27 13:12:30 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_signal_exec_handler(int signal)
 	if(signal == SIGINT)
 		return ;
 	if (signal == SIGQUIT)
-		printf("Quit: 3");
+		printf("Quit: 3\n");
 }
 
 void	ft_term_handler(int x)

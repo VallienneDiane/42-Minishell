@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:37:35 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/27 10:37:53 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	ft_cpy_env(char **env, t_cmd *cmd)
 	while (env[i])
 	{
 		if (ft_strcmp(ft_lst_env_name(env[i]), "SHLVL") == 0)
+		{
 			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(ft_lst_env_name(env[i]), ft_itoa(ft_atoi(ft_lst_env_value(env[i])) + 1)));
+			
+		}
 		else
 			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(ft_lst_env_name(env[i]), ft_lst_env_value(env[i])));
 		i++;
