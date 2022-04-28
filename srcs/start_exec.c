@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 11:36:12 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 11:46:16 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,18 @@ void	ft_exec_cmd(t_cmd *cmd)
 
 	if (ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
-		signal(SIGINT, ft_signal_exec_handler);
-		signal(SIGQUIT, ft_signal_exec_handler);
+		// signal(SIGINT, ft_signal_exec_handler);
+		// signal(SIGQUIT, ft_signal_exec_handler);
 		pid = fork();
 		if (pid < 0)
-		{
+		{ 
 			perror("");
 			exit(EXIT_FAILURE);
 		}
 		if (pid == 0)
 			ft_execution(cmd);
 		else
-		{
 			ft_exec_parent_process(pid);
-		}
 	}
 	else
 		ft_exec_builtin(cmd);

@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:20:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 11:33:07 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 11:46:12 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
 
 	cmd->last_in = 0;
 	cmd->tab_heredoc[*m] = list->content;
-
 	signal(SIGINT, SIG_DFL);
 	signal(SIGINT, ft_signal_exec_handler);
 	signal(SIGQUIT, ft_signal_exec_handler);
