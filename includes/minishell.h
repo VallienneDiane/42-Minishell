@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 15:12:31 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 16:12:42 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	g_status;
 typedef struct s_list
 {
 	char			*content;
-	// char			*str;
 	int				type;
 	int				block;
 	struct s_list	*next;
@@ -67,6 +66,15 @@ typedef struct s_pars_info
 	int				error;
 	struct s_cmd	*cmd;
 }	t_pars_info;
+
+typedef struct s_init_index
+{
+	int	i;
+	int	j;
+	int	k;
+	int	l;
+	int	m;
+}	t_init_index;
 
 typedef struct s_cmd
 {
@@ -124,7 +132,6 @@ char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	ft_putstr_fd(char *s, int fd);
-void	ft_free_split(char **av);
 
 // Parse type
 int		main(int ac, char **av, char **env);
@@ -152,7 +159,8 @@ int		ft_create_file_heredoc(t_cmd *cmd);
 
 // Pipe
 void	ft_exec_pipex(t_cmd *cmd);
-void	ft_child_process(t_cmd *cmd, char **envp);
+void	ft_pipex_child(t_cmd *cmd);
+void	ft_pipex_parent(t_cmd *cmd, pid_t pid);
 
 // Redirections
 void	ft_redir_dup(t_cmd *cmd);
@@ -177,6 +185,9 @@ void	ft_export_print(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
 int		ft_unset(t_cmd *cmd);
 int		ft_cd(t_cmd *cmd);
+void	ft_cd_folder(t_cmd *cmd, char *path, char *pwd, char *cwd);
+void	ft_cd_without_args(t_cmd *cmd, char *path, char *pwd, char *cwd);
+int		ft_cd_no_access(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
 
 // Execute
@@ -190,15 +201,22 @@ void	ft_signal_handler(int signal);
 void	ft_signal_exec_handler(int signal);
 void	ft_term_handler(int x);
 void	ft_quit_heredoc(int signal);
-
+void	ft_heredoc_child(t_cmd *cmd, t_list *list);
+void	ft_heredoc_parent(t_cmd *cmd, pid_t pid);
 
 // Copy Env
 void	ft_cpy_env(char **env, t_cmd *cmd);
 char	**ft_env_to_tab(t_cmd *cmd);
 
-//////////////////
-//Parsing Alexi //
-//////////////////
+// Free
+void	ft_lstclear(t_list **lst);
+void	ft_free_all_tabs(t_cmd *cmd);
+void	ft_free_split(char **av);
+void	ft_free_tab(char **av);
+
+/////////////////
+//   PARSING   //
+/////////////////
 
 int		ft_simple_quote(t_list **list, char *line, int *i);
 int		ft_double_quote(t_list **list, char *line, int *i);
@@ -208,17 +226,21 @@ int		ft_str(t_list **list, char *line, t_pars_info *p_info);
 int		ft_s_quote_size(char *line, t_pars_info *p_info);
 char	*ft_join_s_quote(char *line, char *content, t_pars_info *p_info);
 int		ft_d_quote_size(char *line, t_pars_info *p_info);
-char	*ft_join_d_quote(char *line, char *content, t_list **list, t_pars_info *p_info);
+char	*ft_join_d_quote(char *line, char *content,
+			t_list **list, t_pars_info *p_info);
 
 char	*ft_getenv(char *env_name, t_cmd *cmd);
 int		ft_is_valid(char c);
 int		ft_env_size(char *line, t_pars_info *p_info);
 char	*ft_env_name(char *line, t_pars_info *p_info);
-char	*ft_join_env(char *line, char *content, t_list **list, t_pars_info *p_info);
+char	*ft_join_env(char *line, char *content,
+			t_list **list, t_pars_info *p_info);
 
+void	ft_parsing(t_list **list, char *line, t_cmd *cmd);
 void	ft_lexer(t_list **list, char *line, t_pars_info *p_info);
 void	ft_redir_out(char *line, t_pars_info *p_info);
 void	ft_redir_in(char *line, t_pars_info *p_info);
+void	ft_pipe(char *line, t_pars_info *p_info);
 
 int		ft_content_size(char *line, t_pars_info *p_info);
 

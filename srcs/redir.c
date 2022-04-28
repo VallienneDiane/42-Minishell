@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 10:42:43 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 15:17:48 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:52:06 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,35 @@ void	ft_redir_out(char *line, t_pars_info *p_info)
 		if (!p_info->error)
 		{
 			if (!line[j])
-				printf("miniHell: syntax error near unexpected token `newline'\n");
+				printf("miniHell: syntax error near \
+unexpected token `newline'\n");
 			else
-				printf("miniHell: syntax error near unexpected token `%c'\n", line[j]);
+				printf("miniHell: syntax error near \
+unexpected token `%c'\n", line[j]);
 		}
 		p_info->error = 1;
 		g_status = 258;
 	}
+	p_info->i += 1;
+}
+
+void	ft_manage_heredoc(char *line, int j, t_pars_info *p_info)
+{
+	if (line[j + 1] && line[j + 1] == '<')
+	{
+		if (!p_info->error)
+			printf("miniHell: syntax error near unexpected token `<'\n");
+		p_info->error = 1;
+		g_status = 258;
+	}
+	else if (!line[j + 1])
+	{
+		if (!p_info->error)
+			printf("miniHell: syntax error near unexpected token `newline'\n");
+		p_info->error = 1;
+		g_status = 258;
+	}
+	p_info->current_type = HEREDOC;
 	p_info->i += 1;
 }
 
@@ -47,25 +69,7 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 
 	j = p_info->i + 1;
 	if (line[j] && line[j] == '<')
-	{
-		if (line[j + 1] && line[j + 1] == '<')
-		{
-			
-			if (!p_info->error)
-				printf("miniHell: syntax error near unexpected token `<'\n");
-			p_info->error = 1;
-			g_status = 258;
-		}
-		else if (!line[j + 1])
-		{
-			if (!p_info->error)
-				printf("miniHell: syntax error near unexpected token `newline'\n");
-			p_info->error = 1;
-			g_status = 258;
-		}
-		p_info->current_type = HEREDOC;
-		p_info->i += 1;
-	}
+		ft_manage_heredoc(line, j, p_info);
 	else
 	{
 		p_info->current_type = REDIR_IN;
@@ -76,9 +80,11 @@ void	ft_redir_in(char *line, t_pars_info *p_info)
 			if (!p_info->error)
 			{
 				if (!line[j])
-					printf("miniHell: syntax error near unexpected token `newline'\n");
+					printf("miniHell: syntax error near \
+unexpected token `newline'\n");
 				else
-					printf("miniHell: syntax error near unexpected token `%c'\n", line[j]);
+					printf("miniHell: syntax error near \
+unexpected token `%c'\n", line[j]);
 			}
 			p_info->error = 1;
 			g_status = 258;

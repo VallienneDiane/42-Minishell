@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:37:35 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 11:46:26 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 16:06:56 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ char	*ft_lst_env_value(char *env)
 	env_value = ft_calloc(sizeof(char), j + 1);
 	if (!env_value)
 		exit (EXIT_FAILURE);
-	j = 0;
-	while (env[i + j])
-	{
+	j = -1;
+	while (env[i + ++j])
 		env_value[j] = env[i + j];
-		j++;
-	}
 	return (env_value);
 }
 
@@ -74,7 +71,7 @@ void	ft_cpy_env(char **env, t_cmd *cmd)
 	int		i;
 	char	*env_name;
 	char	*env_value;
-	char	*SHLVL;
+	char	*shlvl;
 
 	cmd->env_list = NULL;
 	i = 0;
@@ -84,12 +81,13 @@ void	ft_cpy_env(char **env, t_cmd *cmd)
 		env_value = ft_lst_env_value(env[i]);
 		if (ft_strcmp(env_name, "SHLVL") == 0)
 		{
-			SHLVL = ft_itoa(ft_atoi(env_value) + 1);
-			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(env_name, SHLVL));
+			shlvl = ft_itoa(ft_atoi(env_value) + 1);
+			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(env_name, shlvl));
 			free(env_value);
 		}
 		else
-			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(env_name, env_value));
+			ft_lstadd_back_env(&cmd->env_list,
+				ft_lstnew_env(env_name, env_value));
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/27 11:49:22 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/28 16:09:44 by amarchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ LIB := ./libft/libft.a
 DIR_SRCS := ./SRCS
 LST_SRCS := start_exec.c		\
 			chained_list.c		\
+			chained_list_env.c	\
 			path.c				\
 			create_tabs.c 		\
 			fill_tabs.c			\
@@ -40,6 +41,7 @@ LST_SRCS := start_exec.c		\
 			cd.c				\
 			exit.c				\
 			signal.c			\
+			free.c				\
 			lexer.c
 			
 DIR_OBJS := ./.OBJS

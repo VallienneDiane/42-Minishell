@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 10:55:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 16:03:17 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,23 @@ char	*ft_getenv(char *env_name, t_cmd *cmd)
 	return ("");
 }
 
+void	ft_set_env(t_env *temp, char **env_tab, int i)
+{
+	if (temp->value)
+	{
+		env_tab[i] = ft_calloc(sizeof(char), ft_strlen(temp->name)
+				+ ft_strlen(temp->value) + 2);
+		env_tab[i] = ft_strjoin(env_tab[i], temp->name);
+		env_tab[i] = ft_strjoin(env_tab[i], "=");
+		env_tab[i] = ft_strjoin(env_tab[i], temp->value);
+	}
+	else
+	{
+		env_tab[i] = ft_calloc(sizeof(char), ft_strlen(temp->name) + 1);
+		env_tab[i] = ft_strjoin(env_tab[i], temp->name);
+	}
+}
+
 char	**ft_env_to_tab(t_cmd *cmd)
 {
 	char	**env_tab;
@@ -54,19 +71,7 @@ char	**ft_env_to_tab(t_cmd *cmd)
 	env_tab = ft_calloc(sizeof(char *), ft_env_lst_size(cmd->env_list) + 1);
 	while (temp)
 	{
-		if (temp->value)
-		{
-			env_tab[i] = ft_calloc(sizeof(char), ft_strlen(temp->name)
-				+ ft_strlen(temp->value) + 2);
-			env_tab[i] = ft_strjoin(env_tab[i], temp->name);
-			env_tab[i] = ft_strjoin(env_tab[i], "=");
-			env_tab[i] = ft_strjoin(env_tab[i], temp->value);
-		}
-		else
-		{
-			env_tab[i] = ft_calloc(sizeof(char), ft_strlen(temp->name) + 1);
-			env_tab[i] = ft_strjoin(env_tab[i], temp->name);
-		}
+		ft_set_env(temp, env_tab, i);
 		i++;
 		temp = temp->next;
 	}

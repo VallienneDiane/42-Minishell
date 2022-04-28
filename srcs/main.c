@@ -6,38 +6,11 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 15:17:43 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:32:53 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*temp;
-
-	temp = *lst;
-	while (*lst)
-	{
-		*lst = temp->next;
-		free(temp->content);
-		free(temp);
-		temp = *lst;
-	}
-}
-
-void	ft_free_split(char **av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i])
-	{
-		free(av[i]);
-		i++;
-	}
-	free(av);
-}
 
 void	ft_init_main(t_cmd *cmd, char **env)
 {
