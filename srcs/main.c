@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 11:46:10 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:25:52 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	ft_pipe(char *line, t_pars_info *p_info)
 			g_status = 258;
 		}
 		p_info->error = 1;
-		// return ;
-		// exit(EXIT_FAILURE); ///////
 	}
 	p_info->current_block++;
 	p_info->i += 1;
@@ -96,39 +94,53 @@ void	ft_free_path(char **av)
 	free(av);
 }
 
+void	ft_init_main(t_cmd *cmd, char **env)
+{
+	g_status = 0;
+	ft_cpy_env(env, cmd);
+	signal(SIGINT, ft_signal_handler);
+	cmd->stdin_copy = dup(STDIN_FILENO);
+}
+
+void	ft_manage_line(t_list **list, char **line, t_cmd *cmd)
+{
+	if (!*line)
+		exit(0);
+	if (*line && *line[0])
+		add_history(*line);
+	if (*line)
+		ft_parsing(list, *line, cmd);
+	free(*line);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char 	*line;
 	t_list	*list;
 	t_cmd	cmd;
-	(void)env;
-	g_status = 0;
-	ft_cpy_env(env, &cmd);
-	signal(SIGINT, ft_signal_handler);
-	cmd.stdin_copy = dup(STDIN_FILENO);
+	
+	ft_init_main(&cmd, env);
 	while (1)
 	{
 		dup2(cmd.stdin_copy, STDIN_FILENO);
-		// list = malloc(sizeof(t_list));
 		list = NULL;
 		ft_term_handler(0);
 		line = readline("miniHell$ ");
 		ft_term_handler(1);
-		if (line && line[0])
-			add_history(line);
-		if (!line)
-			exit(0);
-		if (line)
-			ft_parsing(&list, line, &cmd);
-		free(line);
-		// ft_print_list(list);
+		ft_manage_line(&list, &line, &cmd);
+		// if (!line)
+		// 	exit(0);
+		// if (line && line[0])
+		// 	add_history(line);
+		// if (line)
+		// 	ft_parsing(&list, line, &cmd);
+		// free(line);
 		cmd.line_path = ft_get_line_path(&cmd);
 		cmd.tab_path = ft_split(cmd.line_path, ':');
 		if (!cmd.parse_error)
 			ft_start_exec(list, &cmd);
 		ft_free_path(cmd.tab_path);
-		ft_lstclear(&list);	
-		// free(list);
+		ft_lstclear(&list);
 	}
 	(void)ac;
 	(void)av;

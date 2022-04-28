@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 13:57:47 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:12:17 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	ft_d_quote_size(char *line, t_pars_info *p_info)
 	return (k);
 }
 
-char	*ft_join_d_quote(char *line, char *content, t_list **list, t_pars_info *p_info)
+char	*ft_join_d_quote(char *line, char *content,
+	t_list **list, t_pars_info *p_info)
 {
 	p_info->d_quote = 1;
 	p_info->i += 1;

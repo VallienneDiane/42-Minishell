@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:54:09 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:55:10 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_env_lst_size(t_env *env_list)
 {
 	t_env	*temp;
 	int		i;
-	
+
 	temp = env_list;
 	i = 0;
 	while (temp)
@@ -27,13 +27,34 @@ int	ft_env_lst_size(t_env *env_list)
 	return (i);
 }
 
+void	ft_print_env(t_cmd *cmd, t_env *current, int *i)
+{
+	int		j;
+	t_env	*temp;
+
+	j = 0;
+	temp = cmd->env_list;
+	while (temp)
+	{
+		if (ft_strcmp(current->name, temp->name) > 0)
+			j++;
+		temp = temp->next;
+	}
+	if (j == *i)
+	{
+		printf("declare -x %s", current->name);
+		if (current->value)
+			printf("=\"%s\"", current->value);
+		printf("\n");
+		*i += 1;
+	}
+}
+
 void	ft_export_print(t_cmd *cmd)
 {
-	int	size;
-	int	i;
-	int	j;
+	int		size;
+	int		i;
 	t_env	*current;
-	t_env	*temp;
 
 	i = 0;
 	size = ft_env_lst_size(cmd->env_list);
@@ -42,22 +63,7 @@ void	ft_export_print(t_cmd *cmd)
 		current = cmd->env_list;
 		while (current)
 		{
-			j = 0;
-			temp = cmd->env_list;
-			while (temp)
-			{
-				if (ft_strcmp(current->name, temp->name) > 0)
-					j++;
-				temp = temp->next;
-			}
-			if (j == i)
-			{
-				printf("declare -x %s", current->name);
-				if (current->value)
-					printf("=\"%s\"", current->value);
-				printf("\n");
-				i++;
-			}
+			ft_print_env(cmd, current, &i);
 			current = current->next;
 		}
 	}

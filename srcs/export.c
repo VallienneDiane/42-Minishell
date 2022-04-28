@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:46:49 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:13:26 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_valid_env_name(char *env_name, int *concat)
+int	ft_valid_env_name(char *env_name, int *concat)
 {
 	int	i;
 
@@ -87,10 +87,10 @@ int	ft_add_env(t_cmd *cmd, char *env_name, int concat)
 		if (concat)
 			value = ft_substr(env_name, i + 2, ft_strlen(env_name));
 		else
-			value = ft_substr(env_name, i + 1, ft_strlen(env_name));	
+			value = ft_substr(env_name, i + 1, ft_strlen(env_name));
 	}
 	if (ft_existing_env(cmd, name, value, concat))
-		return(0);
+		return (0);
 	ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(name, value));
 	return (0);
 }

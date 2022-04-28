@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:56:24 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 13:57:43 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	ft_content_size(char *line, t_pars_info *p_info)
 	int	size;
 
 	size = 0;
-	while (line[p_info->j] && line[p_info->j] != ' ' && line[p_info->j] != '<' && line[p_info->j] != '>' && line[p_info->j] != '|')
+	while (line[p_info->j] && line[p_info->j] != ' ' && line[p_info->j] != '<'
+		&& line[p_info->j] != '>' && line[p_info->j] != '|')
 	{
 		if (line[p_info->j] == '$' && p_info->current_type != HEREDOC)
 			size += ft_env_size(line, p_info);
@@ -35,12 +36,15 @@ int	ft_content_size(char *line, t_pars_info *p_info)
 	return (size);
 }
 
-char *ft_fill_content(char *content, char *line, t_pars_info *p_info, t_list **list)
+char	*ft_fill_content(char *content, char *line,
+	t_pars_info *p_info, t_list **list)
 {
 	p_info->j = 0;
-	while (line[p_info->i] && line[p_info->i] != ' ' && line[p_info->i] != '<' && line[p_info->i] != '>' && line[p_info->i] != '|')
+	while (line[p_info->i] && line[p_info->i] != ' ' && line[p_info->i] != '<'
+		&& line[p_info->i] != '>' && line[p_info->i] != '|')
 	{
-		if (line[p_info->i] == '$' && line[p_info->i + 1] && line[p_info->i + 1] != ' ' && p_info->current_type != HEREDOC)
+		if (line[p_info->i] == '$' && line[p_info->i + 1]
+			&& line[p_info->i + 1] != ' ' && p_info->current_type != HEREDOC)
 		{
 			content = ft_join_env(line, content, list, p_info);
 			if (content[ft_strlen(content) - 1] == ' ')
@@ -69,7 +73,8 @@ int	ft_str(t_list **list, char *line, t_pars_info *p_info)
 	k = -1;
 	content = ft_calloc(sizeof(char), ft_content_size(line, p_info) + 1);
 	content = ft_fill_content(content, line, p_info, list);
-	ft_lstadd_back(list, ft_lstnew(content, p_info->current_type, p_info->current_block));
+	ft_lstadd_back(list, ft_lstnew(content,
+			p_info->current_type, p_info->current_block));
 	p_info->d_quote = 0;
 	p_info->current_type = STR;
 	return (p_info->i);
