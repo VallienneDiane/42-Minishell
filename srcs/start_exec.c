@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/27 17:37:07 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 11:36:12 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	ft_free_tab(char **av)
 
 void	ft_free_all_tabs(t_cmd *cmd)
 {
-	if (cmd->tab_heredoc[0])
+	if (cmd->tab_heredoc)
 		ft_free_tab(cmd->tab_heredoc);
-	if (cmd->tab_str[0])
+	if (cmd->tab_str)
 		ft_free_tab(cmd->tab_str);
-	if (cmd->tab_redir_in[0])
+	if (cmd->tab_redir_in)
 		ft_free_tab(cmd->tab_redir_in);
-	if (cmd->tab_redir_out1[0])
+	if (cmd->tab_redir_out1)
 		ft_free_tab(cmd->tab_redir_out1);
-	if (cmd->tab_redir_out2[0])
+	if (cmd->tab_redir_out2)
 		ft_free_tab(cmd->tab_redir_out2);
 }
 
@@ -67,6 +67,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 			
 		// ft_free_tab(cmd->tab_str);
 		// free les tabs
+		free(cmd->valid_path);
 		ft_free_all_tabs(cmd);
 	}
 }

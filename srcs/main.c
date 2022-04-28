@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/27 17:39:57 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/04/28 11:29:44 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,15 @@ int	main(int ac, char **av, char **env)
 	char 	*line;
 	t_list	*list;
 	t_cmd	cmd;
-	
-	g_status = 10;
+	(void)env;
+	g_status = 0;
 	ft_cpy_env(env, &cmd);
 	signal(SIGINT, ft_signal_handler);
 	cmd.stdin_copy = dup(STDIN_FILENO);
 	while (1)
 	{
 		dup2(cmd.stdin_copy, STDIN_FILENO);
-		list = malloc(sizeof(t_list));
+		// list = malloc(sizeof(t_list));
 		list = NULL;
 		ft_term_handler(0);
 		line = readline("miniHell$ ");
@@ -128,7 +128,7 @@ int	main(int ac, char **av, char **env)
 			ft_start_exec(list, &cmd);
 		ft_free_path(cmd.tab_path);
 		ft_lstclear(&list);	
-		free(list);
+		// free(list);
 	}
 	(void)ac;
 	(void)av;

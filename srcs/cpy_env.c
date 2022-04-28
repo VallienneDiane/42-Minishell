@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpy_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:37:35 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 11:17:14 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,24 @@ char	*ft_lst_env_value(char *env)
 void	ft_cpy_env(char **env, t_cmd *cmd)
 {
 	int		i;
+	char	*env_name;
+	char	*env_value;
+	char	*SHLVL;
 
+	cmd->env_list = NULL;
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strcmp(ft_lst_env_name(env[i]), "SHLVL") == 0)
-			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(ft_lst_env_name(env[i]), ft_itoa(ft_atoi(ft_lst_env_value(env[i])) + 1)));
+		env_name = ft_lst_env_name(env[i]);
+		env_value = ft_lst_env_value(env[i]);
+		if (ft_strcmp(env_name, "SHLVL") == 0)
+		{
+			SHLVL = ft_itoa(ft_atoi(env_value) + 1);
+			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(env_name, SHLVL));
+			free(env_value);
+		}
 		else
-			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(ft_lst_env_name(env[i]), ft_lst_env_value(env[i])));
+			ft_lstadd_back_env(&cmd->env_list, ft_lstnew_env(env_name, env_value));
 		i++;
 	}
 }

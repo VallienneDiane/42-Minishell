@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chained_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:31:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/21 11:43:22 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/28 10:38:35 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ t_env	*ft_lstnew_env(char *name, char *value)
 	return (newenv);
 }
 
-void	ft_print_list(t_list *list)
-{
-	while (list)
-	{
-		printf("\033[93m%s | type %d | block %d\n\033[0m", list->content, list->type, list->block);
-		list = list->next;
-	}
-}
+// void	ft_print_list(t_list *list)
+// {
+// 	while (list)
+// 	{
+// 		printf("\033[93m%s | type %d | block %d\n\033[0m", list->content, list->type, list->block);
+// 		list = list->next;
+// 	}
+// }
