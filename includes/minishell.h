@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 13:05:11 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:32:01 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <signal.h>
 # include <termios.h>
 # include <sys/wait.h>
+# include <limits.h>
 
 # define STR 0
 # define REDIR_IN 1
@@ -130,6 +131,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *src);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_strjoin_content(char *s1, char *s2);
+char	*ft_strjoin_export(char *s1, char *s2);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);

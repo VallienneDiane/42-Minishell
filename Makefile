@@ -6,7 +6,7 @@
 #    By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 11:15:21 by amarchal          #+#    #+#              #
-#    Updated: 2022/04/28 17:38:57 by dvallien         ###   ########.fr        #
+#    Updated: 2022/04/29 14:15:04 by dvallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ LST_SRCS := main/main.c					\
 			parsing/chained_list_env.c	\
 			parsing/chained_list.c		\
 			parsing/cpy_env.c			\
-			parsing/export_print.c		\
 			parsing/lexer.c				\
 			parsing/parser_env_join.c	\
 			parsing/parser_env_name.c	\
@@ -41,6 +40,7 @@ LST_SRCS := main/main.c					\
 			builtins/env.c				\
 			builtins/exit.c				\
 			builtins/export.c			\
+			builtins/export_print.c		\
 			builtins/pwd.c 				\
 			builtins/unset.c				
 			

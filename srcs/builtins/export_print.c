@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:54:09 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:27:24 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ int	ft_env_lst_size(t_env *env_list)
 	return (i);
 }
 
+static void	ft_print_env_fd(t_env *current, int fd)
+{
+	ft_putstr_fd("declare -x ", fd);
+	ft_putstr_fd(current->name, fd);
+	if (current->value)
+	{
+		ft_putstr_fd("=\"", fd);
+		ft_putstr_fd(current->value, fd);
+		ft_putstr_fd("\"", fd);
+	}
+	ft_putstr_fd("\n", fd);
+}
+
 void	ft_print_env(t_cmd *cmd, t_env *current, int *i)
 {
 	int		j;
@@ -42,10 +55,12 @@ void	ft_print_env(t_cmd *cmd, t_env *current, int *i)
 	}
 	if (j == *i)
 	{
-		printf("declare -x %s", current->name);
-		if (current->value)
-			printf("=\"%s\"", current->value);
-		printf("\n");
+		if (cmd->last_out == 2)
+			ft_print_env_fd(current, cmd->fd_out_append);
+		else if (cmd->last_out == 1)
+			ft_print_env_fd(current, cmd->fd_out_trunc);
+		else
+			ft_print_env_fd(current, STDOUT_FILENO);
 		*i += 1;
 	}
 }

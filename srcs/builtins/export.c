@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:46:49 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 17:26:35 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 15:52:07 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_existing_env(t_cmd *cmd, char *name, char *value, int concat)
 				temp->value = value;
 			else if (concat && value)
 			{	
-				temp->value = ft_strjoin(temp->value, value);
+				temp->value = ft_strjoin_export(temp->value, value);
 				free (value);
 			}
 			else if (value)

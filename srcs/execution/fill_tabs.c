@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:20:19 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:24:37 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,31 @@ void	ft_fill_heredoc(t_cmd *cmd, t_list *list, int *m)
 
 void	ft_fill_redir_in(t_cmd *cmd, t_list *list, int *j)
 {
-	cmd->tab_redir_in[*j] = list->content;
-	if (list->type == REDIR_IN)
-		ft_create_file_in(cmd);
-	cmd->last_in = 1;
+	if (cmd->infile_error == 0)
+	{
+		cmd->tab_redir_in[*j] = list->content;
+		if (list->type == REDIR_IN)
+			ft_create_file_in(cmd);
+		cmd->last_in = 1;
+	}
 }
 
 void	ft_fill_redir_out1(t_cmd *cmd, t_list *list, int *k)
 {
-	cmd->tab_redir_out1[*k] = list->content;
-	ft_create_file_out1(cmd);
-	cmd->last_out = 1;
+	if (cmd->infile_error == 0)
+	{
+		cmd->tab_redir_out1[*k] = list->content;
+		ft_create_file_out1(cmd);
+		cmd->last_out = 1;
+	}
 }
 
 void	ft_fill_redir_out2(t_cmd *cmd, t_list *list, int *l)
 {
-	cmd->tab_redir_out2[*l] = list->content;
-	ft_create_file_out2(cmd);
-	cmd->last_out = 2;
+	if (cmd->infile_error == 0)
+	{
+		cmd->tab_redir_out2[*l] = list->content;
+		ft_create_file_out2(cmd);
+		cmd->last_out = 2;
+	}
 }

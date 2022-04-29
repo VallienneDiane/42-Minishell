@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 13:06:31 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:10:53 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_pipex_or_exec(t_cmd *cmd, t_list *list, int *current_block)
 			free(cmd->valid_path);
 		ft_free_all_tabs(cmd);
 		*current_block += 1;
+		cmd->infile_error = 0;
 	}
 	else
 	{
@@ -70,8 +71,11 @@ void	ft_exec_cmd(t_cmd *cmd)
 		else
 			ft_exec_parent_process(pid);
 	}
-	else
+	else if (cmd->infile_error == 0)
+	{
 		ft_exec_builtin(cmd);
+		signal(SIGINT, ft_signal_handler);
+	}
 }
 
 void	ft_exec_parent_process(pid_t pid)
@@ -98,8 +102,10 @@ void	ft_execute(t_cmd *cmd)
 	char	**env_tab;
 
 	signal(SIGINT, SIG_DFL);
-	if (ft_is_builtin(cmd->tab_str[0]))
+	if (ft_is_builtin(cmd->tab_str[0]) && cmd->infile_error == 0)
+	{
 		ft_exec_builtin(cmd);
+	}
 	if (cmd->valid_path != NULL && ft_is_builtin(cmd->tab_str[0]) == 0)
 	{
 		if (cmd->tab_str[0] && cmd->infile_error == 0)

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:24:51 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:34:28 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ char	*ft_heredoc_loop(char *stop)
 	{
 		line = readline("> ");
 		if (!line)
+		{
+			g_status = 0;
 			break ;
+		}
 		if (ft_strlen(line) && !ft_strncmp(line, stop, ft_strlen(line)))
 			break ;
 		str = ft_strjoin(str, line);
@@ -56,7 +59,7 @@ void	ft_heredoc_parent(t_cmd *cmd, pid_t pid)
 	waitpid(pid, &g_status, 0);
 	if (WIFSIGNALED(g_status) == 1 && WTERMSIG(g_status) == SIGINT)
 	{
-		printf(">\n");
+		printf("> \n");
 		ft_term_handler(1);
 	}	
 	close(cmd->pipe_heredoc_fd[1]);

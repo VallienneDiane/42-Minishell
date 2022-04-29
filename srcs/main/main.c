@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 13:06:36 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:08:16 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	ft_init_main(t_cmd *cmd, char **env)
 void	ft_manage_line(t_list **list, char *line, t_cmd *cmd)
 {
 	if (!line)
+	{
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 		exit(0);
+	}
 	if (line && line[0])
 		add_history(line);
 	if (line)

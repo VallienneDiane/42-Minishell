@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:10:43 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:26:20 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:52:41 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	ft_redir_putstr(t_cmd *cmd, char *str)
 	else if (cmd->last_out == 1)
 		ft_putstr_fd(str, cmd->fd_out_trunc);
 	else
-	{
 		ft_putstr_fd(str, STDOUT_FILENO);
-	}
 }
 
 void	ft_print_echo(t_cmd *cmd, int *option, int *is_arg, int i)

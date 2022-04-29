@@ -6,11 +6,19 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 10:55:23 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 17:26:27 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 15:26:03 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	ft_print_env_fd(t_env *temp, int fd)
+{
+	ft_putstr_fd(temp->name, fd);
+	ft_putstr_fd("=", fd);
+	ft_putstr_fd(temp->value, fd);
+	ft_putstr_fd("\n", fd);
+}
 
 int	ft_env(t_cmd *cmd)
 {
@@ -21,8 +29,12 @@ int	ft_env(t_cmd *cmd)
 	{
 		if (temp->value)
 		{
-			printf("%s", temp->name);
-			printf("=%s\n", temp->value);
+			if (cmd->last_out == 2)
+				ft_print_env_fd(temp, cmd->fd_out_append);
+			else if (cmd->last_out == 1)
+				ft_print_env_fd(temp, cmd->fd_out_trunc);
+			else
+				ft_print_env_fd(temp, STDOUT_FILENO);
 		}
 		temp = temp->next;
 	}
