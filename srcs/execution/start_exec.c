@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 19:10:44 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:06:31 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,36 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 
 	i = 0;
 	current_block = 1;
-	cmd->infile_error = 0;
-	cmd->valid_path = NULL;
-	cmd->pipe_id = 0;
-	signal(SIGINT, SIG_IGN);
-	if (list)
-		cmd->pipe_pids = ft_calloc(sizeof(pid_t), ft_lstlast(list)->block);
-	else
-		cmd->pipe_pids = NULL;
+	ft_init_exec(cmd, list);
 	while (list)
 	{
 		ft_get_args(list, cmd, current_block);
+		cmd->path_ok = 0;
 		if ((ft_is_builtin(cmd->tab_str[0]) == 0) && cmd->tab_str[0])
 			cmd->valid_path = ft_access_path(cmd);
 		while (list && list->block == current_block)
 			list = list->next;
-		if (list && list->block != current_block)
-		{
-			ft_exec_pipex(cmd);
-			current_block++;
-		}
-		else
-			ft_exec_cmd(cmd);
+		ft_pipex_or_exec(cmd, list, &current_block);
 	}
-	while (i <= cmd->pipe_id && cmd->pipe_id > 0)
-		waitpid(cmd->pipe_pids[i++], &g_status, 0);
-	free(cmd->valid_path);
-	// penser a free pipe_pids !!!!!!!!!!!!!!!
-	ft_free_all_tabs(cmd);
+	ft_free_exec(cmd, i);
+}
+
+void	ft_pipex_or_exec(t_cmd *cmd, t_list *list, int *current_block)
+{
+	if (list && list->block != *current_block)
+	{
+		ft_exec_pipex(cmd);
+		if (cmd->path_ok)
+			free(cmd->valid_path);
+		ft_free_all_tabs(cmd);
+		*current_block += 1;
+	}
+	else
+	{
+		ft_exec_cmd(cmd);
+		if (cmd->path_ok)
+			free(cmd->valid_path);
+	}
 }
 
 void	ft_exec_cmd(t_cmd *cmd)
@@ -89,15 +91,6 @@ void	ft_exec_parent_process(pid_t pid)
 		g_status = WEXITSTATUS(g_status);
 	signal(SIGINT, ft_signal_handler);
 	signal(SIGQUIT, ft_signal_exec_handler);
-}
-
-void	ft_execution(t_cmd *cmd)
-{
-	if (cmd->tab_redir_in[0] || cmd->tab_redir_out1[0] \
-	|| cmd->tab_redir_out2[0])
-		ft_redir_dup(cmd);
-	else
-		ft_execute(cmd);
 }
 
 void	ft_execute(t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 12:11:56 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:05:36 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ void	ft_free_split(char **av)
 		i++;
 	}
 	free(av);
+}
+
+void	ft_free_exec(t_cmd *cmd, int i)
+{
+	while (i <= cmd->pipe_id && cmd->pipe_id > 0)
+		waitpid(cmd->pipe_pids[i++], &g_status, 0);
+	free(cmd->pipe_pids);
+	ft_free_all_tabs(cmd);
 }

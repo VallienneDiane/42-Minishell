@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 13:25:18 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 18:50:09 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:05:48 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void	ft_pipex_parent(t_cmd *cmd)
 	close(cmd->pipefd[1]);
 	dup2(cmd->pipefd[0], STDIN_FILENO);
 	close(cmd->pipefd[0]);
+}
+
+void	ft_execution(t_cmd *cmd)
+{
+	if (cmd->tab_redir_in[0] || cmd->tab_redir_out1[0] \
+	|| cmd->tab_redir_out2[0])
+		ft_redir_dup(cmd);
+	else
+		ft_execute(cmd);
 }

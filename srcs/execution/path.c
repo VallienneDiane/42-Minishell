@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:55 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:03:46 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ char	*ft_get_line_path(t_cmd *cmd)
 		temp = temp->next;
 	}
 	return ("");
+}
+
+char	*ft_no_command(t_cmd *cmd)
+{
+	printf("miniHell : %s : command not found\n", cmd->tab_str[0]);
+	return (NULL);
 }
 
 char	*ft_access_path(t_cmd *cmd)
@@ -45,12 +51,14 @@ char	*ft_access_path(t_cmd *cmd)
 		path = ft_strjoin(tmp_path, cmd->tab_str[0]);
 		free(tmp_path);
 		if (access(path, 0) == 0)
+		{
+			cmd->path_ok = 1;
 			return (path);
+		}
 		else
 			free(path);
 	}
-	printf("miniHell : %s : command not found\n", cmd->tab_str[0]);
-	return (NULL);
+	return (ft_no_command(cmd));
 }
 
 void	ft_absolute_path(t_cmd *cmd, int i, char *tmp_path)

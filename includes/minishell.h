@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 18:38:15 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:05:11 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_cmd
 	int		infile_error;
 	char	*line_path;
 	char	**tab_path;
+	int		path_ok;
 	char	*valid_path;
 	int		fd_status;
 	char	**tab_str;
@@ -138,9 +139,12 @@ void	ft_putstr_fd(char *s, int fd);
 // Parse type
 int		main(int ac, char **av, char **env);
 void	ft_start_exec(t_list *list, t_cmd *cmd);
+void	ft_init_exec(t_cmd *cmd, t_list *list);
+void	ft_pipex_or_exec(t_cmd *cmd, t_list *list, int *current_block);
 
 // Access path
 char	*ft_access_path(t_cmd *cmd);
+char	*ft_no_command(t_cmd *cmd);
 char	*ft_get_line_path(t_cmd *cmd);
 void	ft_absolute_path(t_cmd *cmd, int i, char *tmp_path);
 
@@ -215,6 +219,7 @@ void	ft_lstclear(t_list **lst);
 void	ft_free_all_tabs(t_cmd *cmd);
 void	ft_free_split(char **av);
 void	ft_free_tab(char **av);
+void	ft_free_exec(t_cmd *cmd, int i);
 
 /////////////////
 //   PARSING   //
