@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:46:49 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/29 15:52:07 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:24:09 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_valid_env_name(char *env_name, int *concat)
 		}
 		if (env_name[i] == '=')
 			return (1);
-		if (!ft_isalnum(env_name[i]))
+		if (!ft_isalnum(env_name[i]) && env_name[i] != '_')
 			return (0);
 		i++;
 	}
