@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 14:00:38 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:22:13 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int ac, char **av, char **env)
 			ft_start_exec(list, &cmd);
 		free(line);
 		ft_free_split(cmd.tab_path);
-		// free(cmd.valid_path);
 		ft_lstclear(&list);
 	}
 	(void)ac;

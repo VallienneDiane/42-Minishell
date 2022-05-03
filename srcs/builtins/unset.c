@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:24:59 by amarchal          #+#    #+#             */
-/*   Updated: 2022/04/28 17:26:43 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:09:35 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_remove_last(t_cmd *cmd)
 
 void	ft_remove(t_cmd *cmd, t_env *temp)
 {
-	if (!temp->previous)
+	if (temp == cmd->env_list)
 		ft_remove_first(cmd);
 	else if (!temp->next)
 		ft_remove_last(cmd);
