@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 16:32:01 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:05:01 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int		ft_option(char *arg);
 int		ft_pwd(t_cmd *cmd);
 void	ft_if_delete_parent_folder(t_cmd *cmd);
 void	ft_redir_putstr(t_cmd *cmd, char *str);
-char	*ft_heredoc_loop(char *stop);
+char	*ft_heredoc_loop(char *stop, t_cmd *cmd);
 int		ft_env(t_cmd *cmd);
 void	ft_export_print(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
@@ -242,6 +242,8 @@ char	*ft_getenv(char *env_name, t_cmd *cmd);
 int		ft_is_valid(char c);
 int		ft_env_size(char *line, t_pars_info *p_info);
 char	*ft_env_name(char *line, t_pars_info *p_info);
+char	*ft_errno_join(char *content, t_pars_info *p_info);
+char	*ft_join_full_env(char *content, char *env_name, t_pars_info *p_info);
 char	*ft_join_env(char *line, char *content,
 			t_list **list, t_pars_info *p_info);
 
