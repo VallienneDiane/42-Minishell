@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 17:10:53 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:37:52 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	ft_start_exec(t_list *list, t_cmd *cmd)
 {	
-	int		i;
 	int		current_block;
 
-	i = 0;
 	current_block = 1;
 	ft_init_exec(cmd, list);
 	while (list)
@@ -30,7 +28,7 @@ void	ft_start_exec(t_list *list, t_cmd *cmd)
 			list = list->next;
 		ft_pipex_or_exec(cmd, list, &current_block);
 	}
-	ft_free_exec(cmd, i);
+	ft_wait_pids(cmd);
 }
 
 void	ft_pipex_or_exec(t_cmd *cmd, t_list *list, int *current_block)

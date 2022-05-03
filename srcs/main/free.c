@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 12:11:56 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 13:05:36 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:49:10 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,12 @@ void	ft_free_split(char **av)
 	free(av);
 }
 
-void	ft_free_exec(t_cmd *cmd, int i)
+void	ft_wait_pids(t_cmd *cmd)
 {
+	int	i;
+
+	i = 0;
+	close(STDIN_FILENO);
 	while (i <= cmd->pipe_id && cmd->pipe_id > 0)
 		waitpid(cmd->pipe_pids[i++], &g_status, 0);
 	free(cmd->pipe_pids);

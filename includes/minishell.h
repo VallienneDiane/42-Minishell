@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 13:05:01 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:42:14 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int		ft_create_file_heredoc(t_cmd *cmd);
 void	ft_exec_pipex(t_cmd *cmd);
 void	ft_pipex_child(t_cmd *cmd);
 void	ft_pipex_parent(t_cmd *cmd);
+void	ft_wait_pids(t_cmd *cmd);
 
 // Redirections
 void	ft_redir_dup(t_cmd *cmd);
@@ -197,6 +198,7 @@ void	ft_cd_folder(t_cmd *cmd, char *path, char *pwd, char *cwd);
 void	ft_cd_without_args(t_cmd *cmd, char *path, char *pwd, char *cwd);
 int		ft_cd_no_access(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
+void	ft_exit_one_arg(t_cmd *cmd);
 
 // Execute
 void	ft_exec_cmd(t_cmd *cmd);
@@ -221,7 +223,6 @@ void	ft_lstclear(t_list **lst);
 void	ft_free_all_tabs(t_cmd *cmd);
 void	ft_free_split(char **av);
 void	ft_free_tab(char **av);
-void	ft_free_exec(t_cmd *cmd, int i);
 
 /////////////////
 //   PARSING   //
