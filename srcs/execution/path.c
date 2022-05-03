@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:24:46 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/29 13:03:46 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:05:38 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_access_path(t_cmd *cmd)
 	if (access(cmd->tab_str[0], X_OK) == 0)
 	{
 		ft_absolute_path(cmd, i, tmp_path);
-		return (ft_strdup(cmd->tab_str[0]));
+		return (cmd->tab_str[0]);
 	}
 	while (cmd->tab_path[++i])
 	{
