@@ -6,7 +6,7 @@
 /*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 10:24:51 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 13:28:20 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:13:30 by amarchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_heredoc_loop(char *stop, t_cmd *cmd)
 			break ;
 		}
 		line = ft_parsing_line(line, cmd);
-		if (ft_strlen(line) && !ft_strncmp(line, stop, ft_strlen(line)))
+		if (ft_strlen(line) && !ft_strcmp(line, stop))
 			break ;
 		str = ft_strjoin(str, line);
 		free (line);
