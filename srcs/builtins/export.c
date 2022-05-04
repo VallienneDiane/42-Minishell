@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:46:49 by amarchal          #+#    #+#             */
-/*   Updated: 2022/05/03 14:24:09 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:08:26 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int	ft_export(t_cmd *cmd)
 	while (cmd->tab_str[i])
 	{
 		if (!ft_valid_env_name(cmd->tab_str[i], &concat))
+		{
 			printf("export: `%s': not a valid identifier\n", cmd->tab_str[i]);
+			g_status = 1;
+		}
 		else
 			ft_add_env(cmd, cmd->tab_str[i], concat);
 		i++;

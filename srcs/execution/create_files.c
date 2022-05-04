@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:06:35 by dvallien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:26 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:53:03 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_create_file_in(t_cmd *cmd)
 		cmd->infile_error = 1;
 		printf("miniHell: %s: No such file or directory\n", \
 		cmd->tab_redir_in[0]);
-		g_status = 256;
 	}
 	return (0);
 }

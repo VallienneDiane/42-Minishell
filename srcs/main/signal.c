@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 13:46:49 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 15:26:10 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:00:07 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ void	ft_signal_exec_handler(int signal)
 {
 	if (signal == SIGINT)
 		return ;
+	if (signal == SIGQUIT)
+		return ;
+}
+
+void	ft_signal_wait_exec_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		return ;
+	}
 	if (signal == SIGQUIT)
 		return ;
 }

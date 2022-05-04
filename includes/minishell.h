@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 14:47:22 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 16:14:54 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/04 11:57:37 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ void	ft_execution(t_cmd *cmd);
 // Signaux
 void	ft_signal_handler(int signal);
 void	ft_signal_exec_handler(int signal);
+void	ft_signal_wait_exec_handler(int signal);
 void	ft_term_handler(int x);
 void	ft_quit_heredoc(int signal);
 void	ft_heredoc_child(t_cmd *cmd, t_list *list);

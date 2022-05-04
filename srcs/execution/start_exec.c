@@ -6,7 +6,7 @@
 /*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 11:42:11 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 16:01:57 by dvallien         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:50:54 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_execute(t_cmd *cmd)
 		}
 	}
 	if (cmd->valid_path)
-		exit (126);
+		exit (1);
 	else
 		exit (127);
 }

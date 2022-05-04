@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarchal <amarchal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dvallien <dvallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:45:02 by dvallien          #+#    #+#             */
-/*   Updated: 2022/05/03 16:13:37 by amarchal         ###   ########.fr       */
+/*   Updated: 2022/05/04 10:47:33 by dvallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ void	ft_init_main(t_cmd *cmd, char **env)
 	cmd->stdin_copy = dup(STDIN_FILENO);
 }
 
+int	ft_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	ft_manage_line(t_list **list, char *line, t_cmd *cmd)
 {
 	if (!line)
@@ -29,7 +43,9 @@ void	ft_manage_line(t_list **list, char *line, t_cmd *cmd)
 	}
 	if (line && line[0])
 		add_history(line);
-	if (line)
+	if (ft_empty_line(line))
+		cmd->parse_error = 1;
+	else if (line)
 		ft_parsing(list, line, cmd);
 }
 
